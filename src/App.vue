@@ -7,7 +7,6 @@
                         <v-img src="./assets/Violette.png" width="200" height="200" class="logo" aspect-ratio="4"
                                contain></v-img>
                     </v-flex>
-
                 </v-layout>
                 <v-form v-model="valido">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
@@ -41,6 +40,7 @@
                                         label="Cédula:"
                                         v-model='Cedula'
                                         type="number"
+                                        :rules="cedulaRules"
                                         required
                                         outlined
                                         clearable
@@ -53,6 +53,7 @@
                                         v-model='Ciudad'
                                         required
                                         outlined
+                                        :rules="ciudadRules"
                                         clearable
                                 ></v-text-field>
                             </v-col>
@@ -62,6 +63,7 @@
                                         label="Departamento:"
                                         v-model='Departamento'
                                         required
+                                        :rules="depRules"
                                         outlined
                                         clearable
                                 ></v-text-field>
@@ -73,6 +75,7 @@
                                         v-model='Barrio'
                                         required
                                         outlined
+                                        :rules="barrioRules"
                                         clearable
                                 ></v-text-field>
                             </v-col>
@@ -83,6 +86,7 @@
                                         v-model='Direccion'
                                         required
                                         outlined
+                                        :rules="direccionRules"
                                         clearable
                                 ></v-text-field>
                             </v-col>
@@ -95,6 +99,7 @@
                                         required
                                         outlined
                                         clearable
+                                        :rules="celularRules"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
@@ -142,6 +147,25 @@
                 namesRules: [
                     v => !!v || 'Nombres y Apellidos son requeridos.'
                 ],
+                cedulaRules: [
+                    v => !!v || 'La Cedula es requerida.'
+                ],
+                ciudadRules: [
+                    v => !!v || 'La Ciudad es requerida.'
+                ],
+                depRules: [
+                    v => !!v || 'El Departamento es requerido.'
+                ],
+                barrioRules: [
+                    v => !!v || 'El Barrio es requerido.'
+                ],
+                direccionRules: [
+                    v => !!v || 'La Dirección es requerida.'
+                ],
+                celularRules: [
+                    v => !!v || 'El Celular es requerido.'
+                ]
+
             }
 
         },
@@ -185,22 +209,5 @@
 
 <style type="text/css" scoped>
     @import "assets/estilos.css";
-
-    .principal {
-        background-color: rgb(153, 43, 174) !important;
-    }
-
-    .cardForm {
-        padding: 30px;
-        margin-top: 40px;
-    }
-
-    .fields {
-        color: white !important;
-    }
-
-    .logo {
-        margin-top: 50px;
-    }
 </style>
 
