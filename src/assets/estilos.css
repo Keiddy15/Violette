@@ -5,3 +5,20 @@ body{
     font-family: 'Roboto';
     src: url('./font/Roboto-Bold.ttf');
 }
+
+.principal {
+    background-color: rgb(153, 43, 174) !important;
+}
+
+.cardForm {
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.fields {
+    color: white !important;
+}
+
+.logo {
+    margin-top: 50px;
+}
