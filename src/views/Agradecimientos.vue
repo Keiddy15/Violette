@@ -1,7 +1,26 @@
 <template>
     <v-app>
-        <h1>Muchas gracias por comprar con nosotros!</h1>
-        <router-link to="/">Regresar al formulario.</router-link>
+        <v-card class="mx-auto">
+            <v-list-item three-line>
+                <v-list-item-content>
+                    <v-list-item-title>Muchas gracias por comprar con nosotros</v-list-item-title>
+                    <v-img
+                            src="../assets/LogoAgradecimientos.png"
+                            height="350"
+                            width="30">
+
+                    </v-img>
+                    <v-card-actions class="justify-center">
+                        <v-btn rounded color="purple white--text" @click="submit">
+                            Regresar al formulario
+                        </v-btn>
+                        <router-link to="/">
+                        </router-link>
+                    </v-card-actions>
+                </v-list-item-content>
+
+            </v-list-item>
+        </v-card>
     </v-app>
 
 </template>
@@ -11,6 +30,12 @@
         name: "Agradecimientos",
         data() {
             return {}
+        },
+        methods: {
+            submit: function () {
+                this.$router.push({name: 'app'})
+            }
+
         }
     }
 </script>
