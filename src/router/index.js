@@ -1,24 +1,28 @@
 import Vue from 'vue'
+import Formulario from '../views/App'
+import Agradecimientos from '../views/Agradecimientos'
 import VueRouter from 'vue-router'
 
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-  const routes = [
-  /*{
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/About.vue')
-  }*/
-]
+const routes = [
+    {
+      path: '/',
+      name: 'app',
+      components: {main: Formulario}
+    },
+    {
+        path: '/thank-you',
+        name: 'Agradecimientos',
+        components: {main: Agradecimientos}
+    }
+];
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
+});
 
 export default router
