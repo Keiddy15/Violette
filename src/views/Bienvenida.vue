@@ -48,11 +48,14 @@
                 <v-footer class="footer">
                     <v-card-text class="text-center">
                         <v-btn
-                                v-for="icon in icons"
-                                :key="icon"
                                 class="mx-4"
                                 icon>
-                            <v-icon size="24px">{{ icon }}</v-icon>
+                            <v-icon size="24px" @click="facebook"> mdi-facebook</v-icon>
+                        </v-btn>
+                        <v-btn
+                                class="mx-4"
+                                icon>
+                            <v-icon size="24px" dark @click="instagram"> mdi-instagram</v-icon>
                         </v-btn>
                     </v-card-text>
 
@@ -60,7 +63,14 @@
 
                     </v-card-text>
                     <v-divider></v-divider>
-
+                    <v-card-text class="text-center">
+                        <v-rating
+                                v-model="rating"
+                                background-color=""
+                                color="white"
+                                size="30"
+                        ></v-rating>
+                    </v-card-text>
                     <v-card-text class="text-center tituloFooter">
                         <strong>VioletteSportWear</strong>
                     </v-card-text>
@@ -89,12 +99,11 @@
                         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
                     },
                 ],
-                icons: [
-                    'mdi-facebook',
-                    'mdi-instagram',
-                ],
+
+                rating: 4,
             }
         },
+
         methods: {
             submit: function () {
                 this.$router.push({name: 'app'});
@@ -102,7 +111,13 @@
             inicio: function () {
                 this.$router.push({name: 'Bienvenida'});
             },
-
+            facebook: function () {
+                window.open("https://www.facebook.com/Violettesports-2058307800941507/?hc_ref=ARS-0nqij9qzQSd-FtTQnql2GVgPtQfu9UmJngwai7PpFqv5fJOWOkMDE6rUyNlFRWE&fref=nf&__tn__=kC-R"
+)
+            },
+            instagram: function () {
+                window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
+            }
         }
     }
 </script>
