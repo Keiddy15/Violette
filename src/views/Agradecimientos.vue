@@ -5,8 +5,6 @@
                 <v-list-item-content>
                     <v-img
                             src="../assets/LogoAgradecimientos.png"
-                            height="200"
-                            width="200"
                             class="logo2"
                             contain
                     >
@@ -18,7 +16,7 @@
                         <div class="text-center">ESPERAMOS NOS COMPARTAS UNA FOTO PARA QUE HAGAS PARTE DE NUESTRO #TEAMVIOLETTE.</div>
                     </v-card-text>
                     <v-card-actions class="justify-center">
-                        <v-btn rounded color="purple white--text" @click="submit">
+                        <v-btn rounded color="purple white--text"  class="pa-5" @click="submit">
                             Regresar al formulario
                         </v-btn>
                         <router-link to="/">
