@@ -39,8 +39,16 @@ body{
     background-color: #9c27b09e!important;
 }
 
+.footer{
+    background-color: #9c27b09e!important;
+}
+
 .tituloBienvenida{
     font-family: 'Pacifico', cursive;
     font-size: 28px!important;
     color: white!important;
+}
+.tituloFooter{
+    font-family: 'Pacifico', cursive;
+    font-size: 28px!important;
 }
