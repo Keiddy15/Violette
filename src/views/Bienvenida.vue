@@ -32,6 +32,7 @@
                                 :src="item.src"
                                 reverse-transition="fade-transition"
                                 transition="fade-transition"
+                                height = "auto"
                                 contain
                         ></v-carousel-item>
                     </v-carousel>
