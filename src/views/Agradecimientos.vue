@@ -1,15 +1,22 @@
 <template>
-    <v-app>
-        <v-card class="mx-auto">
+    <v-app class="principal">
+        <v-card class="cardForm2" shaped elevation="20">
             <v-list-item three-line>
                 <v-list-item-content>
-                    <v-list-item-title>Muchas gracias por comprar con nosotros</v-list-item-title>
                     <v-img
                             src="../assets/LogoAgradecimientos.png"
-                            height="350"
-                            width="30">
+                            height="200"
+                            width="200"
+                            class="logo2"
+                            contain
+                    >
 
                     </v-img>
+                    <v-card-text>
+                        <div class="text-center">Pedido terminado.</div>
+                        <div class="text-center">En las próximas 24 horas estarás recibiendo tu numero de guía.</div>
+                        <div class="text-center">ESPERAMOS NOS COMPARTAS UNA FOTO PARA QUE HAGAS PARTE DE NUESTRO #TEAMVIOLETTE.</div>
+                    </v-card-text>
                     <v-card-actions class="justify-center">
                         <v-btn rounded color="purple white--text" @click="submit">
                             Regresar al formulario
