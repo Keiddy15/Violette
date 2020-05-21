@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 body{
     font-family: 'Roboto', sans-serif;
 }
@@ -21,4 +23,25 @@ body{
 
 .logo {
     margin-top: 50px;
+}
+
+.logo2{
+    width: 300px;
+    height: 300px;
+}
+
+.cardForm2{
+    padding: 20px;
+    width: 500px;
+    margin: auto;
+}
+
+.toolbar{
+    background-color: #9c27b09e!important;
+}
+
+.tituloBienvenida{
+    font-family: 'Pacifico', cursive;
+    font-size: 28px!important;
+    color: white!important;
 }
