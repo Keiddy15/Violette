@@ -32,6 +32,8 @@
                                 :src="item.src"
                                 reverse-transition="fade-transition"
                                 transition="fade-transition"
+                                height = "auto"
+                                contain
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>
@@ -87,16 +89,16 @@
             return{
                 items: [
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy.jpeg?alt=media&token=9fced5a5-0424-4a4e-99c4-cb9903ecdf28',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel.jpeg?alt=media&token=fe441ac5-c887-487d-a3e6-942096b6f122',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKmm2.jpeg?alt=media&token=570a6c2e-6ddf-4d2a-bf40-1f59f66c580d',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.jpeg?alt=media&token=94916dbc-e3f4-4e1f-849d-eb47e4565f24',
                     },
                 ],
 
