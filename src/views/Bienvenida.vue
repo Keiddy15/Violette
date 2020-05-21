@@ -10,10 +10,10 @@
                     <v-toolbar-title class="tituloBienvenida">¡Bienvenidos a Violette!</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <div class="conjuntoBotones">
-                        <v-btn text x-large class="white--text">
+                        <v-btn text x-large class="white--text" @click="inicio">
                             Inicio
                         </v-btn>|
-                        <v-btn text x-large class="white--text">
+                        <v-btn text x-large class="white--text" @click="submit">
                             Realizar Pedido
                         </v-btn>|
                         <v-btn text x-large class="white--text">
@@ -35,6 +35,36 @@
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>
+                <v-container>
+                    <v-textarea
+                            label="Comentarios:"
+                            auto-grow
+                            outlined
+                            rows="3"
+                            row-height="25"
+                            shaped
+                    ></v-textarea>
+                </v-container>
+                <v-footer class="footer">
+                    <v-card-text class="text-center">
+                        <v-btn
+                                v-for="icon in icons"
+                                :key="icon"
+                                class="mx-4"
+                                icon>
+                            <v-icon size="24px">{{ icon }}</v-icon>
+                        </v-btn>
+                    </v-card-text>
+
+                    <v-card-text class="white--text pt-0">
+
+                    </v-card-text>
+                    <v-divider></v-divider>
+
+                    <v-card-text class="text-center tituloFooter">
+                        <strong>VioletteSportWear</strong>
+                    </v-card-text>
+                </v-footer>
             </v-card>
         </v-container>
     </v-app>
@@ -58,8 +88,21 @@
                     {
                         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
                     },
-                ]
+                ],
+                icons: [
+                    'mdi-facebook',
+                    'mdi-instagram',
+                ],
             }
+        },
+        methods: {
+            submit: function () {
+                this.$router.push({name: 'app'});
+            },
+            inicio: function () {
+                this.$router.push({name: 'Bienvenida'});
+            },
+
         }
     }
 </script>
