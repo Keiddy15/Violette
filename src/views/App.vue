@@ -4,7 +4,7 @@
             <v-container>
                 <v-layout class="mt-5" justify-center align-center style="height:120px">
                     <v-flex style="height:300px">
-                        <v-img src="../assets/Violette.png" width="200" height="200" class="logo" aspect-ratio="4"
+                        <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/Violette.png?alt=media&token=8d583ae9-7bb0-4273-9fc9-cbf6f4e742a2" width="200" height="200" class="logo" aspect-ratio="4"
                                contain></v-img>
                     </v-flex>
                 </v-layout>
