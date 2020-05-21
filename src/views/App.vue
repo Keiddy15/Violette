@@ -105,7 +105,7 @@
                         </v-row>
                         <br>
                         <div class="text-center">
-                            <v-btn class="purple  white--text" block large @click="submit">Enviar</v-btn>
+                            <v-btn class="purple  white--text" block :loading="loadingEnviar" large @click="submit">Enviar</v-btn>
                         </div>
                     </v-card>
                 </v-form>
@@ -136,6 +136,7 @@
         data() {
             return {
                 valido: false,
+                loadingEnviar: false,
                 Nombre: "",
                 Cedula: "",
                 Ciudad: "",
@@ -183,7 +184,11 @@
                 });
             },
             submit: function () {
-                let usuarios = db.collection('usuarios');
+                this.loadingEnviar = true;
+                setTimeout(()=>{
+                    this.$router.push({name: 'Agradecimientos'});
+                }, 4000)
+                /*let usuarios = db.collection('usuarios');
                 let validar = (this.Nombre.length > 0 || this.Cedula.length > 0 ||
                     this.Ciudad.length > 0 || this.Barrio.length > 0 ||
                     this.Departamento.length > 0 ||
@@ -202,12 +207,13 @@
                 } else {
                     this.ErrorValidacion = true;
                 }
+                 */
             }
         }
     }
 </script>
 
 <style type="text/css" scoped>
-    @import "assets/estilos.css";
+    @import "../assets/estilos.css";
 </style>
 
