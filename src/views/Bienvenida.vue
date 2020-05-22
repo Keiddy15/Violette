@@ -3,8 +3,9 @@
         <v-container>
             <v-card height="auto" class="ma-2 pa-8">
                 <v-toolbar class="toolbar">
-                    <v-toolbar-title class="ma-6" >
-                        <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e" width="70" height="70" aspect-ratio="6"
+                    <v-toolbar-title class="ma-6">
+                        <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
+                               width="70" height="70" aspect-ratio="6"
                                contain></v-img>
                     </v-toolbar-title>
                     <v-toolbar-title class="tituloBienvenida">¡Bienvenidos a Violette!</v-toolbar-title>
@@ -12,13 +13,16 @@
                     <div class="conjuntoBotones">
                         <v-btn text x-large class="white--text">
                             Inicio
-                        </v-btn>|
-                        <v-btn text x-large class="white--text">
+                        </v-btn>
+                        |
+                        <v-btn text x-large class="white--text" @click="submit">
                             Realizar Pedido
-                        </v-btn>|
+                        </v-btn>
+                        |
                         <v-btn text x-large class="white--text">
                             Ingresar
-                        </v-btn>|
+                        </v-btn>
+                        |
                         <v-btn text x-large class="white--text">
                             Acerca de
                         </v-btn>
@@ -32,6 +36,8 @@
                                 :src="item.src"
                                 reverse-transition="fade-transition"
                                 transition="fade-transition"
+                                height="auto"
+                                contain
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>
@@ -43,8 +49,8 @@
 <script>
     export default {
         name: "Bienvenida",
-        data () {
-            return{
+        data() {
+            return {
                 items: [
                     {
                         src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
@@ -58,7 +64,25 @@
                     {
                         src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
                     },
-                ]
+                ],
+
+                rating: 4,
+            }
+        },
+
+        methods: {
+            submit: function () {
+                this.$router.push({name: 'app'});
+            },
+            inicio: function () {
+                this.$router.push({name: 'Bienvenida'});
+            },
+            facebook: function () {
+                window.open("https://www.facebook.com/Violettesports-2058307800941507/?hc_ref=ARS-0nqij9qzQSd-FtTQnql2GVgPtQfu9UmJngwai7PpFqv5fJOWOkMDE6rUyNlFRWE&fref=nf&__tn__=kC-R"
+                )
+            },
+            instagram: function () {
+                window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
             }
         }
     }
