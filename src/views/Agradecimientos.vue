@@ -18,8 +18,6 @@
                         <v-btn color="purple white--text"  block large @click="submit">
                             Inicio
                         </v-btn>
-                        <router-link to="/">
-                        </router-link>
                     </v-card-actions>
                 </v-list-item-content>
             </v-list-item>

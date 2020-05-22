@@ -129,7 +129,7 @@
     };
     // Initialize Firebase
 
-    let app = firebase.initializeApp(firebaseConfig);
+    var app = firebase.initializeApp(firebaseConfig);
     let db = firebase.firestore(app);
     export default {
         name: "app",

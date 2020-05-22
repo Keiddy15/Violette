@@ -16,7 +16,7 @@
                         <v-btn text x-large class="white--text" @click="submit">
                             Realizar Pedido
                         </v-btn>|
-                        <v-btn text x-large class="white--text">
+                        <v-btn text x-large class="white--text" @click="usuario">
                             Ingresar
                         </v-btn>|
                         <v-btn text x-large class="white--text">
@@ -119,6 +119,9 @@
             },
             instagram: function () {
                 window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
+            },
+            usuario: function () {
+                this.$router.push({name: 'Usuario'});
             }
         }
     }
