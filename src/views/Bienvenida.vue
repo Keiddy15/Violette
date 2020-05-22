@@ -11,20 +11,18 @@
                     <v-toolbar-title class="tituloBienvenida">¡Bienvenidos a Violette!</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <div class="conjuntoBotones">
-                        <v-btn text x-large class="white--text">
+                        <v-btn text x-large class="white--text" @click="inicio">
                             Inicio
-                        </v-btn>
-                        |
+                        </v-btn>|
                         <v-btn text x-large class="white--text" @click="submit">
                             Realizar Pedido
-                        </v-btn>
-                        |
-                        <v-btn text x-large class="white--text">
+                        </v-btn>|
+                        <v-btn text x-large class="white--text" @click="usuario">
                             Ingresar
                         </v-btn>
                         |
                         <v-btn text x-large class="white--text">
-                            Acerca de
+                           Acerca de
                         </v-btn>
                     </div>
                 </v-toolbar>
@@ -36,11 +34,51 @@
                                 :src="item.src"
                                 reverse-transition="fade-transition"
                                 transition="fade-transition"
-                                height="auto"
+                                height = "auto"
                                 contain
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>
+                <v-container>
+                    <v-textarea
+                            label="Comentarios:"
+                            auto-grow
+                            outlined
+                            rows="3"
+                            row-height="25"
+                            shaped
+                    ></v-textarea>
+                </v-container>
+                <v-footer class="footer">
+                    <v-card-text class="text-center">
+                        <v-btn
+                                class="mx-4"
+                                icon>
+                            <v-icon size="24px" @click="facebook"> mdi-facebook</v-icon>
+                        </v-btn>
+                        <v-btn
+                                class="mx-4"
+                                icon>
+                            <v-icon size="24px" dark @click="instagram"> mdi-instagram</v-icon>
+                        </v-btn>
+                    </v-card-text>
+
+                    <v-card-text class="white--text pt-0">
+
+                    </v-card-text>
+                    <v-divider></v-divider>
+                    <v-card-text class="text-center">
+                        <v-rating
+                                v-model="rating"
+                                background-color=""
+                                color="white"
+                                size="30"
+                        ></v-rating>
+                    </v-card-text>
+                    <v-card-text class="text-center tituloFooter">
+                        <strong>VioletteSportWear</strong>
+                    </v-card-text>
+                </v-footer>
             </v-card>
         </v-container>
     </v-app>
@@ -53,16 +91,16 @@
             return {
                 items: [
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy.jpeg?alt=media&token=9fced5a5-0424-4a4e-99c4-cb9903ecdf28',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel.jpeg?alt=media&token=fe441ac5-c887-487d-a3e6-942096b6f122',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKmm2.jpeg?alt=media&token=570a6c2e-6ddf-4d2a-bf40-1f59f66c580d',
                     },
                     {
-                        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.jpeg?alt=media&token=94916dbc-e3f4-4e1f-849d-eb47e4565f24',
                     },
                 ],
 
@@ -79,10 +117,13 @@
             },
             facebook: function () {
                 window.open("https://www.facebook.com/Violettesports-2058307800941507/?hc_ref=ARS-0nqij9qzQSd-FtTQnql2GVgPtQfu9UmJngwai7PpFqv5fJOWOkMDE6rUyNlFRWE&fref=nf&__tn__=kC-R"
-                )
+)
             },
             instagram: function () {
                 window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
+            },
+            usuario: function () {
+                this.$router.push({name: 'Usuario'});
             }
         }
     }

@@ -129,7 +129,7 @@
     };
     // Initialize Firebase
 
-    let app = firebase.initializeApp(firebaseConfig);
+    var app = firebase.initializeApp(firebaseConfig);
     let db = firebase.firestore(app);
     export default {
         name: "app",
@@ -187,7 +187,7 @@
                 this.loadingEnviar = true;
                 setTimeout(()=>{
                     this.$router.push({name: 'Agradecimientos'});
-                }, 4000)
+                }, 2000)
                 /*let usuarios = db.collection('usuarios');
                 let validar = (this.Nombre.length > 0 || this.Cedula.length > 0 ||
                     this.Ciudad.length > 0 || this.Barrio.length > 0 ||

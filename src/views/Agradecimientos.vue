@@ -15,11 +15,9 @@
                         <div class="text-center">ESPERAMOS NOS COMPARTAS UNA FOTO PARA QUE HAGAS PARTE DE NUESTRO <span class="font-weight-bold">#TEAMVIOLETTE.</span></div>
                     </v-card-text>
                     <v-card-actions class="justify-center">
-                        <v-btn color="purple white--text" disabled block large @click="close">
-                            ¡Ya puedes cerrar esta pestaña!
+                        <v-btn color="purple white--text"  block large @click="submit">
+                            Inicio
                         </v-btn>
-                        <router-link to="/">
-                        </router-link>
                     </v-card-actions>
                 </v-list-item-content>
             </v-list-item>
@@ -34,8 +32,8 @@
             return {}
         },
         methods: {
-            close: function () {
-                window.close();
+            submit: function () {
+                this.$router.push({name: 'Bienvenida'});
             }
         }
     }

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Formulario from '../views/App'
 import Agradecimientos from '../views/Agradecimientos'
 import Bienvenida from "../views/Bienvenida";
+import Usuario from "../views/Usuario";
+import Loggin from "../views/Loggin";
 import VueRouter from 'vue-router'
 
 
@@ -22,7 +24,19 @@ const routes = [
         path: '/thank-you',
         name: 'Agradecimientos',
         components: {main: Agradecimientos}
-    }
+    },
+    {
+        path: '/usuario',
+        name: 'Usuario',
+        components: {main: Usuario}
+    },
+    {
+        path: '/login',
+        name: 'Loggin',
+        components: {main: Loggin}
+    },
+
+
 ];
 
 const router = new VueRouter({
