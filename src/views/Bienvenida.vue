@@ -13,29 +13,29 @@
                     <div class="conjuntoBotones">
                         <v-btn text x-large class="white--text" @click="inicio">
                             Inicio
-                        </v-btn>|
+                        </v-btn>
+                        |
                         <v-btn text x-large class="white--text" @click="submit">
                             Realizar Pedido
-                        </v-btn>|
+                        </v-btn>
+                        |
                         <v-btn text x-large class="white--text" @click="usuario">
                             Ingresar
                         </v-btn>
                         |
                         <v-btn text x-large class="white--text">
-                           Acerca de
+                            Acerca de
                         </v-btn>
                     </div>
                 </v-toolbar>
                 <v-container>
-                    <v-carousel>
+                    <v-carousel cycle continuous>
                         <v-carousel-item
                                 v-for="(item,i) in items"
                                 :key="i"
                                 :src="item.src"
-                                reverse-transition="fade-transition"
-                                transition="fade-transition"
-                                height = "auto"
-                                contain
+                                height="auto"
+                                class="carruselImagen"
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>
@@ -91,16 +91,16 @@
             return {
                 items: [
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy.jpeg?alt=media&token=9fced5a5-0424-4a4e-99c4-cb9903ecdf28',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy1.png?alt=media&token=dfb02841-0221-40e6-9223-ac7f586dbd4a',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel.jpeg?alt=media&token=fe441ac5-c887-487d-a3e6-942096b6f122',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy2.png?alt=media&token=fe565745-5514-4bd8-81c5-a80cd1f5167b',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKmm2.jpeg?alt=media&token=570a6c2e-6ddf-4d2a-bf40-1f59f66c580d',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel1.png?alt=media&token=1434f9c4-da81-4cfb-840b-f1c9abef61b0',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.jpeg?alt=media&token=94916dbc-e3f4-4e1f-849d-eb47e4565f24',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.png?alt=media&token=a9b9a133-e3af-4ca1-8f5a-7553eacf2cd3',
                     },
                 ],
 
@@ -117,7 +117,7 @@
             },
             facebook: function () {
                 window.open("https://www.facebook.com/Violettesports-2058307800941507/?hc_ref=ARS-0nqij9qzQSd-FtTQnql2GVgPtQfu9UmJngwai7PpFqv5fJOWOkMDE6rUyNlFRWE&fref=nf&__tn__=kC-R"
-)
+                )
             },
             instagram: function () {
                 window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
