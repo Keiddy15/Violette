@@ -1,8 +1,7 @@
 <template>
     <v-app class="principal">
         <Toolbar/>
-        <v-container>
-            <v-card class="cardForm2" elevation="10">
+            <v-card class="cardForm2" elevation="20">
                 <v-card-title>Ingreso al Sistema</v-card-title>
                 <v-card-text>
                     <v-form class="px-3" @submit.prevent="ingreso">
@@ -35,7 +34,6 @@
                     </v-form>
                 </v-card-text>
             </v-card>
-        </v-container>
     </v-app>
 </template>
 
