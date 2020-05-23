@@ -67,8 +67,7 @@
                 this.error = ""
                 if(this.nombre && this.email && this.password){
                     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-                        .then((registro) => {
-                            console.log(registro)
+                        .then((user) => {
                             this.$router.push({name: 'Registrado'});
                         })
                         .catch(function (error) {
