@@ -1,7 +1,6 @@
 <template>
     <v-app class="principal">
         <Toolbar/>
-        <v-container>
             <v-card class="cardForm2" elevation="10">
                 <v-card-title>Ingreso al Sistema</v-card-title>
                 <v-card-text>
@@ -35,7 +34,6 @@
                     </v-form>
                 </v-card-text>
             </v-card>
-        </v-container>
     </v-app>
 </template>
 
@@ -65,6 +63,9 @@
             ingreso() {
                 if (this.email && this.password) {
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+                        .then((user) => {
+                            console.log(user)
+                        })
                         .catch(function (error) {
                             let errorCode = error.code;
                             let errorMessage = error.message;
