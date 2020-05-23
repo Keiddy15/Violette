@@ -1,6 +1,5 @@
 import firebase from "firebase";
 
-
 let firebaseConfig = {
     apiKey: "AIzaSyC08QhR3Y3hfv3PG8P_jfR4-yjzs77b0Oo",
     authDomain: "violette-8b112.firebaseapp.com",
@@ -13,5 +12,4 @@ let firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
 

@@ -43,7 +43,7 @@
 <script>
     import firebase from "firebase"
     export default {
-        name: "Registro",
+        name: "Login",
         data(){
             return{
                 nombre: "",
