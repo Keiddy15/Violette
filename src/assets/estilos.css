@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
 }
 
 @font-face {
@@ -15,7 +16,7 @@ body {
 
 .cardForm {
     padding: 30px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .fields {
@@ -50,16 +51,16 @@ body {
         display: none;
     }
 
-    .tituloLogo {
-
-    }
-
     .v-toolbar__content {
         padding: 0 !important;
     }
 
     .cardPrincipal {
         padding: 0;
+    }
+
+    .container{
+        padding: 0!important;
     }
 }
 
@@ -82,19 +83,23 @@ body {
     font-size: 28px !important;
 }
 
+.navigationDrawer {
+    height: 100vh !important;
+}
+
 @media screen and (max-width: 779px) {
     .conjuntoBotones {
         display: none;
     }
 
     .menuHamburger {
-        display: block!important;
+        display: block !important;
     }
 }
 
-@media screen and (min-width: 780px){
-    .menuHamburger{
-        display: none!important;
+@media screen and (min-width: 780px) {
+    .menuHamburger {
+        display: none !important;
     }
 }
 
