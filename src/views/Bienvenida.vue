@@ -117,6 +117,7 @@
 </template>
 
 <script>
+    import firebase from '../firebase/libFirebase'
     export default {
         name: "Bienvenida",
         data() {
@@ -140,7 +141,9 @@
                 rating: 4,
             }
         },
-
+        created() {
+          console.log(firebase.firestore().collection('usuarios'));
+        },
         methods: {
             realizar: function () {
                 this.$router.push({name: 'app'});
