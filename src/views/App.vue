@@ -108,6 +108,7 @@
 </template>
 
 <script>
+    import firebase from '../firebase/libFirebase';
     import Toolbar from './Toolbar'
     export default {
         name: "app",
