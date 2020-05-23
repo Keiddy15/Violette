@@ -159,7 +159,7 @@
                 window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
             },
             usuario: function () {
-                this.$router.push({name: 'Usuario'});
+                this.$router.push({name: 'Login'});
             }
         }
     }

@@ -64,6 +64,11 @@
             ingreso() {
                 if (this.email && this.password) {
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+                        .then((user) => {
+                            if(user){
+                                console.log(user)
+                            }
+                        })
                         .catch(function (error) {
                             let errorCode = error.code;
                             let errorMessage = error.message

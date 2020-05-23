@@ -30,7 +30,7 @@
                     >
                     </v-text-field>
                     <v-card-actions class="justify-center">
-                        <v-btn type="submit" color="purple white--text"  block large>
+                        <v-btn type="submit"  color="purple white--text"  block large>
                             Registrarme
                         </v-btn>
                     </v-card-actions>
@@ -65,16 +65,20 @@
             register(){
                 this.error = ""
                 if(this.nombre && this.email && this.password){
-                    firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function (error) {
+                    firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                        .then((registro) => {
+                            console.log(registro)
+                            this.$router.push({name: 'Registrado'});
+                        })
+                        .catch(function (error) {
                         let errorCode = error.code;
                         let errorMessage = error.message
                         console.log(errorCode);
                         console.log(errorMessage);
-
                     })
 
                 }
-            }
+            },
         }
     }
 </script>
