@@ -3,15 +3,22 @@ import Formulario from '../views/App'
 import Agradecimientos from '../views/Agradecimientos'
 import Bienvenida from "../views/Bienvenida";
 import Usuario from "../views/Usuario";
-import Loggin from "../views/Loggin";
+import Login from "../views/Login"
 import VueRouter from 'vue-router'
-
-
+import Registro from "../views/Registro";
 Vue.use(VueRouter);
 
 const routes = [
     {
+      path: '*',
+      redirect: '/bienvenida'
+    },
+    {
       path: '/',
+        redirect: '/bienvenida'
+    },
+    {
+      path: '/bienvenida',
       name: 'Bienvenida',
       components: {main: Bienvenida}
     },
@@ -32,9 +39,15 @@ const routes = [
     },
     {
         path: '/login',
-        name: 'Loggin',
-        components: {main: Loggin}
+        name: 'Login',
+        components: {main: Login},
     },
+    {
+        path: '/Registro',
+        name: 'Registro',
+        components: {main: Registro},
+    },
+
 
 
 ];
@@ -44,5 +57,6 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
+
 
 export default router

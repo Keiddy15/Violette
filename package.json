@@ -10,13 +10,13 @@
     "@babel/polyfill": "^7.4.4",
     "@mdi/font": "^3.6.95",
     "core-js": "^3.6.4",
-    "firebase": "^7.14.4",
+    "firebase": "^7.14.5",
+    "html-webpack-plugin": "latest",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuetify": "^2.2.11",
     "vuex": "^3.1.3",
-    "html-webpack-plugin": "latest",
     "webpack": "latest"
   },
   "devDependencies": {
