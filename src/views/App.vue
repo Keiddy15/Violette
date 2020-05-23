@@ -2,7 +2,6 @@
     <div id="app">
         <v-app class="principal">
             <Toolbar/>
-            <v-container>
                 <v-form v-model="valido">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-alert
@@ -104,7 +103,6 @@
                         </div>
                     </v-card>
                 </v-form>
-            </v-container>
         </v-app>
     </div>
 </template>

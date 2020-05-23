@@ -6,6 +6,8 @@ import Usuario from "../views/Usuario";
 import Login from "../views/Login"
 import VueRouter from 'vue-router'
 import Registro from "../views/Registro";
+import Registrado from "../views/Registrado";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -46,6 +48,11 @@ const routes = [
         path: '/Registro',
         name: 'Registro',
         components: {main: Registro},
+    },
+    {
+        path: '/Registrado',
+        name: 'Registrado',
+        components: {main: Registrado},
     },
 
 
