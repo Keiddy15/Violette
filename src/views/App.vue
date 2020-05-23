@@ -1,13 +1,8 @@
 <template>
     <div id="app">
         <v-app class="principal">
+            <Toolbar/>
             <v-container>
-                <v-layout class="mt-5" justify-center align-center style="height:120px">
-                    <v-flex style="height:300px">
-                        <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/Violette.png?alt=media&token=8d583ae9-7bb0-4273-9fc9-cbf6f4e742a2" width="200" height="200" class="logo" aspect-ratio="4"
-                               contain></v-img>
-                    </v-flex>
-                </v-layout>
                 <v-form v-model="valido">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-alert
@@ -115,8 +110,12 @@
 </template>
 
 <script>
+    import Toolbar from './Toolbar'
     export default {
         name: "app",
+        components:{
+            Toolbar
+        },
         data() {
             return {
                 valido: false,

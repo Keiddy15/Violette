@@ -42,7 +42,7 @@
                         active-class="deep-purple--text text--accent-4"
                 >
                     <v-list-item>
-                        <v-list-item-title>Inicio</v-list-item-title>
+                        <v-list-item-title @click="home">Inicio</v-list-item-title>
                     </v-list-item>
 
                     <v-list-item>
@@ -65,8 +65,8 @@
 <script>
     export default {
         name: "Toolbar",
-        data(){
-            return{
+        data() {
+            return {
                 drawer: false,
             }
         },
