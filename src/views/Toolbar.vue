@@ -1,6 +1,5 @@
 <template>
-    <v-app>
-
+    <div id="app">
         <v-toolbar class="toolbar">
             <v-toolbar-title class="ma-6 tituloLogo">
                 <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
@@ -19,7 +18,7 @@
                     Realizar Pedido
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="usuario">
+                <v-btn text x-large class="white--text" @click="login">
                     Ingresar
                 </v-btn>
                 |
@@ -42,7 +41,7 @@
                         active-class="deep-purple--text text--accent-4"
                 >
                     <v-list-item>
-                        <v-list-item-title @click="home">Inicio</v-list-item-title>
+                        <v-list-item-title @click="inicio">Inicio</v-list-item-title>
                     </v-list-item>
 
                     <v-list-item>
@@ -50,7 +49,7 @@
                     </v-list-item>
 
                     <v-list-item>
-                        <v-list-item-title @click="usuario">Ingresar</v-list-item-title>
+                        <v-list-item-title @click="login">Ingresar</v-list-item-title>
                     </v-list-item>
 
                     <v-list-item>
@@ -59,7 +58,7 @@
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
-    </v-app>
+    </div>
 </template>
 
 <script>
@@ -77,8 +76,8 @@
             inicio: function () {
                 this.$router.push({name: 'Bienvenida'});
             },
-            usuario: function () {
-                this.$router.push({name: 'Usuario'});
+            login: function () {
+                this.$router.push({name: 'Login'});
             }
         }
     }

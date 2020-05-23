@@ -1,9 +1,10 @@
 <template>
     <v-app class="principal">
+        <Toolbar/>
+
         <v-container>
             <v-card height="auto" class="cardPrincipal">
                 <v-container>
-                    <Toolbar/>
                     <v-carousel cycle continuous>
                         <v-carousel-item
                                 v-for="(item,i) in items"

@@ -1,50 +1,53 @@
 <template>
     <v-app class="principal">
-        <v-card class="cardForm2" elevation="20">
-            <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoAgradecimientos.png?alt=media&token=49b8a018-fd72-4a8e-88d4-9d17e6f9b73b"
-                   width="70" height="70" aspect-ratio="6"
-                   contain>
-            </v-img>
-            <v-card-title>USUARIO</v-card-title>
-            <v-card-text>
-                <v-form class="px-3" @submit.prevent="ingreso">
-                    <v-text-field
-                            label="Email:"
-                            v-model="email"
-                            required
-                            :rules="emailRules">
-                    </v-text-field>
-                    <v-text-field
-                            label="Contraseña:"
-                            v-model="password"
-                            :rules="contrasenaRules"
-                            required
-                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :type="show1 ? 'text' : 'password'"
-                            @click:append="show1 = !show1"
-                    >
-                    </v-text-field>
-                    <v-card-actions class="justify-center">
-                        <v-btn type="submit" color="purple white--text" block large>
-                            Ingresar
-                        </v-btn>
-                    </v-card-actions>
-                    <v-card-actions>
-                        <v-btn text color="purple" @click="registrar">
-                            Registrarse
-                        </v-btn>
-                    </v-card-actions>
-                </v-form>
-            </v-card-text>
-        </v-card>
+        <Toolbar/>
+        <v-container>
+            <v-card class="cardForm2" elevation="10">
+                <v-card-title>Ingreso al Sistema</v-card-title>
+                <v-card-text>
+                    <v-form class="px-3" @submit.prevent="ingreso">
+                        <v-text-field
+                                label="Email:"
+                                v-model="email"
+                                required
+                                :rules="emailRules">
+                        </v-text-field>
+                        <v-text-field
+                                label="Contraseña:"
+                                v-model="password"
+                                :rules="contrasenaRules"
+                                required
+                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="show1 ? 'text' : 'password'"
+                                @click:append="show1 = !show1"
+                        >
+                        </v-text-field>
+                        <v-card-actions class="justify-center">
+                            <v-btn type="submit" color="purple white--text" block large>
+                                Ingresar
+                            </v-btn>
+                        </v-card-actions>
+                        <v-card-actions>
+                            <v-btn text color="purple" @click="registrar">
+                                Registrarse
+                            </v-btn>
+                        </v-card-actions>
+                    </v-form>
+                </v-card-text>
+            </v-card>
+        </v-container>
     </v-app>
 </template>
 
 <script>
     import firebase from '../firebase/libFirebase';
+    import Toolbar from './Toolbar'
 
     export default {
         name: "Registro",
+        components: {
+            Toolbar
+        },
         data() {
             return {
                 email: "",
@@ -78,3 +81,7 @@
         }
     }
 </script>
+
+<style scoped>
+    @import "/src/assets/estilos.css";
+</style>

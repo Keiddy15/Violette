@@ -72,10 +72,6 @@ body {
     background-color: #9c27b09e !important;
 }
 
-.v-application--wrap{
-    min-height: 0!important;
-}
-
 .tituloBienvenida {
     font-family: 'Pacifico', cursive;
     font-size: 28px !important;
