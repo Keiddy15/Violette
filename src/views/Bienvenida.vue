@@ -1,15 +1,16 @@
 <template>
     <v-app class="principal">
         <v-container>
-            <v-card height="auto" class="ma-2 pa-8">
+            <v-card height="auto" class="ma-2 cardPrincipal">
                 <v-toolbar class="toolbar">
-                    <v-toolbar-title class="ma-6">
+                    <v-toolbar-title class="ma-6 tituloLogo">
                         <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
                                width="70" height="70" aspect-ratio="6"
                                contain></v-img>
                     </v-toolbar-title>
                     <v-toolbar-title class="tituloBienvenida">¡Bienvenidos a Violette!</v-toolbar-title>
                     <v-spacer></v-spacer>
+                    <v-app-bar-nav-icon class="white--text menuHamburger"></v-app-bar-nav-icon>
                     <div class="conjuntoBotones">
                         <v-btn text x-large class="white--text" @click="inicio">
                             Inicio
