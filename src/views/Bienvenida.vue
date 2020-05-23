@@ -1,6 +1,36 @@
 <template>
     <v-app class="principal">
         <v-container>
+            <v-navigation-drawer
+                    v-model="drawer"
+                    absolute
+                    temporary
+                    right
+            >
+                <v-list
+                        nav
+                >
+                    <v-list-item-group
+                            active-class="deep-purple--text text--accent-4"
+                    >
+                        <v-list-item>
+                            <v-list-item-title>Inicio</v-list-item-title>
+                        </v-list-item>
+
+                        <v-list-item>
+                            <v-list-item-title @click="realizar">Realizar Pedido</v-list-item-title>
+                        </v-list-item>
+
+                        <v-list-item>
+                            <v-list-item-title @click="usuario">Ingresar</v-list-item-title>
+                        </v-list-item>
+
+                        <v-list-item>
+                            <v-list-item-title>Acerca de</v-list-item-title>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-navigation-drawer>
             <v-card height="auto" class="ma-2 cardPrincipal">
                 <v-toolbar class="toolbar">
                     <v-toolbar-title class="ma-6 tituloLogo">
@@ -10,13 +40,13 @@
                     </v-toolbar-title>
                     <v-toolbar-title class="tituloBienvenida">¡Bienvenidos a Violette!</v-toolbar-title>
                     <v-spacer></v-spacer>
-                    <v-app-bar-nav-icon class="white--text menuHamburger"></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
                     <div class="conjuntoBotones">
                         <v-btn text x-large class="white--text" @click="inicio">
                             Inicio
                         </v-btn>
                         |
-                        <v-btn text x-large class="white--text" @click="submit">
+                        <v-btn text x-large class="white--text" @click="realizar">
                             Realizar Pedido
                         </v-btn>
                         |
@@ -29,6 +59,7 @@
                         </v-btn>
                     </div>
                 </v-toolbar>
+
                 <v-container>
                     <v-carousel cycle continuous>
                         <v-carousel-item
@@ -90,6 +121,7 @@
         name: "Bienvenida",
         data() {
             return {
+                drawer: false,
                 items: [
                     {
                         src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy1.png?alt=media&token=dfb02841-0221-40e6-9223-ac7f586dbd4a',
@@ -110,7 +142,7 @@
         },
 
         methods: {
-            submit: function () {
+            realizar: function () {
                 this.$router.push({name: 'app'});
             },
             inicio: function () {
