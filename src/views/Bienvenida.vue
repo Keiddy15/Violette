@@ -1,66 +1,9 @@
 <template>
     <v-app class="principal">
         <v-container>
-            <v-navigation-drawer
-                    v-model="drawer"
-                    absolute
-                    temporary
-                    right
-            >
-                <v-list
-                        nav
-                >
-                    <v-list-item-group
-                            active-class="deep-purple--text text--accent-4"
-                    >
-                        <v-list-item>
-                            <v-list-item-title>Inicio</v-list-item-title>
-                        </v-list-item>
-
-                        <v-list-item>
-                            <v-list-item-title @click="realizar">Realizar Pedido</v-list-item-title>
-                        </v-list-item>
-
-                        <v-list-item>
-                            <v-list-item-title @click="usuario">Ingresar</v-list-item-title>
-                        </v-list-item>
-
-                        <v-list-item>
-                            <v-list-item-title>Acerca de</v-list-item-title>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-            </v-navigation-drawer>
-            <v-card height="auto" class="ma-2 cardPrincipal">
-                <v-toolbar class="toolbar">
-                    <v-toolbar-title class="ma-6 tituloLogo">
-                        <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
-                               width="70" height="70" aspect-ratio="6"
-                               contain></v-img>
-                    </v-toolbar-title>
-                    <v-toolbar-title class="tituloBienvenida">¡Bienvenidos a Violette!</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
-                    <div class="conjuntoBotones">
-                        <v-btn text x-large class="white--text" @click="inicio">
-                            Inicio
-                        </v-btn>
-                        |
-                        <v-btn text x-large class="white--text" @click="realizar">
-                            Realizar Pedido
-                        </v-btn>
-                        |
-                        <v-btn text x-large class="white--text" @click="usuario">
-                            Ingresar
-                        </v-btn>
-                        |
-                        <v-btn text x-large class="white--text">
-                            Acerca de
-                        </v-btn>
-                    </div>
-                </v-toolbar>
-
+            <v-card height="auto" class="cardPrincipal">
                 <v-container>
+                    <Toolbar/>
                     <v-carousel cycle continuous>
                         <v-carousel-item
                                 v-for="(item,i) in items"
@@ -117,12 +60,15 @@
 </template>
 
 <script>
-    import firebase from '../firebase/libFirebase'
+    import Toolbar from './Toolbar'
+
     export default {
         name: "Bienvenida",
+        components: {
+            Toolbar
+        },
         data() {
             return {
-                drawer: false,
                 items: [
                     {
                         src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy1.png?alt=media&token=dfb02841-0221-40e6-9223-ac7f586dbd4a',
@@ -141,16 +87,8 @@
                 rating: 4,
             }
         },
-        created() {
-          console.log(firebase.firestore().collection('usuarios'));
-        },
         methods: {
-            realizar: function () {
-                this.$router.push({name: 'app'});
-            },
-            inicio: function () {
-                this.$router.push({name: 'Bienvenida'});
-            },
+
             facebook: function () {
                 window.open("https://www.facebook.com/Violettesports-2058307800941507/?hc_ref=ARS-0nqij9qzQSd-FtTQnql2GVgPtQfu9UmJngwai7PpFqv5fJOWOkMDE6rUyNlFRWE&fref=nf&__tn__=kC-R"
                 )
@@ -158,9 +96,6 @@
             instagram: function () {
                 window.open("https://www.instagram.com/violette24_/?hl=es-la", "_blank")
             },
-            usuario: function () {
-                this.$router.push({name: 'Usuario'});
-            }
         }
     }
 </script>

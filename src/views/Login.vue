@@ -38,12 +38,10 @@
             </v-card-text>
         </v-card>
     </v-app>
-
 </template>
 
 <script>
-    import firebase from 'firebase';
-    import "firebase/auth";
+    import firebase from '../firebase/libFirebase';
 
     export default {
         name: "Registro",
@@ -66,21 +64,17 @@
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                         .catch(function (error) {
                             let errorCode = error.code;
-                            let errorMessage = error.message
+                            let errorMessage = error.message;
                             console.log(errorCode);
                             console.log(errorMessage);
                         })
-
                 } else {
                     console.log("mmd")
                 }
             },
-            registrar(){
+            registrar() {
                 this.$router.push({name: 'Registro'});
             }
-
-
-
         }
     }
 </script>
