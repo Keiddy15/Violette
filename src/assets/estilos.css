@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
 }
+
 @font-face {
     font-family: 'Roboto';
     src: url('./font/Roboto-Bold.ttf');
@@ -25,30 +26,80 @@ body{
     margin-top: 50px;
 }
 
-.logo2{
+.logo2 {
     width: 300px;
     height: 300px;
 }
-.cardForm2{
+
+.cardForm2 {
     padding: 20px;
     width: 500px;
     margin: auto;
 }
 
-.toolbar{
-    background-color: #9c27b09e!important;
+.cardPrincipal {
+    padding: 25px;
 }
 
-.footer{
-    background-color: #9c27b09e!important;
+@media screen and (max-width: 1263px) {
+    .conjuntoBotones {
+        display: block;
+    }
+
+    .tituloBienvenida {
+        display: none;
+    }
+
+    .tituloLogo {
+
+    }
+
+    .v-toolbar__content {
+        padding: 0 !important;
+    }
+
+    .cardPrincipal {
+        padding: 0;
+    }
 }
 
-.tituloBienvenida{
-    font-family: 'Pacifico', cursive;
-    font-size: 28px!important;
-    color: white!important;
+.toolbar {
+    background-color: #9c27b09e !important;
 }
-.tituloFooter{
+
+.footer {
+    background-color: #9c27b09e !important;
+}
+
+.tituloBienvenida {
     font-family: 'Pacifico', cursive;
-    font-size: 28px!important;
+    font-size: 28px !important;
+    color: white !important;
+}
+
+.tituloFooter {
+    font-family: 'Pacifico', cursive;
+    font-size: 28px !important;
+}
+
+@media screen and (max-width: 779px) {
+    .conjuntoBotones {
+        display: none;
+    }
+
+    .menuHamburger {
+        display: block!important;
+    }
+}
+
+@media screen and (min-width: 780px){
+    .menuHamburger{
+        display: none!important;
+    }
+}
+
+@media screen and (min-width: 1904px) {
+    .carruselImagen .v-image__image.v-image__image--cover {
+        background-position: center -140px !important;
+    }
 }

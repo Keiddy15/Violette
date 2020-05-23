@@ -115,11 +115,6 @@
 </template>
 
 <script>
-    //import firebase from 'firebase';
-    // Initialize Firebase
-
-    //let app = firebase.initializeApp(firebaseConfig);
-    //let db = firebase.firestore(app);
     export default {
         name: "app",
         data() {
