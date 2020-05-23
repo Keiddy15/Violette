@@ -1,11 +1,10 @@
 <template>
     <v-app class="principal">
+        <Toolbar/>
         <v-card class="cardForm2" elevation="20">
-            <v-card-title>USUARIO</v-card-title>
+            <v-card-title>Registrate</v-card-title>
             <v-card-text>
                 <form class="px-3" action="#" @submit.prevent="register">
-                    <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoAgradecimientos.png?alt=media&token=49b8a018-fd72-4a8e-88d4-9d17e6f9b73b" width="70" height="70" aspect-ratio="6"
-                           contain></v-img>
                     <v-text-field
                             label="Nombre:"
                             v-model="nombre"
@@ -42,8 +41,10 @@
 
 <script>
     import firebase from "firebase"
+    import Toolbar from "./Toolbar";
     export default {
         name: "Login",
+        components:{Toolbar},
         data(){
             return{
                 nombre: "",
