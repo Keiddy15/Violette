@@ -89,16 +89,16 @@
             return{
                 items: [
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy.jpeg?alt=media&token=9fced5a5-0424-4a4e-99c4-cb9903ecdf28',
+                        src: '',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel.jpeg?alt=media&token=fe441ac5-c887-487d-a3e6-942096b6f122',
+                        src: '',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKmm2.jpeg?alt=media&token=570a6c2e-6ddf-4d2a-bf40-1f59f66c580d',
+                        src: '',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.jpeg?alt=media&token=94916dbc-e3f4-4e1f-849d-eb47e4565f24',
+                        src: '',
                     },
                 ],
 
