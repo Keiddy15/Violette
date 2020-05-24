@@ -7,6 +7,7 @@ import Login from "../views/Login"
 import VueRouter from 'vue-router'
 import Registro from "../views/Registro";
 import Registrado from "../views/Registrado";
+import firebase from '../firebase/libFirebase';
 
 Vue.use(VueRouter);
 
@@ -35,14 +36,12 @@ const routes = [
         components: {main: Agradecimientos}
     },
     {
-        path: '/usuario',
-        name: 'Usuario',
-        components: {main: Usuario}
-    },
-    {
         path: '/login',
         name: 'Login',
         components: {main: Login},
+        meta:{
+            autentificado: true
+        }
     },
     {
         path: '/Registro',
@@ -54,7 +53,11 @@ const routes = [
         name: 'Registrado',
         components: {main: Registrado},
     },
-
+    {
+        path: '/Usuario',
+        name: 'Usuario',
+        components: {main: Usuario},
+    },
 
 
 ];
@@ -64,6 +67,5 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
-
 
 export default router

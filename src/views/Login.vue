@@ -64,7 +64,7 @@
                 if (this.email && this.password) {
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
-                            console.log(user)
+                            this.$router.push({name: 'Usuario'});
                         })
                         .catch(function (error) {
                             let errorCode = error.code;
