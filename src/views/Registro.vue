@@ -12,6 +12,12 @@
                             required>
                     </v-text-field>
                     <v-text-field
+                            label="Apellido::"
+                            v-model="apellido"
+                            :rules="apellidoRules"
+                            required>
+                    </v-text-field>
+                    <v-text-field
                             label="Email:"
                             v-model="email"
                             :rules="emailRules"
@@ -40,7 +46,7 @@
 </template>
 
 <script>
-    import firebase from "firebase"
+    import firebase from "../firebase/libFirebase"
     import Toolbar from "./Toolbar";
     export default {
         name: "Login",
@@ -50,6 +56,7 @@
                 nombre: "",
                 email: "",
                 password:"",
+                apellido: "",
                 show1: false,
                 contraseñaRules: [
                     v => !!v || 'La contraseña es requerida.'
@@ -60,6 +67,9 @@
                 nombreRules: [
                     v => !!v || 'El nombre es requerido.'
                 ],
+                apellidoRules:[
+                    v => !!v || 'El apellido es requerido.'
+                ]
             }
         },
         methods:{
