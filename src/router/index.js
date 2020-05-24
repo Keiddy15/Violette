@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Formulario from '../views/App'
+import Formulario from '../views/Formulario'
 import Agradecimientos from '../views/Agradecimientos'
 import Bienvenida from "../views/Bienvenida";
 import Usuario from "../views/Usuario";

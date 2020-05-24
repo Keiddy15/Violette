@@ -1,6 +1,7 @@
 <template>
     <v-app class="principal">
-        <v-card class="cardForm2" elevation="20">
+        <ToolbarUser/>
+        <v-card class="cardForm" elevation="20">
             <v-tabs
                     fixed-tabs
                     background-color="primary"
@@ -22,7 +23,7 @@
                             tile
                     >
                         <v-card-text>
-                            <h1>Bienvenida, Keiddy García</h1>
+                            <h1>Bienvenido, {{nombre}} {{apellido}}</h1>
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
@@ -42,19 +43,19 @@
                             tile
                     >
                         <v-card-text class="text-center">
-                            <strong> Nombre: </strong>  Keiddy García
+                            <strong> Nombre: </strong> {{nombre}} {{apellido}}
                         </v-card-text>
                         <v-card-text class="text-center">
-                            <strong> Email: </strong> keiddygarcia@gmail.com
+                            <strong> Email: </strong> {{user.email}}
                         </v-card-text>
                         <v-card-text class="text-center">
-                            <strong> Cédula: </strong> 100
+                            <strong> Cédula: </strong> {{user.cedula}}
                         </v-card-text>
                         <v-card-actions class="justify-center">
-                            <v-btn text>Cambiar contraseña</v-btn>
+                            <v-btn block large>Cambiar contraseña</v-btn>
                         </v-card-actions>
                         <v-card-actions class="justify-center">
-                            <v-btn color="purple white--text" @click="logout">Salir</v-btn>
+                            <v-btn color="purple white--text" block large @click="logout">Salir</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
@@ -65,17 +66,29 @@
 
 <script>
     import firebase from "../firebase/libFirebase"
+    import ToolbarUser from "./ToolbarUser";
     export default {
         name: "Usuario",
-        data(){
-            return{
+        components:{
+            ToolbarUser
+        },
+        data() {
+            return {
+                user: null,
+                nombre: '',
+                apellido: '',
                 tab: null,
                 text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
                 tabs: 3
             }
         },
-        methods:{
-            logout(){
+        created() {
+            this.user = firebase.auth().currentUser;
+            this.nombre = this.user.displayName.split('.')[0];
+            this.apellido = this.user.displayName.split('.')[1];
+        },
+        methods: {
+            logout() {
                 firebase.auth().signOut()
                     .then(() => this.$router.push("Bienvenida"))
             }

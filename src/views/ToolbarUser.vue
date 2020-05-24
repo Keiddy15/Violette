@@ -6,25 +6,23 @@
                        width="70" height="70" aspect-ratio="6"
                        contain></v-img>
             </v-toolbar-title>
-            <v-toolbar-title class="tituloBienvenida" style="letter-spacing: 2px">Violette - Sports Wear
+            <v-toolbar-title class="tituloBienvenida" style="letter-spacing: 2px">Tu cuenta
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
             <div class="conjuntoBotones">
+                <v-btn text x-large class="white--text">Bienvenido {{nombre}} {{apellido}}</v-btn>
+                |
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="registrar">
-                    ¡Registrate!
-                </v-btn>
-                |
                 <v-btn text x-large class="white--text" @click="login">
-                    Ingresar
+                    Cambiar Contraseña
                 </v-btn>
                 |
                 <v-btn text x-large class="white--text">
-                    Acerca de
+                    Salir
                 </v-btn>
             </div>
         </v-toolbar>
@@ -75,12 +73,22 @@
 </template>
 
 <script>
+    import firebase from '../firebase/libFirebase'
+
     export default {
-        name: "Toolbar",
+        name: "ToolbarUser",
         data() {
             return {
+                user: null,
+                nombre: '',
+                apellido: '',
                 drawer: false,
             }
+        },
+        created() {
+            this.user = firebase.auth().currentUser;
+            this.nombre = this.user.displayName.split('.')[0];
+            this.apellido = this.user.displayName.split('.')[1];
         },
         methods: {
             registrar: function () {
