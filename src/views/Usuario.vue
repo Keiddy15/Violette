@@ -1,6 +1,7 @@
 <template>
     <v-app class="principal">
-        <v-card class="cardForm2" elevation="20">
+        <ToolbarUser/>
+        <v-card class="cardForm" elevation="20">
             <v-tabs
                     fixed-tabs
                     background-color="primary"
@@ -65,9 +66,12 @@
 
 <script>
     import firebase from "../firebase/libFirebase"
-
+    import ToolbarUser from "./ToolbarUser";
     export default {
         name: "Usuario",
+        components:{
+            ToolbarUser
+        },
         data() {
             return {
                 user: null,
