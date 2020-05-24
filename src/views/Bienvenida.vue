@@ -1,7 +1,6 @@
 <template>
     <v-app class="principal">
         <Toolbar/>
-
         <v-container>
             <v-card height="auto" class="cardPrincipal">
                 <v-container>
