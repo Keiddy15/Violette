@@ -28,7 +28,7 @@
                         </v-card-actions>
                         <v-card-actions>
                             <v-btn text color="purple" @click="registrar">
-                                Registrarse
+                                ¿Haz olvidado tu contraseña?
                             </v-btn>
                         </v-card-actions>
                     </v-form>

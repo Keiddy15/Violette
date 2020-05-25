@@ -21,10 +21,6 @@
                 <v-btn text x-large class="white--text" @click="login">
                     Ingresar
                 </v-btn>
-                |
-                <v-btn text x-large class="white--text">
-                    Acerca de
-                </v-btn>
             </div>
         </v-toolbar>
         <v-navigation-drawer
@@ -51,10 +47,7 @@
                     <v-list-item>
                         <v-list-item-title @click="login">Ingresar</v-list-item-title>
                     </v-list-item>
-
-                    <v-list-item>
-                        <v-list-item-title>Acerca de</v-list-item-title>
-                    </v-list-item>
+                    <v-divider class="white ma-1"></v-divider>
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>

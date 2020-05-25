@@ -15,16 +15,6 @@
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>
-                <v-container>
-                    <v-textarea
-                            label="Comentarios:"
-                            auto-grow
-                            outlined
-                            rows="3"
-                            row-height="25"
-                            shaped
-                    ></v-textarea>
-                </v-container>
                 <v-footer class="footer">
                     <v-card-text class="text-center">
                         <v-btn
@@ -38,11 +28,6 @@
                             <v-icon size="24px" dark @click="instagram"> mdi-instagram</v-icon>
                         </v-btn>
                     </v-card-text>
-
-                    <v-card-text class="white--text pt-0">
-
-                    </v-card-text>
-                    <v-divider></v-divider>
                     <v-card-text class="text-center">
                         <v-rating
                                 v-model="rating"

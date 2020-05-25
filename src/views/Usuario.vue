@@ -4,58 +4,56 @@
             <v-tabs
                     fixed-tabs
                     background-color="primary"
-                    class="cardForm2"
                     dark
             >
                 <v-tab>
                     Inicio
                 </v-tab>
                 <v-tab>
-                    Pedidos
+                    Rellenar Formulario
                 </v-tab>
                 <v-tab>
                     Cuenta
                 </v-tab>
                 <v-tab-item>
-                    <v-card
-                            flat
-                            tile
-                    >
-                        <v-card-text>
-                            <h1>Bienvenida, Keiddy García</h1>
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1> Bienvenido, {{nombre}} {{apellido}}</h1>
                         </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <strong> VIOLETTE SPORT SWEAR 💜🏋🏻‍♀ </strong>
+                        </v-card-text>
+                        <v-card-text class="textoUsuario">
+                            Somos una marca inspirada en ropa deportiva de excelente calidad.
+                        </v-card-text>
+                        <v-card-text class="textoUsuario">
+                            Nuestro objetivo es que te sientas cómoda y segura a la hora de entrenar.
+                        </v-card-text>
+                        <v-card-text class="textoUsuario">Queremos que seas parte de nuestro #TeamVIOLETTE💜</v-card-text>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card
-                            flat
-                            tile
-                    >
-                        <v-card-text>
-                            <h1>Sus pedidos son:</h1>
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1>Por favor, diligencie el siguiente formmulario, para completar su compra.</h1>
                         </v-card-text>
+                        <v-card-actions>
+                            <v-btn class="purple  white--text" block @click="enviarFormulario">Enviar formulario </v-btn>
+                        </v-card-actions>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card
-                            flat
-                            tile
-                    >
-                        <v-card-text class="text-center">
-                            <strong> Nombre: </strong>  Keiddy García
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <strong> Nombre: </strong> {{nombre}} {{apellido}}
                         </v-card-text>
-                        <v-card-text class="text-center">
-                            <strong> Email: </strong> keiddygarcia@gmail.com
+                        <v-card-text class="textoUsuario">
+                            <strong> Email: </strong> {{user.email}}
                         </v-card-text>
-                        <v-card-text class="text-center">
-                            <strong> Cédula: </strong> 100
+                        <v-card-text class="textoUsuario">
+                            <strong> Cédula: </strong> {{user.cedula}}
                         </v-card-text>
-                        <v-card-actions class="justify-center">
-                            <v-btn text>Cambiar contraseña</v-btn>
-                        </v-card-actions>
-                        <v-card-actions class="justify-center">
-                            <v-btn color="purple white--text" @click="logout">Salir</v-btn>
-                        </v-card-actions>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -67,17 +65,26 @@
     import firebase from "../firebase/libFirebase"
     export default {
         name: "Usuario",
-        data(){
-            return{
-                tab: null,
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-                tabs: 3
+        components:{
+            ToolbarUser
+        },
+        data() {
+            return {
+                user: null,
+                nombre: '',
+                apellido: '',
+                cedula: '',
             }
         },
-        methods:{
-            logout(){
-                firebase.auth().signOut()
-                    .then(() => this.$router.push("Bienvenida"))
+        created() {
+            this.user = firebase.auth().currentUser;
+            this.nombre = this.user.displayName.split('.')[0];
+            this.apellido = this.user.displayName.split('.')[1];
+            this.cedula = this.user.displayName.split('.')[2];
+        },
+        methods: {
+            enviarFormulario(){
+                this.$router.push({name: 'app'})
             }
         }
     }

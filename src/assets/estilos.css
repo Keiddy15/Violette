@@ -41,7 +41,6 @@ body {
 .cardPrincipal {
     padding: 25px;
 }
-
 @media screen and (max-width: 1263px) {
     .conjuntoBotones {
         display: block;
@@ -69,7 +68,7 @@ body {
 }
 
 .footer {
-    background-color: #9c27b09e !important;
+    background-color: #BA68C8 !important;
 }
 
 .tituloBienvenida {
@@ -107,4 +106,9 @@ body {
     .carruselImagen .v-image__image.v-image__image--cover {
         background-position: center -140px !important;
     }
+}
+
+.textoUsuario{
+    text-align: center;
+    color: black !important;
 }

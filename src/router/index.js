@@ -57,6 +57,9 @@ const routes = [
         path: '/Usuario',
         name: 'Usuario',
         components: {main: Usuario},
+        meta:{
+            autentificado: true
+        }
     },
 
 
