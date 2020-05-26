@@ -91,6 +91,12 @@
             this.apellido = this.user.displayName.split('.')[1];
         },
         methods: {
+            registrar: function () {
+                this.$router.push({name: 'Registro'})
+            },
+            realizar: function () {
+                this.$router.push({name: 'app'});
+            },
             inicio: function () {
                 this.$router.push({name: 'Bienvenida'});
             },

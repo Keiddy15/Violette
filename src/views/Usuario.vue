@@ -1,7 +1,7 @@
 <template>
     <v-app class="principal">
-        <toolbar-user/>
-        <v-card class="cardForm2" elevation="20">
+        <ToolbarUser/>
+        <v-card class="cardForm" elevation="20">
             <v-tabs
                     fixed-tabs
                     background-color="primary"
@@ -82,11 +82,11 @@
             this.user = firebase.auth().currentUser;
             this.nombre = this.user.displayName.split('.')[0];
             this.apellido = this.user.displayName.split('.')[1];
-            this.cedula = this.user.displayName.split('.')[2];
         },
         methods: {
-            enviarFormulario(){
-                this.$router.push({name: 'app'})
+            logout() {
+                firebase.auth().signOut()
+                    .then(() => this.$router.push("Bienvenida"))
             }
         }
     }
