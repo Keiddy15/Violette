@@ -11,14 +11,14 @@
             <v-spacer></v-spacer>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
             <div class="conjuntoBotones">
-                <v-btn text x-large class="white--text">Bienvenido {{nombre}} {{apellido}}</v-btn>
+                <v-btn text x-large class="white--text">Bienvenido: {{user.nombre}} {{user.apellido}}</v-btn>
                 |
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="login">
-                    Cambiar Contraseña
+                <v-btn text x-large class="white--text" @click="cuenta">
+                    Tu cuenta
                 </v-btn>
                 |
                 <v-btn text x-large class="white--text" @click="logout">
@@ -58,7 +58,7 @@
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="login">Cambiar Contraseña</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="cuenta">Tu cuenta</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
@@ -79,15 +79,13 @@
         data() {
             return {
                 user: null,
-                nombre: '',
-                apellido: '',
                 drawer: false,
             }
         },
-        created() {
-            this.user = firebase.auth().currentUser;
-            this.nombre = this.user.displayName.split('.')[0];
-            this.apellido = this.user.displayName.split('.')[1];
+        mounted() {
+            if (localStorage.getItem('user')) {
+                this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
+            }
         },
         methods: {
             registrar: function () {
@@ -102,9 +100,13 @@
             login: function () {
                 this.$router.push({name: 'Login'});
             },
+            cuenta(){
+                this.$router.push({name: 'Usuario'})
+            },
             logout: function () {
+                localStorage.removeItem('user');
                 firebase.auth().signOut()
-                    .then(() => this.$router.push("Bienvenida"))
+                    .then(() => this.$router.push({name: 'Bienvenida'}));
             }
 
         }
