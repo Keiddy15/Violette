@@ -84,6 +84,7 @@
                 if (this.nombre && this.email && this.password) {
                     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
+                            
                             user.user.updateProfile({
                                 displayName: this.nombre + '.' + this.apellido,
                             });

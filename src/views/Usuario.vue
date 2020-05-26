@@ -31,7 +31,8 @@
                         <v-card-text class="textoUsuario">
                             Nuestro objetivo es que te sientas cómoda y segura a la hora de entrenar.
                         </v-card-text>
-                        <v-card-text class="textoUsuario">Queremos que seas parte de nuestro #TeamVIOLETTE💜</v-card-text>
+                        <v-card-text class="textoUsuario">Queremos que seas parte de nuestro #TeamVIOLETTE💜
+                        </v-card-text>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
@@ -44,7 +45,7 @@
                             <span>Por favor, diligencie el siguiente <strong>formmulario</strong>, para completar su compra.</span>
                         </v-card-text>
                         <v-card-actions>
-                            <v-btn class="purple  white--text" block large @click="enviarFormulario">Enviar formulario </v-btn>
+                            <v-btn class="purple  white--text" block large @click="formulario">Enviar formulario</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
@@ -69,28 +70,35 @@
 <script>
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
+
     export default {
         name: "Usuario",
-        components:{
+        components: {
             ToolbarUser
         },
         data() {
             return {
                 user: null,
+                id: '',
                 nombre: '',
                 apellido: '',
                 cedula: '',
             }
         },
-        created() {
-            this.user = firebase.auth().currentUser;
-            this.nombre = this.user.displayName.split('.')[0];
-            this.apellido = this.user.displayName.split('.')[1];
+        mounted() {
+            if (localStorage.getItem('user')) {
+                    this.user = JSON.parse(localStorage.getItem('user'));
+                    this.nombre = this.user.user.displayName.split('.')[0];
+                    this.apellido = this.user.user.displayName.split('.')[1];
+            }
         },
         methods: {
             logout() {
                 firebase.auth().signOut()
                     .then(() => this.$router.push("Bienvenida"))
+            },
+            formulario: function () {
+                this.$router.push({name: 'app'})
             }
         }
     }
