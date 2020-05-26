@@ -1,7 +1,7 @@
 <template>
     <v-app class="principal">
         <Toolbar/>
-            <v-card class="cardForm2" elevation="20">
+            <v-card class="cardForm2" elevation="10">
                 <v-card-title>Ingreso al Sistema</v-card-title>
                 <v-card-text>
                     <v-form class="px-3" @submit.prevent="ingreso">
@@ -28,7 +28,7 @@
                         </v-card-actions>
                         <v-card-actions>
                             <v-btn text color="purple" @click="registrar">
-                                Registrarse
+                                ¿Haz olvidado tu contraseña?
                             </v-btn>
                         </v-card-actions>
                     </v-form>
@@ -63,6 +63,9 @@
             ingreso() {
                 if (this.email && this.password) {
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+                        .then((user) => {
+                            this.$router.push({name: 'Usuario'});
+                        })
                         .catch(function (error) {
                             let errorCode = error.code;
                             let errorMessage = error.message;

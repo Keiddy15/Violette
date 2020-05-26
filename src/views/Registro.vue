@@ -12,6 +12,17 @@
                             required>
                     </v-text-field>
                     <v-text-field
+                            label="Apellido:"
+                            v-model="apellido"
+                            :rules="apellidoRules"
+                            required>
+                    </v-text-field>
+                    <v-text-field
+                            label="Cedula:"
+                            v-model="cedula"
+                            required>
+                    </v-text-field>
+                    <v-text-field
                             label="Email:"
                             v-model="email"
                             :rules="emailRules"
@@ -29,7 +40,7 @@
                     >
                     </v-text-field>
                     <v-card-actions class="justify-center">
-                        <v-btn type="submit" color="purple white--text"  block large>
+                        <v-btn type="submit" color="purple white--text" block large>
                             Registrarme
                         </v-btn>
                     </v-card-actions>
@@ -40,16 +51,19 @@
 </template>
 
 <script>
-    import firebase from "firebase"
+    import firebase from "../firebase/libFirebase"
     import Toolbar from "./Toolbar";
+
     export default {
         name: "Login",
-        components:{Toolbar},
-        data(){
-            return{
+        components: {Toolbar},
+        data() {
+            return {
                 nombre: "",
                 email: "",
-                password:"",
+                password: "",
+                apellido: "",
+                cedula: "",
                 show1: false,
                 contraseñaRules: [
                     v => !!v || 'La contraseña es requerida.'
@@ -60,22 +74,30 @@
                 nombreRules: [
                     v => !!v || 'El nombre es requerido.'
                 ],
+                apellidoRules: [
+                    v => !!v || 'El apellido es requerido.'
+                ]
             }
         },
-        methods:{
-            register(){
-                this.error = ""
-                if(this.nombre && this.email && this.password){
-                    firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function (error) {
-                        let errorCode = error.code;
-                        let errorMessage = error.message
-                        console.log(errorCode);
-                        console.log(errorMessage);
-
-                    })
+        methods: {
+            register() {
+                if (this.nombre && this.email && this.password) {
+                    firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+                        .then((user) => {
+                            user.user.updateProfile({
+                                displayName: this.nombre + '.' + this.apellido,
+                            });
+                            this.$router.push({name: 'Registrado'});
+                        })
+                        .catch(function (error) {
+                            let errorCode = error.code;
+                            let errorMessage = error.message;
+                            console.log(errorCode);
+                            console.log(errorMessage);
+                        })
 
                 }
-            }
+            },
         }
     }
 </script>

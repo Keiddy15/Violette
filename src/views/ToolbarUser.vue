@@ -6,21 +6,23 @@
                        width="70" height="70" aspect-ratio="6"
                        contain></v-img>
             </v-toolbar-title>
-            <v-toolbar-title class="tituloBienvenida" style="letter-spacing: 2px">Violette - Sports Wear
+            <v-toolbar-title class="tituloBienvenida" style="letter-spacing: 2px">Tu cuenta
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
             <div class="conjuntoBotones">
+                <v-btn text x-large class="white--text">Bienvenido {{nombre}} {{apellido}}</v-btn>
+                |
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="registrar">
-                    ¡Registrate!
+                <v-btn text x-large class="white--text" @click="login">
+                    Cambiar Contraseña
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="login">
-                    Ingresar
+                <v-btn text x-large class="white--text" @click="logout">
+                    Salir
                 </v-btn>
             </div>
         </v-toolbar>
@@ -49,17 +51,21 @@
                         active-class="deep-purple--text text--accent-4"
                 >
                     <v-list-item>
-                        <v-list-item-title class="white--text ma-1" @click="inicio">Inicio</v-list-item-title>
+                        <v-list-item-title class="white--text ma-1">Bienvenido {{nombre}} {{apellido}}</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="login">Ingresar</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="inicio"> Inicio</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="registrar">Registrate</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="login">Cambiar Contraseña</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
+                    <v-list-item>
+                        <v-list-item-title class="white--text" @click="logout">Salir</v-list-item-title>
+                    </v-list-item>
+
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
@@ -67,12 +73,22 @@
 </template>
 
 <script>
+    import firebase from '../firebase/libFirebase'
+
     export default {
-        name: "Toolbar",
+        name: "ToolbarUser",
         data() {
             return {
+                user: null,
+                nombre: '',
+                apellido: '',
                 drawer: false,
             }
+        },
+        created() {
+            this.user = firebase.auth().currentUser;
+            this.nombre = this.user.displayName.split('.')[0];
+            this.apellido = this.user.displayName.split('.')[1];
         },
         methods: {
             registrar: function () {
@@ -86,7 +102,12 @@
             },
             login: function () {
                 this.$router.push({name: 'Login'});
-            }
+            },
+             logout: function () {
+                 firebase.auth().signOut()
+                     .then(() => this.$router.push("Bienvenida"))
+             }
+
         }
     }
 </script>

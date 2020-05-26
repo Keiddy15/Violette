@@ -1,7 +1,6 @@
 <template>
     <v-app class="principal">
         <Toolbar/>
-
         <v-container>
             <v-card height="auto" class="cardPrincipal">
                 <v-container>
@@ -14,16 +13,6 @@
                                 class="carruselImagen"
                         ></v-carousel-item>
                     </v-carousel>
-                </v-container>
-                <v-container>
-                    <v-textarea
-                            label="Comentarios:"
-                            auto-grow
-                            outlined
-                            rows="3"
-                            row-height="25"
-                            shaped
-                    ></v-textarea>
                 </v-container>
                 <v-footer class="footer">
                     <v-card-text class="text-center">
@@ -38,11 +27,6 @@
                             <v-icon size="24px" dark @click="instagram"> mdi-instagram</v-icon>
                         </v-btn>
                     </v-card-text>
-
-                    <v-card-text class="white--text pt-0">
-
-                    </v-card-text>
-                    <v-divider></v-divider>
                     <v-card-text class="text-center">
                         <v-rating
                                 v-model="rating"
@@ -89,7 +73,6 @@
             }
         },
         methods: {
-
             facebook: function () {
                 window.open("https://www.facebook.com/Violettesports-2058307800941507/?hc_ref=ARS-0nqij9qzQSd-FtTQnql2GVgPtQfu9UmJngwai7PpFqv5fJOWOkMDE6rUyNlFRWE&fref=nf&__tn__=kC-R"
                 )

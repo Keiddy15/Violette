@@ -16,11 +16,12 @@ body {
 
 .cardForm {
     padding: 30px;
-    margin-top: 10px;
+    margin: 20px;
 }
 
 .fields {
     color: white !important;
+    margin-right: 5px !important;
 }
 
 .logo {
@@ -41,7 +42,6 @@ body {
 .cardPrincipal {
     padding: 25px;
 }
-
 @media screen and (max-width: 1263px) {
     .conjuntoBotones {
         display: block;
@@ -59,8 +59,8 @@ body {
         padding: 0;
     }
 
-    .container{
-        padding: 0!important;
+    .container {
+        padding: 0 !important;
     }
 }
 
@@ -69,11 +69,11 @@ body {
 }
 
 .footer {
-    background-color: #9c27b09e !important;
+    background-color: #BA68C8 !important;
 }
 
 .tituloBienvenida {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Pacifico', cursive ;
     font-size: 28px !important;
     color: white !important;
 }
@@ -92,8 +92,23 @@ body {
         display: none;
     }
 
+
     .menuHamburger {
         display: block !important;
+    }
+}
+
+.rowForm {
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+    flex: 1 1 auto;
+
+}
+
+@media screen and (max-width: 425px) {
+    .cardForm {
+        margin: 10px 5px 5px 5px !important;
     }
 }
 
@@ -107,4 +122,9 @@ body {
     .carruselImagen .v-image__image.v-image__image--cover {
         background-position: center -140px !important;
     }
+}
+
+.textoUsuario{
+    text-align: center;
+    color: black !important;
 }
