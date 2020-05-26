@@ -11,7 +11,7 @@
             <v-spacer></v-spacer>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
             <div class="conjuntoBotones">
-                <v-btn text x-large class="white--text">Bienvenido {{nombre}} {{apellido}}</v-btn>
+                <v-btn text x-large class="white--text">Bienvenido: {{user.nombre}} {{user.apellido}}</v-btn>
                 |
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
@@ -79,15 +79,13 @@
         data() {
             return {
                 user: null,
-                nombre: '',
-                apellido: '',
                 drawer: false,
             }
         },
-        created() {
-            this.user = firebase.auth().currentUser;
-            this.nombre = this.user.displayName.split('.')[0];
-            this.apellido = this.user.displayName.split('.')[1];
+        mounted() {
+            if (localStorage.getItem('user')) {
+                this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
+            }
         },
         methods: {
             registrar: function () {
@@ -104,7 +102,8 @@
             },
             logout: function () {
                 firebase.auth().signOut()
-                    .then(() => this.$router.push("Bienvenida"))
+                    .then(() => this.$router.push("Bienvenida"));
+                localStorage.delete('user');
             }
 
         }

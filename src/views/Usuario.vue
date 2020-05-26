@@ -19,7 +19,7 @@
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
-                            <h1> Bienvenido, {{nombre}} {{apellido}}</h1>
+                            <h1 style="line-height: 30px;"> Bienvenido, {{user.nombre}} {{user.apellido}}</h1>
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
@@ -52,74 +52,106 @@
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
-                            <strong> Nombre: </strong> {{nombre}} {{apellido}}
+                            <strong> Tu identificación: </strong> {{user.uid}}
                         </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <strong> Nombre: </strong> {{user.nombre}} {{user.apellido}}
+                        </v-card-text>
+                        <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
                             <strong> Email: </strong> {{user.email}}
                         </v-card-text>
+                        <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
                             <strong> Cédula: </strong> {{user.cedula}}
                         </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <strong> Teléfono: </strong> {{user.telefono}}
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <strong> Ultimo inicio de sesión: </strong> {{user.lastLogin}}
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <strong> Fecha de creación: </strong> {{user.createdAt}}
+                        </v-card-text>
+                        <v-divider></v-divider>
                         <v-card-actions>
-                            <v-row justify="center">
-                                <v-dialog v-model="dialog" fullscreen hide-overlay
-                                          transition="dialog-bottom-transition">
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn color="primary" dark v-on="on">Editar</v-btn>
-                                    </template>
-                                    <v-card>
-                                        <v-toolbar dark color="primary">
-                                            <v-btn icon dark @click="dialog = false">
-                                                <v-icon>mdi-close</v-icon>
-                                            </v-btn>
-                                            <v-toolbar-title>EDITAR USUARIO</v-toolbar-title>
-                                            <v-spacer></v-spacer>
-                                            <v-toolbar-items>
-                                                <v-btn dark text @click="dialog = false">Guardar</v-btn>
-                                            </v-toolbar-items>
-                                        </v-toolbar>
-                                        <v-list three-line subheader>
-                                            <v-card-text>
-                                                <v-container>
-                                                    <v-row>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Nombres:"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Apellidos:"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Cédula" type="number"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Teléfono:"
-                                                                          type="number"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Ciudad:"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Departamento:"></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field
-                                                                    label="Dirección"
-                                                            ></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Barrio:"></v-text-field>
-                                                        </v-col>
-                                                    </v-row>
-                                                </v-container>
-                                            </v-card-text>
-                                        </v-list>
-                                    </v-card>
-                                </v-dialog>
-                            </v-row>
+                                <v-btn color="primary" block @click="dialog = !dialog">Editar</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
+            <v-dialog v-model="dialog" fullscreen hide-overlay
+                      transition="dialog-bottom-transition">
+
+                <v-card>
+                    <v-toolbar dark color="primary">
+                        <v-btn icon dark @click="dialog = false">
+                            <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                        <v-toolbar-title>EDITAR USUARIO</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-toolbar-items>
+                            <v-btn dark text @click="guardarPedido">Guardar</v-btn>
+                        </v-toolbar-items>
+                    </v-toolbar>
+                    <v-list three-line subheader>
+                        <v-card-text>
+                            <v-container>
+                                <v-alert type="success"
+                                         v-model="alertGuardar"
+                                         dismissible
+                                >
+                                    ¡Tus datos han sido actualizados correctamente, inicia sesión de nuevo para que los cambios surtan efecto.
+
+                                </v-alert>
+                                <v-row>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Nombres:" readonly
+                                                      v-model="user.nombre"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Apellidos:" readonly
+                                                      v-model="user.apellido"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Cédula" readonly type="number"
+                                                      v-model="user.cedula"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Teléfono:"
+                                                      type="number"
+                                                      v-model="user.telefono"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Email:" readonly
+                                                      v-model="user.email"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Ciudad:" v-model="ciudad"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Departamento:" v-model="departamento"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field
+                                                label="Dirección"
+                                                v-model="direccion"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <v-text-field label="Barrio:" v-model="barrio"></v-text-field>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+                    </v-list>
+                </v-card>
+            </v-dialog>
         </v-card>
     </v-app>
 </template>
@@ -127,7 +159,7 @@
 <script>
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
-
+    let db = firebase.firestore();
     export default {
         name: "Usuario",
         components: {
@@ -136,18 +168,18 @@
         data() {
             return {
                 user: null,
-                id: '',
-                nombre: '',
-                apellido: '',
-                cedula: '',
+                barrio: '',
+                ciudad: '',
+                direccion: '',
+                departamento: '',
+                alertGuardar: false,
+                snackbar: true,
                 dialog: false
             }
         },
         mounted() {
             if (localStorage.getItem('user')) {
-                    this.user = JSON.parse(localStorage.getItem('user'));
-                    this.nombre = this.user.user.displayName.split('.')[0];
-                    this.apellido = this.user.user.displayName.split('.')[1];
+                this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
         },
         methods: {
@@ -157,6 +189,18 @@
             },
             formulario: function () {
                 this.$router.push({name: 'app'})
+            },
+            guardarPedido() {
+                db.collection('usuarios').doc(this.user.uid).update({
+                    barrio: this.barrio,
+                    ciudad: this.ciudad,
+                    direccion: this.direccion,
+                    departamento: this.departamento
+                }).then(function (doc) {
+                    console.log(doc)
+                });
+                this.alertGuardar = true;
+
             }
         }
     }
