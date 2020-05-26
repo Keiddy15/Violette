@@ -21,7 +21,7 @@
                     Cambiar Contraseña
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text">
+                <v-btn text x-large class="white--text" @click="logout">
                     Salir
                 </v-btn>
             </div>
@@ -51,19 +51,19 @@
                         active-class="deep-purple--text text--accent-4"
                 >
                     <v-list-item>
-                        <v-list-item-title class="white--text ma-1" @click="inicio">Inicio</v-list-item-title>
+                        <v-list-item-title class="white--text ma-1">Bienvenido {{nombre}} {{apellido}}</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="login">Ingresar</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="inicio"> Inicio</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="registrar">Registrate</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="login">Cambiar Contraseña</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text">Acerca de</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="logout">Salir</v-list-item-title>
                     </v-list-item>
 
                 </v-list-item-group>
@@ -102,7 +102,12 @@
             },
             login: function () {
                 this.$router.push({name: 'Login'});
-            }
+            },
+             logout: function () {
+                 firebase.auth().signOut()
+                     .then(() => this.$router.push("Bienvenida"))
+             }
+
         }
     }
 </script>

@@ -5,58 +5,56 @@
             <v-tabs
                     fixed-tabs
                     background-color="primary"
-                    class="cardForm2"
                     dark
             >
                 <v-tab>
                     Inicio
                 </v-tab>
                 <v-tab>
-                    Pedidos
+                    Rellenar Formulario
                 </v-tab>
                 <v-tab>
                     Cuenta
                 </v-tab>
                 <v-tab-item>
-                    <v-card
-                            flat
-                            tile
-                    >
-                        <v-card-text>
-                            <h1>Bienvenido, {{nombre}} {{apellido}}</h1>
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1> Bienvenido, {{nombre}} {{apellido}}</h1>
                         </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <strong> VIOLETTE SPORT SWEAR 💜🏋🏻‍♀ </strong>
+                        </v-card-text>
+                        <v-card-text class="textoUsuario">
+                            Somos una marca inspirada en ropa deportiva de excelente calidad.
+                        </v-card-text>
+                        <v-card-text class="textoUsuario">
+                            Nuestro objetivo es que te sientas cómoda y segura a la hora de entrenar.
+                        </v-card-text>
+                        <v-card-text class="textoUsuario">Queremos que seas parte de nuestro #TeamVIOLETTE💜</v-card-text>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card
-                            flat
-                            tile
-                    >
-                        <v-card-text>
-                            <h1>Sus pedidos son:</h1>
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1>Por favor, diligencie el siguiente formmulario, para completar su compra.</h1>
                         </v-card-text>
+                        <v-card-actions>
+                            <v-btn class="purple  white--text" block @click="enviarFormulario">Enviar formulario </v-btn>
+                        </v-card-actions>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card
-                            flat
-                            tile
-                    >
-                        <v-card-text class="text-center">
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
                             <strong> Nombre: </strong> {{nombre}} {{apellido}}
                         </v-card-text>
-                        <v-card-text class="text-center">
+                        <v-card-text class="textoUsuario">
                             <strong> Email: </strong> {{user.email}}
                         </v-card-text>
-                        <v-card-text class="text-center">
+                        <v-card-text class="textoUsuario">
                             <strong> Cédula: </strong> {{user.cedula}}
                         </v-card-text>
-                        <v-card-actions class="justify-center">
-                            <v-btn block large>Cambiar contraseña</v-btn>
-                        </v-card-actions>
-                        <v-card-actions class="justify-center">
-                            <v-btn color="purple white--text" block large @click="logout">Salir</v-btn>
-                        </v-card-actions>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -77,9 +75,7 @@
                 user: null,
                 nombre: '',
                 apellido: '',
-                tab: null,
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-                tabs: 3
+                cedula: '',
             }
         },
         created() {
