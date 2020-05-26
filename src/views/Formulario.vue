@@ -123,7 +123,7 @@
 </template>
 
 <script>
-    import Toolbar from './Toolbar'
+    import Toolbar from './ToolbarUser'
     import firebase from '../firebase/libFirebase'
 
     let db = firebase.firestore();

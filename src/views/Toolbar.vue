@@ -14,13 +14,14 @@
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
                 </v-btn>
-                |
-                <v-btn text x-large class="white--text" @click="registrar">
+                <v-btn text x-large v-if="logueado" class="white--text" @click="registrar">
                     ¡Registrate!
                 </v-btn>
-                |
                 <v-btn text x-large class="white--text" @click="login">
-                    Ingresar
+                    {{iniciado}}
+                </v-btn>
+                <v-btn text x-large v-if="!logueado" class="white--text" @click="logout">
+                    Salir
                 </v-btn>
             </div>
         </v-toolbar>
@@ -41,7 +42,6 @@
                 <span class="tituloBienvenida">Menú</span>
             </v-container>
 
-
             <v-list
                     nav
             >
@@ -53,7 +53,7 @@
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="login">Ingresar</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="login">{{iniciado}}</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
@@ -67,11 +67,24 @@
 </template>
 
 <script>
+    import firebase from "../firebase/libFirebase";
+
     export default {
         name: "Toolbar",
         data() {
             return {
                 drawer: false,
+                iniciado: '',
+                logueado: false
+            }
+        },
+        mounted() {
+            if (localStorage.getItem('user')) {
+                this.iniciado = "Tu cuenta";
+                this.logueado = false;
+            } else {
+                this.iniciado = "Ingresar";
+                this.logueado = true;
             }
         },
         methods: {
@@ -85,7 +98,16 @@
                 this.$router.push({name: 'Bienvenida'});
             },
             login: function () {
-                this.$router.push({name: 'Login'});
+                if (localStorage.getItem('user')) {
+                    this.$router.push({name: 'Usuario'});
+                } else {
+                    this.$router.push({name: 'Login'});
+                }
+            },
+            logout(){
+                localStorage.removeItem('user');
+                firebase.auth().signOut()
+                    .then(n => {this.$router.push({name: 'Bienvenida'}); this.$router.go()});
             }
         }
     }

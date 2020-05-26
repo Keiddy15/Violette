@@ -80,7 +80,7 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions>
-                                <v-btn color="primary" block @click="dialog = !dialog">Editar</v-btn>
+                            <v-btn color="primary" block @click="dialog = !dialog">Editar</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
@@ -106,7 +106,8 @@
                                          v-model="alertGuardar"
                                          dismissible
                                 >
-                                    ¡Tus datos han sido actualizados correctamente, inicia sesión de nuevo para que los cambios surtan efecto.
+                                    ¡Tus datos han sido actualizados correctamente, inicia sesión de nuevo para que los
+                                    cambios surtan efecto.
 
                                 </v-alert>
                                 <v-row>
@@ -159,6 +160,7 @@
 <script>
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
+
     let db = firebase.firestore();
     export default {
         name: "Usuario",

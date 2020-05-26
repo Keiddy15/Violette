@@ -17,8 +17,8 @@
                     Inicio
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="login">
-                    Cambiar Contraseña
+                <v-btn text x-large class="white--text" @click="cuenta">
+                    Tu cuenta
                 </v-btn>
                 |
                 <v-btn text x-large class="white--text" @click="logout">
@@ -58,7 +58,7 @@
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
-                        <v-list-item-title class="white--text" @click="login">Cambiar Contraseña</v-list-item-title>
+                        <v-list-item-title class="white--text" @click="cuenta">Tu cuenta</v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
@@ -100,10 +100,13 @@
             login: function () {
                 this.$router.push({name: 'Login'});
             },
+            cuenta(){
+                this.$router.push({name: 'Usuario'})
+            },
             logout: function () {
+                localStorage.removeItem('user');
                 firebase.auth().signOut()
-                    .then(() => this.$router.push("Bienvenida"));
-                localStorage.delete('user');
+                    .then(() => this.$router.push({name: 'Bienvenida'}));
             }
 
         }
