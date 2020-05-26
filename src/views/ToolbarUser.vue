@@ -42,8 +42,6 @@
                 </v-container>
                 <span class="tituloBienvenida">Menú</span>
             </v-container>
-
-
             <v-list
                     nav
             >
@@ -51,7 +49,8 @@
                         active-class="deep-purple--text text--accent-4"
                 >
                     <v-list-item>
-                        <v-list-item-title class="white--text ma-1">Bienvenido {{nombre}} {{apellido}}</v-list-item-title>
+                        <v-list-item-title class="white--text ma-1">Bienvenido {{nombre}} {{apellido}}
+                        </v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
                     <v-list-item>
@@ -103,10 +102,10 @@
             login: function () {
                 this.$router.push({name: 'Login'});
             },
-             logout: function () {
-                 firebase.auth().signOut()
-                     .then(() => this.$router.push("Bienvenida"))
-             }
+            logout: function () {
+                firebase.auth().signOut()
+                    .then(() => this.$router.push("Bienvenida"))
+            }
 
         }
     }

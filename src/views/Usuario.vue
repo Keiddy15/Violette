@@ -38,10 +38,14 @@
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
-                            <h1>Por favor, diligencie el siguiente formmulario, para completar su compra.</h1>
+                            <h1 style="letter-spacing: 2px; line-height: 40px">¡Realiza tu pedido aquí!</h1>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text class="textoUsuario">
+                            <span>Por favor, diligencie el siguiente <strong>formmulario</strong>, para completar su compra.</span>
                         </v-card-text>
                         <v-card-actions>
-                            <v-btn class="purple  white--text" block @click="">Enviar formulario</v-btn>
+                            <v-btn class="purple  white--text" block large @click="formulario">Enviar formulario</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
@@ -132,21 +136,27 @@
         data() {
             return {
                 user: null,
+                id: '',
                 nombre: '',
                 apellido: '',
                 cedula: '',
                 dialog: false
             }
         },
-        created() {
-            this.user = firebase.auth().currentUser;
-            this.nombre = this.user.displayName.split('.')[0];
-            this.apellido = this.user.displayName.split('.')[1];
+        mounted() {
+            if (localStorage.getItem('user')) {
+                    this.user = JSON.parse(localStorage.getItem('user'));
+                    this.nombre = this.user.user.displayName.split('.')[0];
+                    this.apellido = this.user.user.displayName.split('.')[1];
+            }
         },
         methods: {
             logout() {
                 firebase.auth().signOut()
                     .then(() => this.$router.push("Bienvenida"))
+            },
+            formulario: function () {
+                this.$router.push({name: 'app'})
             }
         }
     }

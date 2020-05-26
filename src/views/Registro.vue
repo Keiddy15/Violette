@@ -18,8 +18,17 @@
                             required>
                     </v-text-field>
                     <v-text-field
+                            type="number"
                             label="Cedula:"
                             v-model="cedula"
+                            :rules="cedulaRules"
+                            required>
+                    </v-text-field>
+                    <v-text-field
+                            type="number"
+                            label="Telefono:"
+                            :rules="telefonoRules"
+                            v-model="telefono"
                             required>
                     </v-text-field>
                     <v-text-field
@@ -54,6 +63,8 @@
     import firebase from "../firebase/libFirebase"
     import Toolbar from "./Toolbar";
 
+    let db = firebase.firestore();
+
     export default {
         name: "Login",
         components: {Toolbar},
@@ -64,9 +75,16 @@
                 password: "",
                 apellido: "",
                 cedula: "",
+                telefono: '',
                 show1: false,
                 contraseñaRules: [
                     v => !!v || 'La contraseña es requerida.'
+                ],
+                cedulaRules: [
+                    v => !!v || 'La Cedula es requerida.'
+                ],
+                telefonoRules: [
+                    v => !!v || 'El telefono es requerido.'
                 ],
                 emailRules: [
                     v => !!v || 'El email es requerido.'
@@ -84,10 +102,18 @@
                 if (this.nombre && this.email && this.password) {
                     firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
-                            user.user.updateProfile({
-                                displayName: this.nombre + '.' + this.apellido,
+                            db.collection('usuarios').doc(user.user.uid).set({
+                                nombre: this.nombre,
+                                apellido: this.apellido,
+                                cedula: this.cedula,
+                                telefono: this.telefono,
+                                email: this.email
+                            }).then(() => {
+                                user.user.sendEmailVerification(null);
+                                this.$router.push({name: 'Registrado'});
+                            }).catch(error => {
+                                console.log(error);
                             });
-                            this.$router.push({name: 'Registrado'});
                         })
                         .catch(function (error) {
                             let errorCode = error.code;
@@ -95,7 +121,6 @@
                             console.log(errorCode);
                             console.log(errorMessage);
                         })
-
                 }
             },
         }
