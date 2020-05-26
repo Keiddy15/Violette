@@ -42,13 +42,10 @@ body {
 .cardPrincipal {
     padding: 25px;
 }
+
 @media screen and (max-width: 1263px) {
     .conjuntoBotones {
         display: block;
-    }
-
-    .tituloBienvenida {
-        display: none;
     }
 
     .v-toolbar__content {
@@ -73,7 +70,7 @@ body {
 }
 
 .tituloBienvenida {
-    font-family: 'Pacifico', cursive ;
+    font-family: 'Pacifico', cursive;
     font-size: 28px !important;
     color: white !important;
 }
@@ -110,6 +107,10 @@ body {
     .cardForm {
         margin: 10px 5px 5px 5px !important;
     }
+
+    .tituloBienvenida {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 780px) {
@@ -124,7 +125,13 @@ body {
     }
 }
 
-.textoUsuario{
+@media screen and (min-width: 768px) {
+    .tituloBienvenida {
+        display: block;
+    }
+}
+
+.textoUsuario {
     text-align: center;
     color: black !important;
 }
