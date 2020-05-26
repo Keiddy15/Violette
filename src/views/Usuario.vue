@@ -79,7 +79,7 @@
                                                 <v-container>
                                                     <v-row>
                                                         <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Nombres:"  >  </v-text-field>
+                                                            <v-text-field label="Nombres:"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" sm="6" md="5">
                                                             <v-text-field label="Apellidos:"></v-text-field>
@@ -88,7 +88,8 @@
                                                             <v-text-field label="Cédula" type="number"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" sm="6" md="5">
-                                                            <v-text-field label="Teléfono:" type="number"></v-text-field>
+                                                            <v-text-field label="Teléfono:"
+                                                                          type="number"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" sm="6" md="5">
                                                             <v-text-field label="Ciudad:"></v-text-field>
