@@ -60,6 +60,62 @@
                         <v-card-text class="textoUsuario">
                             <strong> Cédula: </strong> {{user.cedula}}
                         </v-card-text>
+                        <v-card-actions>
+                            <v-row justify="center">
+                                <v-dialog v-model="dialog" fullscreen hide-overlay
+                                          transition="dialog-bottom-transition">
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn color="primary" dark v-on="on">Editar</v-btn>
+                                    </template>
+                                    <v-card>
+                                        <v-toolbar dark color="primary">
+                                            <v-btn icon dark @click="dialog = false">
+                                                <v-icon>mdi-close</v-icon>
+                                            </v-btn>
+                                            <v-toolbar-title>EDITAR USUARIO</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-toolbar-items>
+                                                <v-btn dark text @click="dialog = false">Guardar</v-btn>
+                                            </v-toolbar-items>
+                                        </v-toolbar>
+                                        <v-list three-line subheader>
+                                            <v-card-text>
+                                                <v-container>
+                                                    <v-row>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Nombres:"  >  </v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Apellidos:"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Cédula" type="number"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Teléfono:" type="number"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Ciudad:"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Departamento:"></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field
+                                                                    label="Dirección"
+                                                            ></v-text-field>
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="5">
+                                                            <v-text-field label="Barrio:"></v-text-field>
+                                                        </v-col>
+                                                    </v-row>
+                                                </v-container>
+                                            </v-card-text>
+                                        </v-list>
+                                    </v-card>
+                                </v-dialog>
+                            </v-row>
+                        </v-card-actions>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -83,6 +139,7 @@
                 nombre: '',
                 apellido: '',
                 cedula: '',
+                dialog: false
             }
         },
         mounted() {
