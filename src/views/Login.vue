@@ -2,6 +2,9 @@
     <v-app class="principal">
         <Toolbar/>
         <v-card class="cardForm2" elevation="10">
+            <v-alert type="error" v-model="alertVerified" dismissible>No ha activado su cuenta, por favor, revise su
+                correo electronico.
+            </v-alert>
             <v-card-title>Ingreso al Sistema</v-card-title>
             <v-card-text>
                 <v-form class="px-3" @submit.prevent="ingreso">
@@ -39,6 +42,7 @@
     import firebase from '../firebase/libFirebase';
     import Toolbar from './Toolbar'
 
+    let db = firebase.firestore();
     export default {
         name: "Registro",
         components: {
@@ -47,6 +51,7 @@
         data() {
             return {
                 email: "",
+                alertVerified: false,
                 password: "",
                 show1: false,
                 user: [],
@@ -63,8 +68,13 @@
                 if (this.email && this.password) {
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
-                            this.guardar(user);
-                            this.$router.push({name: 'Usuario'});
+                            if (!user.user.emailVerified) {
+                                this.alertVerified = true;
+                                firebase.auth().signOut();
+                            } else {
+                                this.guardar(user);
+                                this.$router.push({name: 'Usuario'});
+                            }
                         })
                         .catch(function (error) {
                             let errorCode = error.code;
@@ -80,16 +90,19 @@
                 this.$router.push({name: 'Registro'});
             },
             guardar(user) {
-                this.user['displayName'] = user.user.displayName;
-                this.user['email'] = user.user.email;
-                this.user['additionalInfo'] = user.additionalUserInfo;
-                this.user['emailVerified'] = user.user.emailVerified;
-                this.user['createdAt'] = user.user.metadata.creationTime;
-                this.user['lastLogin'] = user.user.metadata.lastSignInTime;
-                this.user['token'] = user.user.refreshToken;
-                this.user['uid'] = user.user.uid;
-                const parse = JSON.stringify(this.user);
-                localStorage.setItem('user', parse);
+                db.collection('usuarios').doc(user.user.uid).get().then(function (doc) {
+                    let objectJSON = '{ "email": "' + user.user.email + '" ,' +
+                        '"createdAt":"' + user.user.metadata.creationTime + '" , ' +
+                        '"lastLogin":"' + user.user.metadata.lastSignInTime + '", ' +
+                        '"emailVerified": "' + user.user.emailVerified + '", "uid": "' + user.user.uid + '", ' +
+                        '"nombre": "' + doc.data().nombre + '",' +
+                        '"apellido": "' + doc.data().apellido + '",' +
+                        '"cedula": "' + doc.data().cedula + '",' +
+                        '"telefono": "' + doc.data().telefono + '"}';
+                    const parse = JSON.stringify(objectJSON);
+                    localStorage.setItem('user', parse);
+                });
+
             }
         }
     }
