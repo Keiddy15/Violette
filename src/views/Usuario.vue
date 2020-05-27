@@ -90,13 +90,13 @@
 
                 <v-card>
                     <v-toolbar dark color="primary">
-                        <v-btn icon dark @click="dialog = false">
+                        <v-btn style="margin-left: 20px" icon dark @click="dialog = false">
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
-                        <v-toolbar-title>EDITAR USUARIO</v-toolbar-title>
+                        <v-toolbar-title>Editar Usuario</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-toolbar-items>
-                            <v-btn dark text @click="guardarPedido">Guardar</v-btn>
+                            <v-btn dark text @click="guardarDataExtra">Guardar</v-btn>
                         </v-toolbar-items>
                     </v-toolbar>
                     <v-list three-line subheader>
@@ -110,7 +110,7 @@
                                     cambios surtan efecto.
 
                                 </v-alert>
-                                <v-row>
+                                <v-row style="margin: 0 10px">
                                     <v-col cols="12" sm="6" md="5">
                                         <v-text-field label="Nombres:" readonly
                                                       v-model="user.nombre"></v-text-field>
@@ -183,26 +183,44 @@
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
+            if (localStorage.getItem('userExtraData')) {
+                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
+                this.barrio = objectJSON.barrio;
+                this.ciudad = objectJSON.ciudad;
+                this.direccion = objectJSON.direccion;
+                this.departamento = objectJSON.departamento;
+            } else {
+                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
+                    this.barrio = doc.data().barrio;
+                    this.ciudad = doc.data().ciudad;
+                    this.direccion = doc.data().direccion;
+                    this.departamento = doc.data().departamento;
+                })
+            }
         },
         methods: {
-            logout() {
-                firebase.auth().signOut()
-                    .then(() => this.$router.push("Bienvenida"))
-            },
             formulario: function () {
                 this.$router.push({name: 'app'})
             },
-            guardarPedido() {
+            guardarDataExtra() {
                 db.collection('usuarios').doc(this.user.uid).update({
                     barrio: this.barrio,
                     ciudad: this.ciudad,
                     direccion: this.direccion,
                     departamento: this.departamento
-                }).then(function (doc) {
-                    console.log(doc)
+                }).then((doc) => {
+                    this.guardarDatosExtras();
+                    console.log(doc);
                 });
                 this.alertGuardar = true;
-
+            },
+            guardarDatosExtras() {
+                let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
+                    '"ciudad":"' + this.ciudad + '" , ' +
+                    '"direccion":"' + this.direccion + '", ' +
+                    '"departamento": "' + this.departamento + '"}';
+                const parse = JSON.stringify(objectJSON);
+                localStorage.setItem('userExtraData', parse);
             }
         }
     }
