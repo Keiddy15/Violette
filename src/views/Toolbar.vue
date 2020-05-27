@@ -106,6 +106,7 @@
             },
             logout(){
                 localStorage.removeItem('user');
+                localStorage.removeItem('userExtraData');
                 firebase.auth().signOut()
                     .then(n => {this.$router.push({name: 'Bienvenida'}); this.$router.go()});
             }

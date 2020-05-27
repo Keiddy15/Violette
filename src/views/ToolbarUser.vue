@@ -11,8 +11,6 @@
             <v-spacer></v-spacer>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
             <div class="conjuntoBotones">
-                <v-btn text x-large class="white--text">Bienvenido: {{user.nombre}} {{user.apellido}}</v-btn>
-                |
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
                 </v-btn>
@@ -40,7 +38,7 @@
                            width="70" height="70" aspect-ratio="6"
                            contain></v-img>
                 </v-container>
-                <span class="tituloBienvenida">Menú</span>
+                <span class="tituloBienvenida" style="margin-left: 10px">Menú</span>
             </v-container>
             <v-list
                     nav
@@ -49,7 +47,7 @@
                         active-class="deep-purple--text text--accent-4"
                 >
                     <v-list-item>
-                        <v-list-item-title class="white--text ma-1">Bienvenido {{nombre}} {{apellido}}
+                        <v-list-item-title class="white--text ma-1">Bienvenido {{user.nombre}} {{user.apellido}}
                         </v-list-item-title>
                     </v-list-item>
                     <v-divider class="white ma-1"></v-divider>
@@ -105,6 +103,7 @@
             },
             logout: function () {
                 localStorage.removeItem('user');
+                localStorage.removeItem('userExtraData');
                 firebase.auth().signOut()
                     .then(() => this.$router.push({name: 'Bienvenida'}));
             }

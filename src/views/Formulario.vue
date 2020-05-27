@@ -21,7 +21,7 @@
                         <v-row class="rowForm">
                             <v-text-field
                                     label='Nombres:'
-                                    v-model='Nombres'
+                                    v-model='user.nombre'
                                     :rules="namesRules"
                                     required
                                     outlined
@@ -31,7 +31,7 @@
                             </v-text-field>
                             <v-text-field
                                     label='Apellidos:'
-                                    v-model='Apellidos'
+                                    v-model='user.apellido'
                                     :rules="apellidosRules"
                                     required
                                     outlined
@@ -46,7 +46,7 @@
                         <v-row class="rowForm">
                             <v-text-field
                                     label="Cédula:"
-                                    v-model='Cedula'
+                                    v-model='user.cedula'
                                     type="number"
                                     :rules="cedulaRules"
                                     required
@@ -56,7 +56,7 @@
                             ></v-text-field>
                             <v-text-field
                                     label="Ciudad:"
-                                    v-model='Ciudad'
+                                    v-model='ciudad'
                                     required
                                     outlined
                                     :rules="ciudadRules"
@@ -70,7 +70,7 @@
                         <v-row class="rowForm">
                             <v-text-field
                                     label="Departamento:"
-                                    v-model='Departamento'
+                                    v-model='departamento'
                                     required
                                     :rules="depRules"
                                     outlined
@@ -79,7 +79,7 @@
                             ></v-text-field>
                             <v-text-field
                                     label="Barrio:"
-                                    v-model='Barrio'
+                                    v-model='barrio'
                                     required
                                     outlined
                                     class="fields"
@@ -93,7 +93,7 @@
                         <v-row class="rowForm">
                             <v-text-field
                                     label="Dirección:"
-                                    v-model='Direccion'
+                                    v-model='direccion'
                                     required
                                     outlined
                                     :rules="direccionRules"
@@ -102,7 +102,7 @@
                             ></v-text-field>
                             <v-text-field
                                     label="Celular:"
-                                    v-model='Numero'
+                                    v-model='user.telefono'
                                     class="fields"
                                     required
                                     outlined
@@ -137,14 +137,11 @@
                 ErrorEnviando: false,
                 valido: false,
                 loadingEnviar: false,
-                Nombres: "",
-                Apellidos: "",
-                Cedula: "",
-                Ciudad: "",
-                Departamento: "",
-                Barrio: "",
-                Direccion: "",
-                Numero: "",
+                user: [],
+                ciudad: "",
+                departamento: "",
+                barrio: "",
+                direccion: "",
                 ErrorValidacion: false,
                 namesRules: [
                     v => !!v || 'Los Nombres son requeridos.'
@@ -174,7 +171,25 @@
             }
 
         },
-        computed: {},
+        mounted() {
+            if (localStorage.getItem('user')) {
+                this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
+            }
+            if (localStorage.getItem('userExtraData')) {
+                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
+                this.barrio = objectJSON.barrio;
+                this.ciudad = objectJSON.ciudad;
+                this.direccion = objectJSON.direccion;
+                this.departamento = objectJSON.departamento;
+            } else {
+                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
+                    this.barrio = doc.data().barrio;
+                    this.ciudad = doc.data().ciudad;
+                    this.direccion = doc.data().direccion;
+                    this.departamento = doc.data().departamento;
+                })
+            }
+        },
         methods: {
             buscarUsuario: function () {
                 let usuarios = db.collection('usuarios').doc(this.Cedula);

@@ -77,7 +77,7 @@
                                 this.loadingBtn = true;
                                 setTimeout(() => {
                                     this.$router.push({name: 'Usuario'});
-                                }, 3000);
+                                }, 2000);
                             }
                         })
                         .catch(function (error) {
@@ -106,7 +106,6 @@
                     const parse = JSON.stringify(objectJSON);
                     localStorage.setItem('user', parse);
                 });
-
             }
         }
     }
