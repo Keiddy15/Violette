@@ -25,7 +25,7 @@
                     >
                     </v-text-field>
                     <v-card-actions class="justify-center">
-                        <v-btn type="submit" color="purple white--text" block large>
+                        <v-btn type="submit" color="purple white--text" block :loading="loadingBtn" large>
                             Ingresar
                         </v-btn>
                     </v-card-actions>
@@ -53,6 +53,7 @@
                 email: "",
                 alertVerified: false,
                 password: "",
+                loadingBtn: false,
                 show1: false,
                 user: [],
                 contrasenaRules: [
@@ -73,7 +74,10 @@
                                 firebase.auth().signOut();
                             } else {
                                 this.guardar(user);
-                                this.$router.push({name: 'Usuario'});
+                                this.loadingBtn = true;
+                                setTimeout(() => {
+                                    this.$router.push({name: 'Usuario'});
+                                }, 3000);
                             }
                         })
                         .catch(function (error) {
