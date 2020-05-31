@@ -44,27 +44,25 @@ const routes = [
         }
     },
     {
-        path: '/Registro',
+        path: '/registro',
         name: 'Registro',
         components: {main: Registro},
     },
     {
-        path: '/Registrado',
+        path: '/registrado',
         name: 'Registrado',
         components: {main: Registrado},
     },
     {
-        path: '/Usuario',
+        path: '/usuario',
         name: 'Usuario',
         components: {main: Usuario},
     },
     {
-        path: '/Admin',
+        path: '/admin',
         name: 'Admin',
         components: {main: Admin},
     },
-
-
 ];
 
 const router = new VueRouter({

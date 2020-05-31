@@ -61,7 +61,7 @@
 
 <script>
     import firebase from "../firebase/libFirebase"
-    import Toolbar from "./Toolbar";
+    import Toolbar from "./ToolbarUser";
 
     let db = firebase.firestore();
 

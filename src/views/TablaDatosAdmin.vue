@@ -7,6 +7,7 @@
             <template v-slot:item.enviado="{ item }">
                 <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
             </template>
+
             <template v-slot:item.entregado="{ item }">
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
             </template>
