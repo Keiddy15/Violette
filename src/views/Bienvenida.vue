@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import Toolbar from './Toolbar'
+    import Toolbar from './ToolbarUser'
 
     export default {
         name: "Bienvenida",
