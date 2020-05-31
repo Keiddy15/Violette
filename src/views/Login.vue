@@ -7,9 +7,15 @@
                 <v-alert type="error" v-model="alertVerified" dismissible>No ha activado su cuenta, por favor, revise su
                     correo electronico.
                 </v-alert>
-                <v-alert type="error" v-model="alertNoData" dismissible>Por favor, rellene los campos correspondientes.</v-alert>
-                <v-alert type="error" v-model="alertUserPassIncorrect" dismissible>Contraseña incorrecta, por favor, revise de nuevo.</v-alert>
-                <v-alert type="warning" v-model="alertNotUser" dismissible>El usuario ingresado, no se encuentra en nuestros registros.</v-alert>
+                <v-alert type="error" v-model="alertNoData" dismissible>Por favor, rellene los campos
+                    correspondientes.
+                </v-alert>
+                <v-alert type="error" v-model="alertUserPassIncorrect" dismissible>Contraseña incorrecta, por favor,
+                    revise de nuevo.
+                </v-alert>
+                <v-alert type="warning" v-model="alertNotUser" dismissible>El usuario ingresado, no se encuentra en
+                    nuestros registros.
+                </v-alert>
                 <v-form class="px-3" @submit.prevent="ingreso">
                     <v-text-field
                             label="Email:"
@@ -76,21 +82,18 @@
                     this.alertNoData = false;
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
-                            console.log(user)
+                            console.log(user);
                             if (!user.user.emailVerified) {
                                 this.alertVerified = true;
                                 firebase.auth().signOut();
                             } else {
                                 this.guardar(user);
                                 this.loadingBtn = true;
-                                setTimeout(() => {
-                                    this.$router.push({name: 'Usuario'});
-                                }, 2000);
                             }
                         })
                         .catch((error) => {
                             switch (error.code) {
-                                case 'auth/wrong-password':{
+                                case 'auth/wrong-password': {
                                     this.alertUserPassIncorrect = true;
                                     break;
                                 }
@@ -109,7 +112,7 @@
                 this.$router.push({name: 'Registro'});
             },
             guardar(user) {
-                db.collection('usuarios').doc(user.user.uid).get().then(function (doc) {
+                db.collection('usuarios').doc(user.user.uid).get().then((doc) => {
                     let objectJSON = '{ "email": "' + user.user.email + '" ,' +
                         '"createdAt":"' + user.user.metadata.creationTime + '" , ' +
                         '"lastLogin":"' + user.user.metadata.lastSignInTime + '", ' +
@@ -117,9 +120,25 @@
                         '"nombre": "' + doc.data().nombre + '",' +
                         '"apellido": "' + doc.data().apellido + '",' +
                         '"cedula": "' + doc.data().cedula + '",' +
-                        '"telefono": "' + doc.data().telefono + '"}';
+                        '"telefono": "' + doc.data().telefono + '",' +
+                        '"admin": "' + doc.data().admin + '"}';
                     const parse = JSON.stringify(objectJSON);
                     localStorage.setItem('user', parse);
+                    switch (doc.data().admin) {
+                        case true: {
+                            setTimeout(() => {
+                                this.$router.push({name: 'Admin'});
+                            }, 2000);
+                            break;
+                        }
+                        case false: {
+                            setTimeout(() => {
+                                this.$router.push({name: 'Usuario'});
+                            }, 2000);
+                            break;
+                        }
+                    }
+
                 });
             }
         }
