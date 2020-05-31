@@ -14,6 +14,9 @@
                     Rellenar Formulario
                 </v-tab>
                 <v-tab>
+                    Tus pedidos
+                </v-tab>
+                <v-tab>
                     Cuenta
                 </v-tab>
                 <v-tab-item>
@@ -51,6 +54,30 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de tus pedidos</h1>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
+                            <v-data-table :loading="loadingData" :items="data" :headers="headers">
+                                <template v-slot:item.enviado="{ item }">
+                                    <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
+                                </template>
+                                <template v-slot:item.entregado="{ item }">
+                                    <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
+                                </template>
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-tab-item>
+                <v-tab-item>
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1 style="letter-spacing: 2px; line-height: 40px">Tu cuenta</h1>
+                        </v-card-text>
+                        <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
                             <strong> Tu identificación: </strong> {{user.uid}}
                         </v-card-text>
@@ -106,8 +133,7 @@
                                          v-model="alertGuardar"
                                          dismissible
                                 >
-                                    ¡Tus datos han sido actualizados correctamente, inicia sesión de nuevo para que los
-                                    cambios surtan efecto.
+                                    ¡Tus datos han sido actualizados correctamente!.
 
                                 </v-alert>
                                 <v-row style="margin: 0 10px">
@@ -176,10 +202,19 @@
                 departamento: '',
                 alertGuardar: false,
                 snackbar: true,
-                dialog: false
+                dialog: false,
+                loadingData: true,
+                headers: [{text: 'Fecha de Compra', value: 'fechaCompra'}, {
+                    text: 'Fecha de estimada de Entrega: ',
+                    value: 'fechaEntrega'
+                }, {text: 'Enviado', value: 'enviado'}, {
+                    text: '¿Entregado?',
+                    value: 'entregado'
+                }],
+                data: []
             }
         },
-        mounted() {
+        created() {
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
@@ -198,7 +233,17 @@
                 })
             }
         },
+        mounted() {
+            this.loadDataTable();
+        },
         methods: {
+            formatDate: function (date) {
+                let dayName = date.toLocaleString('es-MX', {weekday: 'long'});
+                let day = date.getDate();
+                let month = date.toLocaleString('es-MX', {month: 'long'});
+                let year = date.getFullYear();
+                return `${dayName[0].toUpperCase() + dayName.slice(1)}, ${day} de ${month} de ${year}`;
+            },
             formulario: function () {
                 this.$router.push({name: 'app'})
             },
@@ -221,6 +266,23 @@
                     '"departamento": "' + this.departamento + '"}';
                 const parse = JSON.stringify(objectJSON);
                 localStorage.setItem('userExtraData', parse);
+            },
+            loadDataTable() {
+                this.loadingData = !this.loadingData;
+                this.data = [];
+                db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (this.user.uid === doc.data().idUser) {
+                            let data = doc.data();
+                            if (data.fechaEntrega != null) {
+                                data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
+                            }
+                            data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
+                            this.data.push(data);
+                            this.loadingData = false;
+                        }
+                    });
+                });
             }
         }
     }

@@ -202,24 +202,19 @@
             submit: function () {
                 this.ErrorEnviando = false;
                 this.ErrorValidacion = false;
-                let usuarios = db.collection('usuarios');
+                let pedidos = db.collection('pedidos');
                 let validar = (this.Nombres !== '' && this.Cedula !== '' &&
                     this.Ciudad !== '' && this.Barrio !== '' &&
                     this.Departamento !== '' &&
                     this.Direccion !== '' && this.Numero !== '' && this.Apellidos !== '');
-                console.log(validar);
                 if (validar) {
                     this.loadingEnviar = true;
-                    usuarios.add({
-                        Nombres: this.Nombres,
-                        Apellidos: this.Apellidos,
-                        Ciudad: this.Ciudad,
-                        Barrio: this.Barrio,
-                        Departamento: this.Departamento,
-                        Direccion: this.Direccion,
-                        Numero: this.Numero,
-                        Cedula: this.Cedula,
-                        TimeStamp: new Date()
+                    pedidos.add({
+                        idUser: this.user.uid,
+                        entregado: false,
+                        enviado: false,
+                        fechaCompra: new Date(),
+                        fechaEntrega: null
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});

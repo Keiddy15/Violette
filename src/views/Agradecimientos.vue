@@ -33,7 +33,7 @@
         },
         methods: {
             submit: function () {
-                this.$router.push({name: 'Bienvenida'});
+                this.$router.push({name: 'Usuario'});
             }
         }
     }
