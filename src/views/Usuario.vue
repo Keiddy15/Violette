@@ -59,12 +59,16 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text>
-                            <v-data-table :items="data" :headers="headers">
-                                <template v-slot:item.entrgado="{ item }">
-                                    <v-simple-checkbox v-model="item.entregado" disabled></v-simple-checkbox>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
+                            <v-data-table :loading="loadingData" :items="data" :headers="headers">
+                                <template v-slot:item.enviado="{ item }">
+                                    <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
+                                </template>
+                                <template v-slot:item.entregado="{ item }">
+                                    <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
                                 </template>
                             </v-data-table>
-
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
@@ -199,13 +203,18 @@
                 alertGuardar: false,
                 snackbar: true,
                 dialog: false,
-                headers: [{
-                    text: '#', value: 'number'
-                }, {text: 'Fecha de Entrega: ', value: 'text'}, {text: '¿Entregado?', }],
-                data: [{no: '1'}]
+                loadingData: true,
+                headers: [{text: 'Fecha de Compra', value: 'fechaCompra'}, {
+                    text: 'Fecha de estimada de Entrega: ',
+                    value: 'fechaEntrega'
+                }, {text: 'Enviado', value: 'enviado'}, {
+                    text: '¿Entregado?',
+                    value: 'entregado'
+                }],
+                data: []
             }
         },
-        mounted() {
+        created() {
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
@@ -224,7 +233,17 @@
                 })
             }
         },
+        mounted() {
+            this.loadDataTable();
+        },
         methods: {
+            formatDate: function (date) {
+                let dayName = date.toLocaleString('es-MX', {weekday: 'long'});
+                let day = date.getDate();
+                let month = date.toLocaleString('es-MX', {month: 'long'});
+                let year = date.getFullYear();
+                return `${dayName[0].toUpperCase() + dayName.slice(1)}, ${day} de ${month} de ${year}`;
+            },
             formulario: function () {
                 this.$router.push({name: 'app'})
             },
@@ -247,6 +266,23 @@
                     '"departamento": "' + this.departamento + '"}';
                 const parse = JSON.stringify(objectJSON);
                 localStorage.setItem('userExtraData', parse);
+            },
+            loadDataTable() {
+                this.loadingData = !this.loadingData;
+                this.data = [];
+                db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (this.user.uid === doc.data().idUser) {
+                            let data = doc.data();
+                            if (data.fechaEntrega != null) {
+                                data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
+                            }
+                            data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
+                            this.data.push(data);
+                            this.loadingData = false;
+                        }
+                    });
+                });
             }
         }
     }

@@ -209,10 +209,12 @@
                     this.Direccion !== '' && this.Numero !== '' && this.Apellidos !== '');
                 if (validar) {
                     this.loadingEnviar = true;
-                    pedidos.doc(this.user.uid).set({
-                        idProducto: '',
+                    pedidos.add({
+                        idUser: this.user.uid,
                         entregado: false,
-                        fechaPedido: new Date()
+                        enviado: false,
+                        fechaCompra: new Date(),
+                        fechaEntrega: null
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});
