@@ -31,7 +31,7 @@
                 user: [],
                 loadingText: 'Obteniendo datos, por favor espere...',
                 loadingData: true,
-                noData: 'No has realizado ningun pedido, ¿Que esperas para ser parte del #TeamViolette?',
+                noData: 'No has realizado ningún pedido, ¿Que esperas para ser parte del team #Violette?',
                 headers: [{text: 'Fecha de Pedido', value: 'fechaCompra'}, {
                     text: 'Fecha de Entrega: ',
                     value: 'fechaEntrega'
