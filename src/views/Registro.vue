@@ -107,7 +107,8 @@
                                 apellido: this.apellido,
                                 cedula: this.cedula,
                                 telefono: this.telefono,
-                                email: this.email
+                                email: this.email,
+                                admin: false
                             }).then(() => {
                                 user.user.sendEmailVerification(null);
                                 this.$router.push({name: 'Registrado'});
