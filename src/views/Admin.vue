@@ -14,48 +14,21 @@
                     Rellenar Formulario
                 </v-tab>
                 <v-tab>
-                    Tus pedidos
+                    Historial de pedidos
                 </v-tab>
                 <v-tab>
                     Cuenta
                 </v-tab>
                 <v-tab-item>
-                    <v-card elevation="15" color="#FFF" raised class="cardForm">
-                        <v-card-text class="textoUsuario">
-                            <h1 style="line-height: 30px;"> Bienvenido, {{user.nombre}} {{user.apellido}}</h1>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-text class="textoUsuario">
-                            <strong> VIOLETTE SPORT SWEAR 💜🏋🏻‍♀ </strong>
-                        </v-card-text>
-                        <v-card-text class="textoUsuario">
-                            Somos una marca inspirada en ropa deportiva de excelente calidad.
-                        </v-card-text>
-                        <v-card-text class="textoUsuario">
-                            Nuestro objetivo es que te sientas cómoda y segura a la hora de entrenar.
-                        </v-card-text>
-                        <v-card-text class="textoUsuario">Queremos que seas parte de nuestro #TeamVIOLETTE💜
-                        </v-card-text>
-                    </v-card>
+
+                </v-tab-item>
+                <v-tab-item>
+
                 </v-tab-item>
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
-                            <h1 style="letter-spacing: 2px; line-height: 40px">¡Realiza tu pedido aquí!</h1>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-text class="textoUsuario">
-                            <span>Por favor, diligencie el siguiente <strong>formulario</strong>, para completar su compra.</span>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-btn class="purple  white--text" block large @click="formulario">Enviar formulario</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-tab-item>
-                <v-tab-item>
-                    <v-card elevation="15" color="#FFF" raised class="cardForm">
-                        <v-card-text class="textoUsuario">
-                            <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de tus pedidos</h1>
+                            <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de los pedidos</h1>
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text>
@@ -182,7 +155,7 @@
 
     let db = firebase.firestore();
     export default {
-        name: "Usuario",
+        name: "Admin",
         components: {
             ToolbarUser, TablaDatosUsuarios
         },

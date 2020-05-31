@@ -7,7 +7,7 @@ import Login from "../views/Login"
 import VueRouter from 'vue-router'
 import Registro from "../views/Registro";
 import Registrado from "../views/Registrado";
-import firebase from '../firebase/libFirebase';
+import Admin from "../views/Admin";
 
 Vue.use(VueRouter);
 
@@ -57,6 +57,11 @@ const routes = [
         path: '/Usuario',
         name: 'Usuario',
         components: {main: Usuario},
+    },
+    {
+        path: '/Admin',
+        name: 'Admin',
+        components: {main: Admin},
     },
 
 
