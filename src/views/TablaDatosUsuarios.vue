@@ -1,7 +1,8 @@
 <template>
     <div id="app">
         <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
-        <v-data-table :loading="loadingData" :items="data" :headers="headers">
+        <v-data-table :no-data-text="noData" mobile-breakpoint="320" :loading-text="loadingText" :loading="loadingData"
+                      :items="data" :headers="headers">
             <template v-slot:item.enviado="{ item }">
                 <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
             </template>
@@ -21,9 +22,11 @@
         data() {
             return {
                 user: [],
+                loadingText: 'Obteniendo datos, por favor espere...',
                 loadingData: true,
-                headers: [{text: 'Fecha de Compra', value: 'fechaCompra'}, {
-                    text: 'Fecha de estimada de Entrega: ',
+                noData: 'No has realizado ningun pedido, ¿Que esperas para ser parte del team #Violette?',
+                headers: [{text: 'Fecha de Pedido', value: 'fechaCompra'}, {
+                    text: 'Fecha de Entrega: ',
                     value: 'fechaEntrega'
                 }, {text: 'Enviado', value: 'enviado'}, {
                     text: '¿Entregado?',
@@ -66,18 +69,23 @@
                 this.loadingData = !this.loadingData;
                 this.data = [];
                 db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (this.user.uid === doc.data().idUser) {
-                            let data = doc.data();
-                            if (data.fechaEntrega != null) {
-                                data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
+                    if (querySnapshot.empty) {
+                        this.loadingData = false
+                    } else {
+                        querySnapshot.forEach((doc) => {
+                            if (this.user.uid === doc.data().idUser) {
+                                let data = doc.data();
+                                if (data.fechaEntrega != null) {
+                                    data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
+                                }
+                                data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
+                                this.data.push(data);
+                                this.loadingData = false;
                             }
-                            data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
-                            this.data.push(data);
-                            this.loadingData = false;
-                        }
-                    });
-                });
+                        });
+                    }
+
+                })
             }
         }
     }
