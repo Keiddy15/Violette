@@ -18,7 +18,7 @@
 
     let db = firebase.firestore();
     export default {
-        name: "TablaDatosUsuarios",
+        name: "TablaDatosAdmin",
         data() {
             return {
                 user: [],
