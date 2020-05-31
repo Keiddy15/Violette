@@ -198,7 +198,7 @@
                 dialog: false
             }
         },
-        created() {
+        mounted() {
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }

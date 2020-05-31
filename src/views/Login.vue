@@ -2,11 +2,14 @@
     <v-app class="principal">
         <Toolbar/>
         <v-card class="cardForm2" elevation="10">
-            <v-alert type="error" v-model="alertVerified" dismissible>No ha activado su cuenta, por favor, revise su
-                correo electronico.
-            </v-alert>
-            <v-card-title>Ingreso al Sistema</v-card-title>
+            <v-card-title>¡Ingresa ya a #Violette!</v-card-title>
             <v-card-text>
+                <v-alert type="error" v-model="alertVerified" dismissible>No ha activado su cuenta, por favor, revise su
+                    correo electronico.
+                </v-alert>
+                <v-alert type="error" v-model="alertNoData" dismissible>Por favor, rellene los campos correspondientes.</v-alert>
+                <v-alert type="error" v-model="alertUserPassIncorrect" dismissible>Contraseña incorrecta, por favor, revise de nuevo.</v-alert>
+                <v-alert type="warning" v-model="alertNotUser" dismissible>El usuario ingresado, no se encuentra en nuestros registros.</v-alert>
                 <v-form class="px-3" @submit.prevent="ingreso">
                     <v-text-field
                             label="Email:"
@@ -51,8 +54,11 @@
         data() {
             return {
                 email: "",
+                alertNoData: false,
                 alertVerified: false,
+                alertNotUser: false,
                 password: "",
+                alertUserPassIncorrect: false,
                 loadingBtn: false,
                 show1: false,
                 user: [],
@@ -67,8 +73,10 @@
         methods: {
             ingreso() {
                 if (this.email && this.password) {
+                    this.alertNoData = false;
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
+                            console.log(user)
                             if (!user.user.emailVerified) {
                                 this.alertVerified = true;
                                 firebase.auth().signOut();
@@ -80,14 +88,21 @@
                                 }, 2000);
                             }
                         })
-                        .catch(function (error) {
-                            let errorCode = error.code;
-                            let errorMessage = error.message;
-                            console.log(errorCode);
-                            console.log(errorMessage);
+                        .catch((error) => {
+                            switch (error.code) {
+                                case 'auth/wrong-password':{
+                                    this.alertUserPassIncorrect = true;
+                                    break;
+                                }
+                                case 'auth/user-not-found': {
+                                    this.alertNotUser = true;
+                                    break;
+                                }
+                            }
                         })
                 } else {
-                    console.log("mmd")
+                    this.alertNoData = true;
+
                 }
             },
             registrar() {
