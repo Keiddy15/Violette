@@ -11,7 +11,7 @@
                     Inicio
                 </v-tab>
                 <v-tab>
-                    Rellenar Formulario
+                    Gestión de usuarios
                 </v-tab>
                 <v-tab>
                     Historial de pedidos
@@ -33,7 +33,7 @@
                         <v-divider></v-divider>
                         <v-card-text>
                             <v-spacer></v-spacer>
-                            <TablaDatosUsuarios/>
+                            <TablaDatosAdmin/>
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
@@ -151,13 +151,13 @@
 <script>
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
-    import TablaDatosUsuarios from "./TablaDatosUsuarios";
+    import TablaDatosAdmin from "./TablaDatosAdmin";
 
     let db = firebase.firestore();
     export default {
         name: "Admin",
         components: {
-            ToolbarUser, TablaDatosUsuarios
+            ToolbarUser, TablaDatosAdmin
         },
         data() {
             return {
