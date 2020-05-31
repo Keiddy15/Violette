@@ -14,6 +14,9 @@
                     Rellenar Formulario
                 </v-tab>
                 <v-tab>
+                    Tus pedidos
+                </v-tab>
+                <v-tab>
                     Cuenta
                 </v-tab>
                 <v-tab-item>
@@ -51,6 +54,26 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de tus pedidos</h1>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-data-table :items="data" :headers="headers">
+                                <template v-slot:item.entrgado="{ item }">
+                                    <v-simple-checkbox v-model="item.entregado" disabled></v-simple-checkbox>
+                                </template>
+                            </v-data-table>
+
+                        </v-card-text>
+                    </v-card>
+                </v-tab-item>
+                <v-tab-item>
+                    <v-card elevation="15" color="#FFF" raised class="cardForm">
+                        <v-card-text class="textoUsuario">
+                            <h1 style="letter-spacing: 2px; line-height: 40px">Tu cuenta</h1>
+                        </v-card-text>
+                        <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
                             <strong> Tu identificación: </strong> {{user.uid}}
                         </v-card-text>
@@ -106,8 +129,7 @@
                                          v-model="alertGuardar"
                                          dismissible
                                 >
-                                    ¡Tus datos han sido actualizados correctamente, inicia sesión de nuevo para que los
-                                    cambios surtan efecto.
+                                    ¡Tus datos han sido actualizados correctamente!.
 
                                 </v-alert>
                                 <v-row style="margin: 0 10px">
@@ -176,7 +198,11 @@
                 departamento: '',
                 alertGuardar: false,
                 snackbar: true,
-                dialog: false
+                dialog: false,
+                headers: [{
+                    text: '#', value: 'number'
+                }, {text: 'Fecha de Entrega: ', value: 'text'}, {text: '¿Entregado?', }],
+                data: [{no: '1'}]
             }
         },
         mounted() {
