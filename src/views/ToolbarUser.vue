@@ -32,7 +32,10 @@
                 </v-btn>
                 |
                 <v-btn text x-large class="white--text" @click="cuenta">
-                    Tu cuenta
+                    <v-spacer></v-spacer>
+                    <v-avatar color="primary">
+                        <span class="white--text headline">{{user.nombre.charAt(0)}}{{user.apellido.charAt(0)}}</span>
+                    </v-avatar>
                 </v-btn>
                 |
                 <v-btn text x-large class="white--text" @click="logout">

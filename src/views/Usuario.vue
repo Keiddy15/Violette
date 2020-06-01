@@ -8,47 +8,46 @@
                     dark
                     icons-and-text
                     centered
+                    show-arrows
             >
-                <v-tab>
+                <v-tab :key="1">
                     Inicio
                     <v-icon>mdi-home</v-icon>
                 </v-tab>
-                <v-tab>
+                <v-tab :key="2">
                     Rellenar Formulario
                     <v-icon>mdi-file-document-edit-outline</v-icon>
                 </v-tab>
-                <v-tab>
+                <v-tab :key="3">
                     Tus pedidos
                     <v-icon>mdi-format-list-numbered</v-icon>
                 </v-tab>
-                <v-tab>
+                <v-tab :key="4">
                     Cuenta
                     <v-icon>mdi-account</v-icon>
                 </v-tab>
                 <v-tabs-slider></v-tabs-slider>
-                <v-tab-item>
+                <v-tab-item :key="1">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
-                            <v-banner two-line>
-                                <v-avatar
-                                        slot="icon"
+                        <v-banner two-line>
+                            <v-avatar
+                                    slot="icon"
+                                    color="primary"
+                                    size="40">
+                                <v-icon color="white">
+                                    mdi-cart
+                                </v-icon>
+                            </v-avatar>
+                            Tienes 1 un pedido pendiente de <strong>envio.</strong> Para saber más, ve a "Tus
+                            pedidos"
+                            <template v-slot:actions>
+                                <v-btn
+                                        @click=""
                                         color="primary"
-                                        size="40"
-                                >
-                                    <v-icon
-                                            icon="shopping-outline"
-                                            color="white"
-                                    >
-                                        mdi-lock
-                                    </v-icon>
-                                </v-avatar>
-                                Tienes 1 un pedido pendiente de <strong>envio.</strong> Para saber más, ve a "Tus pedidos"
-                                <template v-slot:actions>
-                                    <v-btn
-                                            text
-                                            color="deep-purple accent-4"
-                                    >Ir a tus pedidos</v-btn>
-                                </template>
-                            </v-banner>
+                                >Ir a tus pedidos
+                                </v-btn>
+                            </template>
+                        </v-banner>
                         <v-card-text class="textoUsuario">
                             <h1 style="line-height: 30px;"> Bienvenido, {{user.nombre}} {{user.apellido}}</h1>
                         </v-card-text>
@@ -66,7 +65,7 @@
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item>
+                <v-tab-item :key="2">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
                             <h1 style="letter-spacing: 2px; line-height: 40px">¡Realiza tu pedido aquí!</h1>
@@ -76,14 +75,16 @@
                             <span>Por favor, diligencie el siguiente <strong>formulario</strong>, para completar su compra.</span>
                         </v-card-text>
                         <v-card-actions>
-                            <v-btn class="purple  white--text" block large @click="formulario">Enviar formulario</v-btn>
+                            <v-btn class="purple  white--text" block large @click="formulario">Enviar formulario
+                            </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item>
+                <v-tab-item :key="3">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
-                            <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de tus pedidos</h1>
+                            <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de tus
+                                pedidos</h1>
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text>
@@ -92,7 +93,7 @@
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item>
+                <v-tab-item :key="4">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
                             <h1 style="letter-spacing: 2px; line-height: 40px">Tu cuenta</h1>
