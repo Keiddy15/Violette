@@ -10,24 +10,24 @@
                     centered
                     show-arrows
             >
-                <v-tab :key="1">
+                <v-tab :href="`#tab-${1}`">
                     Inicio
                     <v-icon>mdi-home</v-icon>
                 </v-tab>
-                <v-tab :key="2">
+                <v-tab :href="`#tab-${2}`">
                     Rellenar Formulario
                     <v-icon>mdi-file-document-edit-outline</v-icon>
                 </v-tab>
-                <v-tab :key="3">
+                <v-tab :href="`#tab-${3}`">
                     Tus pedidos
                     <v-icon>mdi-format-list-numbered</v-icon>
                 </v-tab>
-                <v-tab :key="4">
+                <v-tab :href="`#tab-${4}`">
                     Cuenta
                     <v-icon>mdi-account</v-icon>
                 </v-tab>
                 <v-tabs-slider></v-tabs-slider>
-                <v-tab-item :key="1">
+                <v-tab-item :value="'tab-'+1">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-banner two-line>
                             <v-avatar
@@ -42,7 +42,7 @@
                             pedidos"
                             <template v-slot:actions>
                                 <v-btn
-                                        @click=""
+                                        :href="`#tab-${3}`"
                                         color="primary"
                                 >Ir a tus pedidos
                                 </v-btn>
@@ -65,7 +65,7 @@
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item :key="2">
+                <v-tab-item :value="'tab-'+2">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
                             <h1 style="letter-spacing: 2px; line-height: 40px">¡Realiza tu pedido aquí!</h1>
@@ -80,7 +80,7 @@
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item :key="3">
+                <v-tab-item :value="'tab-'+3">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
                             <h1 style="letter-spacing: 2px; line-height: 40px">Revisa el historial de tus
@@ -93,7 +93,7 @@
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item :key="4">
+                <v-tab-item :value="'tab-'+4">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
                         <v-card-text class="textoUsuario">
                             <h1 style="letter-spacing: 2px; line-height: 40px">Tu cuenta</h1>
