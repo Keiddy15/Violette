@@ -6,21 +6,49 @@
                     fixed-tabs
                     background-color="primary"
                     dark
+                    icons-and-text
+                    centered
             >
                 <v-tab>
                     Inicio
+                    <v-icon>mdi-home</v-icon>
                 </v-tab>
                 <v-tab>
                     Rellenar Formulario
+                    <v-icon>mdi-file-document-edit-outline</v-icon>
                 </v-tab>
                 <v-tab>
                     Tus pedidos
+                    <v-icon>mdi-format-list-numbered</v-icon>
                 </v-tab>
                 <v-tab>
                     Cuenta
+                    <v-icon>mdi-account</v-icon>
                 </v-tab>
+                <v-tabs-slider></v-tabs-slider>
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
+                            <v-banner two-line>
+                                <v-avatar
+                                        slot="icon"
+                                        color="primary"
+                                        size="40"
+                                >
+                                    <v-icon
+                                            icon="shopping-outline"
+                                            color="white"
+                                    >
+                                        mdi-lock
+                                    </v-icon>
+                                </v-avatar>
+                                Tienes 1 un pedido pendiente de <strong>envio.</strong> Para saber más, ve a "Tus pedidos"
+                                <template v-slot:actions>
+                                    <v-btn
+                                            text
+                                            color="deep-purple accent-4"
+                                    >Ir a tus pedidos</v-btn>
+                                </template>
+                            </v-banner>
                         <v-card-text class="textoUsuario">
                             <h1 style="line-height: 30px;"> Bienvenido, {{user.nombre}} {{user.apellido}}</h1>
                         </v-card-text>
