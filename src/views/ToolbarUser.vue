@@ -46,7 +46,9 @@
                                 </v-list-item-content>
 
                                 <v-list-item-action>
-                                    <v-icon @click="moveTab(3)">mdi-cart</v-icon>
+                                    <v-badge color="primary" style="right: 10px" :content="pedidos">
+                                        <v-icon @click="moveTab(3)">mdi-truck</v-icon>
+                                    </v-badge>
                                 </v-list-item-action>
                             </v-list-item>
                         </v-list>
@@ -64,9 +66,10 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-btn block class="alignMenuButtons" text @click="formulario">
-                                    <v-icon>
-                                        mdi-cart-plus
-                                    </v-icon>
+
+                                        <v-icon>
+                                            mdi-cart-plus
+                                        </v-icon>
                                     Realizar Pedido
                                 </v-btn>
                             </v-list-item>
@@ -127,7 +130,7 @@
             }
         },
         computed: {
-            ...Vuex.mapState(["tabs"])
+            ...Vuex.mapState(["tabs", "pedidos"])
         },
         methods: {
             ...Vuex.mapMutations(["moveTab"]),

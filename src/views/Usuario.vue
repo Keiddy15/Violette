@@ -30,7 +30,7 @@
                 <v-tabs-slider></v-tabs-slider>
                 <v-tab-item :value="'tab-'+1">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
-                        <v-banner two-line>
+                        <v-banner two-line v-if="showBanner">
                             <v-avatar
                                     slot="icon"
                                     color="primary"
@@ -39,8 +39,9 @@
                                     mdi-cart
                                 </v-icon>
                             </v-avatar>
-                            Tienes 1 un pedido pendiente de <strong>envio.</strong> Para saber más, ve a "Tus
-                            pedidos"
+                            Tienes {{cantidadPedidos}} pedido<i v-if="cantidadPedidos>1">s</i> pendiente<i
+                                v-if="cantidadPedidos>1">s</i> de <strong>entrega.</strong> Para saber más, ve
+                            a "Tus pedidos"
                             <template v-slot:actions>
                                 <v-btn
                                         color="primary"
@@ -210,6 +211,7 @@
     import ToolbarUser from "./ToolbarUser";
     import TablaDatosUsuarios from "./TablaDatosUsuarios";
     import Vuex from 'vuex'
+
     let db = firebase.firestore();
     export default {
         name: "Usuario",
@@ -225,7 +227,9 @@
                 departamento: '',
                 alertGuardar: false,
                 snackbar: true,
-                dialog: false
+                dialog: false,
+                showBanner: false,
+                cantidadPedidos: 0
             }
         },
         mounted() {
@@ -246,9 +250,11 @@
                     this.departamento = doc.data().departamento;
                 })
             }
+            this.cantidadCompras();
+            this.setCountPedidos();
         },
         computed: {
-            ...Vuex.mapState(["tab"])
+            ...Vuex.mapState(["tab", "pedidos"])
         },
         methods: {
             ...Vuex.mapMutations(["moveTab"]),
@@ -273,6 +279,17 @@
                     '"departamento": "' + this.departamento + '"}';
                 const parse = JSON.stringify(objectJSON);
                 localStorage.setItem('userExtraData', parse);
+            },
+            cantidadCompras() {
+                db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        this.showBanner = false;
+                    } else {
+                        this.cantidadPedidos = querySnapshot.size;
+                        this.$store.commit('setCountPedidos', this.cantidadPedidos);
+                        this.showBanner = true;
+                    }
+                })
             }
         }
     }
