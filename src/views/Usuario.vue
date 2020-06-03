@@ -263,7 +263,6 @@
                     departamento: this.departamento
                 }).then((doc) => {
                     this.guardarDatosExtras();
-                    console.log(doc);
                 });
                 this.alertGuardar = true;
             },

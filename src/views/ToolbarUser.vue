@@ -63,6 +63,14 @@
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
+                                <v-btn block class="alignMenuButtons" text @click="formulario">
+                                    <v-icon>
+                                        mdi-cart-plus
+                                    </v-icon>
+                                    Realizar Pedido
+                                </v-btn>
+                            </v-list-item>
+                            <v-list-item>
                                 <v-btn block class="alignMenuButtons" text @click="cuenta">
                                     <v-icon>
                                         mdi-account
@@ -139,6 +147,9 @@
                 } else {
                     this.$router.push({name: 'Usuario'});
                 }
+            },
+            formulario: function () {
+                this.$router.push({name: 'app'})
             },
             logout: function () {
                 localStorage.removeItem('user');
