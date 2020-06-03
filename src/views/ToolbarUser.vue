@@ -52,9 +52,7 @@
                                 </v-list-item-action>
                             </v-list-item>
                         </v-list>
-
                         <v-divider></v-divider>
-
                         <v-list>
                             <v-list-item>
                                 <v-btn class="alignMenuButtons" block text @click="inicio">
@@ -66,10 +64,9 @@
                             </v-list-item>
                             <v-list-item>
                                 <v-btn block class="alignMenuButtons" text @click="formulario">
-
-                                        <v-icon>
-                                            mdi-cart-plus
-                                        </v-icon>
+                                    <v-icon>
+                                        mdi-cart-plus
+                                    </v-icon>
                                     Realizar Pedido
                                 </v-btn>
                             </v-list-item>
