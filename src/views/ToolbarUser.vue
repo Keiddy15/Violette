@@ -31,9 +31,63 @@
                     Inicio
                 </v-btn>
                 |
-                <v-btn text x-large class="white--text" @click="cuenta">
-                    Tu cuenta
-                </v-btn>
+                <v-menu transition="slide-y-transition" :nudge-bottom="60">
+                    <template v-slot:activator="{ on }">
+                        <v-btn text x-large class="white--text" v-on="on">
+                            <v-spacer></v-spacer>
+                            <v-avatar color="primary">
+                                <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+
+                            </v-avatar>
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-list>
+                            <v-list-item>
+                                <v-list-item-avatar>
+                                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+                                </v-list-item-avatar>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>{{user.nombre}} {{user.apellido}}</v-list-item-title>
+                                    <v-list-item-subtitle>#Violette</v-list-item-subtitle>
+                                </v-list-item-content>
+
+                                <v-list-item-action>
+                                    <v-icon>mdi-cart</v-icon>
+                                </v-list-item-action>
+                            </v-list-item>
+                        </v-list>
+
+                        <v-divider></v-divider>
+
+                        <v-list>
+                            <v-list-item>
+
+                                <v-btn block text @click="cuenta">
+                                    <v-icon>
+                                        mdi-account
+                                    </v-icon>
+                                    Tu cuenta
+                                </v-btn>
+
+                            </v-list-item>
+
+                            <v-list-item>
+                                <v-list-item-action>
+                                </v-list-item-action>
+                                <v-list-item-title>Enable hints</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn text @click="menu = false">Cerrar</v-btn>
+                            <v-btn color="primary" @click="logout" text>Cerrar Sesión</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-menu>
                 |
                 <v-btn text x-large class="white--text" @click="logout">
                     Salir
