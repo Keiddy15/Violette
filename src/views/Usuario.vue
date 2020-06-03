@@ -9,6 +9,7 @@
                     icons-and-text
                     centered
                     show-arrows
+                    v-model="tabs"
             >
                 <v-tab :href="`#tab-${1}`">
                     Inicio
@@ -42,8 +43,8 @@
                             pedidos"
                             <template v-slot:actions>
                                 <v-btn
-                                        :href="`#tab-${3}`"
                                         color="primary"
+                                        @click="tabs = 'tab-3'"
                                 >Ir a tus pedidos
                                 </v-btn>
                             </template>
@@ -224,6 +225,7 @@
                 departamento: '',
                 alertGuardar: false,
                 snackbar: true,
+                tabs: 'tab-1',
                 dialog: false
             }
         },
