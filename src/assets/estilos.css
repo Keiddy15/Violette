@@ -84,23 +84,17 @@ body {
     height: 100vh !important;
 }
 
-@media screen and (max-width: 779px) {
-    .conjuntoBotones {
-        display: none;
-    }
-
-
-    .menuHamburger {
-        display: block !important;
-    }
-}
-
 .rowForm {
     padding-left: 5px;
     padding-right: 5px;
     display: flex;
     flex: 1 1 auto;
 
+}
+
+.alignMenuButtons{
+    display: flex;
+    justify-content: flex-start!important;
 }
 
 @media screen and (max-width: 425px) {

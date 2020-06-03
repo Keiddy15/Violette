@@ -9,21 +9,21 @@
                     icons-and-text
                     centered
                     show-arrows
-                    v-model="tabs"
+                    :value="tab"
             >
-                <v-tab :href="`#tab-${1}`">
+                <v-tab :href="`#tab-${1}`" @click="moveTab(1)">
                     Inicio
                     <v-icon>mdi-home</v-icon>
                 </v-tab>
-                <v-tab :href="`#tab-${2}`">
+                <v-tab :href="`#tab-${2}`" @click="moveTab(2)">
                     Rellenar Formulario
                     <v-icon>mdi-file-document-edit-outline</v-icon>
                 </v-tab>
-                <v-tab :href="`#tab-${3}`">
+                <v-tab :href="`#tab-${3}`" @click="moveTab(3)">
                     Tus pedidos
                     <v-icon>mdi-format-list-numbered</v-icon>
                 </v-tab>
-                <v-tab :href="`#tab-${4}`">
+                <v-tab :href="`#tab-${4}`" @click="moveTab(4)">
                     Cuenta
                     <v-icon>mdi-account</v-icon>
                 </v-tab>
@@ -44,7 +44,7 @@
                             <template v-slot:actions>
                                 <v-btn
                                         color="primary"
-                                        @click="tabs = 'tab-3'"
+                                        @click="moveTab(3)"
                                 >Ir a tus pedidos
                                 </v-btn>
                             </template>
@@ -209,7 +209,7 @@
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
     import TablaDatosUsuarios from "./TablaDatosUsuarios";
-
+    import Vuex from 'vuex'
     let db = firebase.firestore();
     export default {
         name: "Usuario",
@@ -225,7 +225,6 @@
                 departamento: '',
                 alertGuardar: false,
                 snackbar: true,
-                tabs: 'tab-1',
                 dialog: false
             }
         },
@@ -248,7 +247,11 @@
                 })
             }
         },
+        computed: {
+            ...Vuex.mapState(["tab"])
+        },
         methods: {
+            ...Vuex.mapMutations(["moveTab"]),
             formulario: function () {
                 this.$router.push({name: 'app'})
             },

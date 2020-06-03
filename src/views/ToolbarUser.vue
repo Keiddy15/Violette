@@ -11,7 +11,6 @@
             <v-toolbar-title class="tituloBienvenida" v-if="!user" style="letter-spacing: 2px">Violette - Sports Wear
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-app-bar-nav-icon @click="drawer = !drawer" class="white--text menuHamburger"></v-app-bar-nav-icon>
             <div class="conjuntoBotones" v-if="!user">
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
@@ -27,19 +26,12 @@
                 </v-btn>
             </div>
             <div class="conjuntoBotones" v-if="user">
-                <v-btn text x-large class="white--text" @click="inicio">
-                    Inicio
-                </v-btn>
-                |
-                <v-menu transition="slide-y-transition" :nudge-bottom="60">
+                <v-menu transition="slide-y-transition" :nudge-bottom="55">
                     <template v-slot:activator="{ on }">
-                        <v-btn text x-large class="white--text" v-on="on">
-                            <v-spacer></v-spacer>
-                            <v-avatar color="primary">
-                                <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
-
-                            </v-avatar>
-                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-avatar style="margin-right: 10px;" color="primary" v-on="on">
+                            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+                        </v-avatar>
                     </template>
                     <v-card>
                         <v-list>
@@ -54,7 +46,7 @@
                                 </v-list-item-content>
 
                                 <v-list-item-action>
-                                    <v-icon>mdi-cart</v-icon>
+                                    <v-icon @click="moveTab(3)">mdi-cart</v-icon>
                                 </v-list-item-action>
                             </v-list-item>
                         </v-list>
@@ -63,124 +55,48 @@
 
                         <v-list>
                             <v-list-item>
-
-                                <v-btn block text @click="cuenta">
+                                <v-btn class="alignMenuButtons" block text @click="inicio">
+                                    <v-icon>
+                                        mdi-home
+                                    </v-icon>
+                                    Páigna principal
+                                </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-btn block class="alignMenuButtons" text @click="cuenta">
                                     <v-icon>
                                         mdi-account
                                     </v-icon>
                                     Tu cuenta
                                 </v-btn>
-
                             </v-list-item>
-
                             <v-list-item>
-                                <v-list-item-action>
-                                </v-list-item-action>
-                                <v-list-item-title>Enable hints</v-list-item-title>
+                                <v-btn block class="alignMenuButtons" text>
+                                    <v-icon>
+                                        mdi-face-agent
+                                    </v-icon>
+                                    Soporte
+                                </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-btn block class="alignMenuButtons" text @click="logout">
+                                    <v-icon>
+                                        mdi-logout
+                                    </v-icon>
+                                    Salir
+                                </v-btn>
                             </v-list-item>
                         </v-list>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-
-                            <v-btn text @click="menu = false">Cerrar</v-btn>
-                            <v-btn color="primary" @click="logout" text>Cerrar Sesión</v-btn>
-                        </v-card-actions>
                     </v-card>
                 </v-menu>
-                |
-                <v-btn text x-large class="white--text" @click="logout">
-                    Salir
-                </v-btn>
             </div>
         </v-toolbar>
-        <v-navigation-drawer
-                v-model="drawer"
-                absolute
-                temporary
-                right
-                color="purple"
-                class="navigationDrawer"
-                v-if="!user"
-        >
-            <v-container>
-                <v-container class="ma-2 tituloLogo d-flex">
-                    <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
-                           width="70" height="70" aspect-ratio="6"
-                           contain></v-img>
-                </v-container>
-                <span class="tituloBienvenida">Menú</span>
-            </v-container>
-
-            <v-list
-                    nav
-            >
-                <v-list-item-group
-                        active-class="deep-purple--text text--accent-4"
-                >
-                    <v-list-item>
-                        <v-list-item-title class="white--text ma-1" @click="inicio">Inicio</v-list-item-title>
-                    </v-list-item>
-                    <v-divider class="white ma-1"></v-divider>
-                    <v-list-item>
-                        <v-list-item-title class="white--text" @click="login">{{iniciado}}</v-list-item-title>
-                    </v-list-item>
-                    <v-divider class="white ma-1"></v-divider>
-                    <v-list-item>
-                        <v-list-item-title class="white--text" @click="registrar">Registrate</v-list-item-title>
-                    </v-list-item>
-                    <v-divider class="white ma-1"></v-divider>
-                </v-list-item-group>
-            </v-list>
-        </v-navigation-drawer>
-        <v-navigation-drawer
-                v-model="drawer"
-                absolute
-                temporary
-                right
-                color="purple"
-                class="navigationDrawer"
-                v-if="user"
-        >
-            <v-container>
-                <v-container class="ma-2 tituloLogo d-flex">
-                    <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
-                           width="70" height="70" aspect-ratio="6"
-                           contain></v-img>
-                </v-container>
-                <span class="tituloBienvenida" style="margin-left: 10px">Menú</span>
-            </v-container>
-            <v-list
-                    nav
-            >
-                <v-list-item-group
-                        active-class="deep-purple--text text--accent-4"
-                >
-                    <v-list-item>
-                        <v-list-item-title class="white--text ma-1">Bienvenido {{user.nombre}} {{user.apellido}}
-                        </v-list-item-title>
-                    </v-list-item>
-                    <v-divider class="white ma-1"></v-divider>
-                    <v-list-item>
-                        <v-list-item-title class="white--text" @click="inicio"> Inicio</v-list-item-title>
-                    </v-list-item>
-                    <v-divider class="white ma-1"></v-divider>
-                    <v-list-item>
-                        <v-list-item-title class="white--text" @click="cuenta">Tu cuenta</v-list-item-title>
-                    </v-list-item>
-                    <v-divider class="white ma-1"></v-divider>
-                    <v-list-item>
-                        <v-list-item-title class="white--text" @click="logout">Salir</v-list-item-title>
-                    </v-list-item>
-
-                </v-list-item-group>
-            </v-list>
-        </v-navigation-drawer>
     </div>
 </template>
 
 <script>
     import firebase from '../firebase/libFirebase'
+    import Vuex from 'vuex'
 
     export default {
         name: "ToolbarUser",
@@ -202,7 +118,11 @@
                 this.logueado = true;
             }
         },
+        computed: {
+            ...Vuex.mapState(["tabs"])
+        },
         methods: {
+            ...Vuex.mapMutations(["moveTab"]),
             registrar: function () {
                 this.$router.push({name: 'Registro'})
             },
@@ -226,6 +146,7 @@
                 firebase.auth().signOut()
                     .then(() => {
                         this.$router.push({name: 'Bienvenida'});
+                        this.$router.go();
                     });
             }
 
