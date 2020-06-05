@@ -56,13 +56,25 @@
             return {
                 items: [
                     {
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy3.jpg?alt=media&token=2d75e94a-2913-4597-b9fe-e7cc97147c04'
+                    },
+                    {
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel3.jpg?alt=media&token=94a3e850-b4d9-4003-a59c-9ed079f6d4f4'
+                    },
+                    {
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy4.jpg?alt=media&token=dea5cd1c-7366-48d3-a9d0-edbedfb69e75'
+                    },
+                    {
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel4.jpg?alt=media&token=a85c8e7c-c205-4596-af02-bb5612aca77b'
+                    },
+                    {
                         src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy1.png?alt=media&token=dfb02841-0221-40e6-9223-ac7f586dbd4a',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy2.png?alt=media&token=fe565745-5514-4bd8-81c5-a80cd1f5167b',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel1.png?alt=media&token=1434f9c4-da81-4cfb-840b-f1c9abef61b0',
                     },
                     {
-                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel1.png?alt=media&token=1434f9c4-da81-4cfb-840b-f1c9abef61b0',
+                        src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FKeimmy2.png?alt=media&token=fe565745-5514-4bd8-81c5-a80cd1f5167b',
                     },
                     {
                         src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.png?alt=media&token=a9b9a133-e3af-4ca1-8f5a-7553eacf2cd3',
