@@ -47,7 +47,7 @@
 
                                 <v-list-item-action>
                                     <v-badge color="primary" style="right: 10px" :content="pedidos">
-                                        <v-icon @click="moveTab(3)">mdi-truck</v-icon>
+                                        <v-icon @click="moverA">mdi-truck</v-icon>
                                     </v-badge>
                                 </v-list-item-action>
                             </v-list-item>
@@ -159,6 +159,12 @@
                         this.$router.push({name: 'Bienvenida'});
                         this.$router.go();
                     });
+            },
+            moverA() {
+                this.$store.commit('moveTab', 3);
+                if (this.$router.currentRoute.path !== '/usuario') {
+                    this.$router.push({name: 'Usuario'});
+                }
             }
 
         }

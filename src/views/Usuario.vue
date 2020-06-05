@@ -39,7 +39,7 @@
                                     mdi-cart
                                 </v-icon>
                             </v-avatar>
-                            Tienes {{cantidadPedidos}} pedido<i v-if="cantidadPedidos>1">s</i> pendiente<i
+                            Tienes {{pedidos}} pedido<i v-if="cantidadPedidos>1">s</i> pendiente<i
                                 v-if="cantidadPedidos>1">s</i> de <strong>entrega.</strong> Para saber más, ve
                             a "Tus pedidos"
                             <template v-slot:actions>
@@ -229,7 +229,6 @@
                 snackbar: true,
                 dialog: false,
                 showBanner: false,
-                cantidadPedidos: 0
             }
         },
         mounted() {
@@ -285,8 +284,7 @@
                     if (querySnapshot.empty) {
                         this.showBanner = false;
                     } else {
-                        this.cantidadPedidos = querySnapshot.size;
-                        this.$store.commit('setCountPedidos', this.cantidadPedidos);
+                        this.$store.commit('setCountPedidos', querySnapshot.size);
                         this.showBanner = true;
                     }
                 })
