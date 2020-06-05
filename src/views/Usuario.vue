@@ -9,28 +9,28 @@
                     icons-and-text
                     centered
                     show-arrows
-                    v-model="tabs"
+                    :value="tab"
             >
-                <v-tab :href="`#tab-${1}`">
+                <v-tab :href="`#tab-${1}`" @click="moveTab(1)">
                     Inicio
                     <v-icon>mdi-home</v-icon>
                 </v-tab>
-                <v-tab :href="`#tab-${2}`">
+                <v-tab :href="`#tab-${2}`" @click="moveTab(2)">
                     Rellenar Formulario
                     <v-icon>mdi-file-document-edit-outline</v-icon>
                 </v-tab>
-                <v-tab :href="`#tab-${3}`">
+                <v-tab :href="`#tab-${3}`" @click="moveTab(3)">
                     Tus pedidos
                     <v-icon>mdi-format-list-numbered</v-icon>
                 </v-tab>
-                <v-tab :href="`#tab-${4}`">
+                <v-tab :href="`#tab-${4}`" @click="moveTab(4)">
                     Cuenta
                     <v-icon>mdi-account</v-icon>
                 </v-tab>
                 <v-tabs-slider></v-tabs-slider>
                 <v-tab-item :value="'tab-'+1">
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
-                        <v-banner two-line>
+                        <v-banner two-line v-if="showBanner">
                             <v-avatar
                                     slot="icon"
                                     color="primary"
@@ -39,12 +39,13 @@
                                     mdi-cart
                                 </v-icon>
                             </v-avatar>
-                            Tienes 1 un pedido pendiente de <strong>envio.</strong> Para saber más, ve a "Tus
-                            pedidos"
+                            Tienes {{cantidadPedidos}} pedido<i v-if="cantidadPedidos>1">s</i> pendiente<i
+                                v-if="cantidadPedidos>1">s</i> de <strong>entrega.</strong> Para saber más, ve
+                            a "Tus pedidos"
                             <template v-slot:actions>
                                 <v-btn
                                         color="primary"
-                                        @click="tabs = 'tab-3'"
+                                        @click="moveTab(3)"
                                 >Ir a tus pedidos
                                 </v-btn>
                             </template>
@@ -209,6 +210,7 @@
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
     import TablaDatosUsuarios from "./TablaDatosUsuarios";
+    import Vuex from 'vuex'
 
     let db = firebase.firestore();
     export default {
@@ -225,8 +227,9 @@
                 departamento: '',
                 alertGuardar: false,
                 snackbar: true,
-                tabs: 'tab-1',
-                dialog: false
+                dialog: false,
+                showBanner: false,
+                cantidadPedidos: 0
             }
         },
         mounted() {
@@ -247,8 +250,14 @@
                     this.departamento = doc.data().departamento;
                 })
             }
+            this.cantidadCompras();
+            this.setCountPedidos();
+        },
+        computed: {
+            ...Vuex.mapState(["tab", "pedidos"])
         },
         methods: {
+            ...Vuex.mapMutations(["moveTab"]),
             formulario: function () {
                 this.$router.push({name: 'app'})
             },
@@ -260,7 +269,6 @@
                     departamento: this.departamento
                 }).then((doc) => {
                     this.guardarDatosExtras();
-                    console.log(doc);
                 });
                 this.alertGuardar = true;
             },
@@ -271,6 +279,17 @@
                     '"departamento": "' + this.departamento + '"}';
                 const parse = JSON.stringify(objectJSON);
                 localStorage.setItem('userExtraData', parse);
+            },
+            cantidadCompras() {
+                db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        this.showBanner = false;
+                    } else {
+                        this.cantidadPedidos = querySnapshot.size;
+                        this.$store.commit('setCountPedidos', this.cantidadPedidos);
+                        this.showBanner = true;
+                    }
+                })
             }
         }
     }
