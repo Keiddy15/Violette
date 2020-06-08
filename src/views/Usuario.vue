@@ -102,7 +102,17 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
-                            <strong> Tu identificación: </strong> {{user.uid}}
+                            <v-menu absolute transition="slide-y-transition">
+                                <template v-slot:activator="{ on }">
+                                    <v-spacer></v-spacer>
+                                    <v-avatar style="margin-right: 10px;" size="200" color="primary" v-on="on">
+                                        <v-img :src="url"></v-img>
+                                    </v-avatar>
+
+
+                                </template>
+                                <v-divider></v-divider>
+                            </v-menu>
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
@@ -130,83 +140,11 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions>
-                            <v-btn color="primary" block @click="dialog = !dialog">Editar</v-btn>
+                            <EditarPerfil class="container"/>
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
-            <v-dialog v-model="dialog" fullscreen hide-overlay
-                      transition="dialog-bottom-transition">
-
-                <v-card>
-                    <v-toolbar dark color="primary">
-                        <v-btn style="margin-left: 20px" icon dark @click="dialog = false">
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                        <v-toolbar-title>Editar Usuario</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-toolbar-items>
-                            <v-btn dark text @click="guardarDataExtra">Guardar</v-btn>
-                        </v-toolbar-items>
-                    </v-toolbar>
-                    <v-list three-line subheader>
-                        <v-card-text>
-                            <v-container>
-                                <v-alert type="success"
-                                         v-model="alertGuardar"
-                                         dismissible
-                                >
-                                    ¡Tus datos han sido actualizados correctamente!.
-
-                                </v-alert>
-                                <v-row style="margin: 0 10px">
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Nombres:" readonly
-                                                      v-model="user.nombre"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Apellidos:" readonly
-                                                      v-model="user.apellido"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Cédula" readonly type="number"
-                                                      v-model="user.cedula"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Teléfono:"
-                                                      type="number"
-                                                      v-model="user.telefono"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Email:" readonly
-                                                      v-model="user.email"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Ciudad:" v-model="ciudad"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Departamento:" v-model="departamento"></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field
-                                                label="Dirección"
-                                                v-model="direccion"
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <v-text-field label="Barrio:" v-model="barrio"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" sm="6" md="5">
-                                        <UploadPhoto/>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card-text>
-                    </v-list>
-                </v-card>
-            </v-dialog>
         </v-card>
     </v-app>
 </template>
@@ -216,13 +154,16 @@
     import ToolbarUser from "./ToolbarUser";
     import TablaDatosUsuarios from "./TablaDatosUsuarios";
     import UploadPhoto from './UploadPhoto'
+    import EditarPerfil from './EditarPerfil'
     import Vuex from 'vuex'
 
     let db = firebase.firestore();
+    let storage = firebase.storage("gs://violette-8b112.appspot.com");
+
     export default {
         name: "Usuario",
         components: {
-            ToolbarUser, TablaDatosUsuarios, UploadPhoto
+            ToolbarUser, TablaDatosUsuarios, UploadPhoto, EditarPerfil
         },
         data() {
             return {
@@ -231,10 +172,10 @@
                 ciudad: '',
                 direccion: '',
                 departamento: '',
-                alertGuardar: false,
                 snackbar: true,
-                dialog: false,
                 showBanner: false,
+                url: '',
+                showMenu: false
             }
         },
         mounted() {
@@ -255,6 +196,10 @@
                     this.departamento = doc.data().departamento;
                 })
             }
+            let child = storage.ref(`profilePhotos/${this.user.uid}`);
+            child.getDownloadURL().then(url => {
+                this.url = url;
+            });
             this.cantidadCompras();
         },
         computed: {
@@ -264,25 +209,6 @@
             ...Vuex.mapMutations(["moveTab"]),
             formulario: function () {
                 this.$router.push({name: 'app'})
-            },
-            guardarDataExtra() {
-                db.collection('usuarios').doc(this.user.uid).update({
-                    barrio: this.barrio,
-                    ciudad: this.ciudad,
-                    direccion: this.direccion,
-                    departamento: this.departamento
-                }).then((doc) => {
-                    this.guardarDatosExtras();
-                });
-                this.alertGuardar = true;
-            },
-            guardarDatosExtras() {
-                let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
-                    '"ciudad":"' + this.ciudad + '" , ' +
-                    '"direccion":"' + this.direccion + '", ' +
-                    '"departamento": "' + this.departamento + '"}';
-                const parse = JSON.stringify(objectJSON);
-                localStorage.setItem('userExtraData', parse);
             },
             cantidadCompras() {
                 db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {

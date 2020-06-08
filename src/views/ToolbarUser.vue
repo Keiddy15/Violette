@@ -30,7 +30,7 @@
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
                         <v-avatar style="margin-right: 10px;" color="primary" v-on="on">
-                            <img :src="url" alt="John">
+                            <v-img :src="url"  alt="John"></v-img>
                         </v-avatar>
                     </template>
                     <v-card>

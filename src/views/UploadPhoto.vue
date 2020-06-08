@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <v-btn color="primary" @click="onUpload = !onUpload" block>Cambiar foto de perfil</v-btn>
-        <v-dialog width="500" v-model="onUpload" v-on="on">
+        <v-btn color="primary" @click="onUpload = !onUpload" style="width: 30vw;">Cambiar foto de perfil</v-btn>
+        <v-dialog width="500" v-model="onUpload">
             <v-card>
                 <v-card-title>
                     Subir foto de perfil
@@ -58,6 +58,7 @@
                 folder.put(this.files).then(snapShot => {
                     this.loading = false;
                     this.showAlert = true;
+                    this.$router.go();
                 })
             }
         }
