@@ -69,6 +69,11 @@ body {
     background-color: #BA68C8 !important;
 }
 
+.container{
+    display: flex;
+    justify-content: space-around;
+}
+
 .tituloBienvenida {
     font-family: 'Pacifico', cursive;
     font-size: 28px !important;
