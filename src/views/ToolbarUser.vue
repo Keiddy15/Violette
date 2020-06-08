@@ -29,8 +29,8 @@
                 <v-menu transition="slide-y-transition" :nudge-bottom="55">
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
-                        <v-avatar style="margin-right: 10px;"  color="white" v-on="on">
-                            <v-img :src="url"  alt="John"></v-img>
+                        <v-avatar style="margin-right: 10px;" color="white" v-on="on">
+                            <img :src="url"  alt="John">
                         </v-avatar>
                     </template>
                     <v-card>
