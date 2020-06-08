@@ -4,7 +4,7 @@
             <v-toolbar-title class="ma-6 tituloLogo">
                 <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
                        width="70" height="70" aspect-ratio="6"
-                       contain></v-img>
+                       contain @click="inicio"></v-img>
             </v-toolbar-title>
             <v-toolbar-title class="tituloBienvenida" v-if="user" style="letter-spacing: 2px">Tu cuenta
             </v-toolbar-title>
@@ -29,7 +29,7 @@
                 <v-menu transition="slide-y-transition" :nudge-bottom="55">
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
-                        <v-avatar style="margin-right: 10px;" color="primary" v-on="on">
+                        <v-avatar style="margin-right: 10px;"  color="white" v-on="on">
                             <v-img :src="url"  alt="John"></v-img>
                         </v-avatar>
                     </template>
