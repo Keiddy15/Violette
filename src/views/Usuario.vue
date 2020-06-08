@@ -105,7 +105,7 @@
                             <v-menu absolute transition="slide-y-transition">
                                 <template v-slot:activator="{ on }">
                                     <v-spacer></v-spacer>
-                                    <v-avatar style="margin-right: 10px;" size="200" color="primary" v-on="on">
+                                    <v-avatar style="margin-right: 10px;" size="200"  v-on="on">
                                         <v-img :src="url"></v-img>
                                     </v-avatar>
 
