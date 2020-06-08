@@ -108,8 +108,6 @@
                                     <v-avatar style="margin-right: 10px;" size="200" color="primary" v-on="on">
                                         <v-img :src="url"></v-img>
                                     </v-avatar>
-
-
                                 </template>
                                 <v-divider></v-divider>
                             </v-menu>
