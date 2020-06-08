@@ -39,8 +39,8 @@
                                     mdi-cart
                                 </v-icon>
                             </v-avatar>
-                            Tienes {{pedidos}} pedido<i v-if="cantidadPedidos>1">s</i> pendiente<i
-                                v-if="cantidadPedidos>1">s</i> de <strong>entrega.</strong> Para saber más, ve
+                            Tienes {{pedidos}} pedido<i v-if="pedidos>1">s</i> pendiente<i
+                                v-if="pedidos > 1">s</i> de <strong>entrega.</strong> Para saber más, ve
                             a "Tus pedidos"
                             <template v-slot:actions>
                                 <v-btn
@@ -197,6 +197,11 @@
                                         <v-text-field label="Barrio:" v-model="barrio"></v-text-field>
                                     </v-col>
                                 </v-row>
+                                <v-row>
+                                    <v-col cols="12" sm="6" md="5">
+                                        <UploadPhoto/>
+                                    </v-col>
+                                </v-row>
                             </v-container>
                         </v-card-text>
                     </v-list>
@@ -210,13 +215,14 @@
     import firebase from "../firebase/libFirebase"
     import ToolbarUser from "./ToolbarUser";
     import TablaDatosUsuarios from "./TablaDatosUsuarios";
+    import UploadPhoto from './UploadPhoto'
     import Vuex from 'vuex'
 
     let db = firebase.firestore();
     export default {
         name: "Usuario",
         components: {
-            ToolbarUser, TablaDatosUsuarios
+            ToolbarUser, TablaDatosUsuarios, UploadPhoto
         },
         data() {
             return {
@@ -250,7 +256,6 @@
                 })
             }
             this.cantidadCompras();
-            this.setCountPedidos();
         },
         computed: {
             ...Vuex.mapState(["tab", "pedidos"])
