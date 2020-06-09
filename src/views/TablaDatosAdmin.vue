@@ -10,6 +10,9 @@
             <template v-slot:item.entregado="{ item }">
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
             </template>
+            <template v-slot:item.verMas="{ item }">
+                <VerUsuario/>
+            </template>
         </v-data-table>
     </div>
 </template>
@@ -70,7 +73,7 @@
             }
         },
         components:{
-            VerUsuario
+            VerUsuario,
         },
         created() {
             if (localStorage.getItem('user')) {
