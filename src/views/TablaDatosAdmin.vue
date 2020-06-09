@@ -10,10 +10,6 @@
             <template v-slot:item.entregado="{ item }">
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
             </template>
-            <template  v-slot:item.verMas='{item }'>
-                <VerUsuario/>
-            </template>
-
         </v-data-table>
     </div>
 </template>
@@ -21,6 +17,7 @@
 <script>
     import VerUsuario from "./VerUsuario";
     import firebase from '../firebase/libFirebase'
+
     let db = firebase.firestore();
     export default {
         name: "TablaDatosAdmin",
@@ -108,23 +105,27 @@
             loadDataTable() {
                 this.loadingData = !this.loadingData;
                 this.data = [];
-                db.collection("pedidos").where("idUser", "==", this.user.uid).get().then((querySnapshot) => {
+                db.collection("pedidos").get().then((querySnapshot) => {
                     if (querySnapshot.empty) {
                         this.loadingData = false
                     } else {
                         querySnapshot.forEach((doc) => {
-                            if (this.user.uid === doc.data().idUser) {
-                                let data = doc.data();
-                                if (data.fechaEntrega != null) {
-                                    data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
-                                }
-                                data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
-                                this.data.push(data);
-                                this.loadingData = false;
+                            let data = doc.data();
+                            if (data.fechaEntrega != null) {
+                                data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
                             }
+                            data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
+                            db.collection('usuarios').doc(data.idUser).get().then(docUser => {
+                                data.cedula = docUser.data().cedula;
+                                data.nombre = docUser.data().nombre;
+                                data.apellido = docUser.data().apellido;
+                                data.telefono = docUser.data().telefono;
+                                data.ciudad = docUser.data().ciudad;
+                                this.data.push(data)
+                            });
+                            this.loadingData = false;
                         });
                     }
-
                 })
             }
         }
