@@ -30,12 +30,47 @@ export default new Vuex.Store({
             const page = pdfDoc.addPage(); // Añadiendo pagina al documento
             const {width, height} = page.getSize(); //Obteniendo tamaño de pagina
             const fontSize = 14; // Ajustando tamaño fuente
-            page.drawText(state.printItem.nombre, { //dibujar o escribir
+            page.setWidth(612);
+            page.setHeight(791);
+            let text = '<b>Nombre</b>: ' + state.printItem.nombre + '\n' + 'Apellido: '
+                + state.printItem.apellido + '\n' + 'Cedula: '
+                + state.printItem.cedula + '\n'
+                + 'Telefono: ' + state.printItem.telefono + '\n'
+                + 'Dirección: ' + state.printItem.direccion + '\n'
+                + 'Barrio: ' + state.printItem.barrio + '\n'
+                + 'Ciudad: ' + state.printItem.ciudad + '\n'
+                + 'Departamento: ' + state.printItem.departamento + '\n'
+                + '___________________________________________________________' + '\n';
+            text += 'Nombre: ' + state.printItem.nombre + '\n' + 'Apellido: '
+                + state.printItem.apellido + '\n' + 'Cedula: '
+                + state.printItem.cedula + '\n'
+                + 'Telefono: ' + state.printItem.telefono + '\n'
+                + 'Dirección: ' + state.printItem.direccion + '\n'
+                + 'Barrio: ' + state.printItem.barrio + '\n'
+                + 'Ciudad: ' + state.printItem.ciudad + '\n'
+                + 'Departamento: ' + state.printItem.departamento + '\n';
+            text += 'Nombre: ' + state.printItem.nombre + '\n' + 'Apellido: '
+                + state.printItem.apellido + '\n' + 'Cedula: '
+                + state.printItem.cedula + '\n'
+                + 'Telefono: ' + state.printItem.telefono + '\n'
+                + 'Dirección: ' + state.printItem.direccion + '\n'
+                + 'Barrio: ' + state.printItem.barrio + '\n'
+                + 'Ciudad: ' + state.printItem.ciudad + '\n'
+                + 'Departamento: ' + state.printItem.departamento + '\n';
+            text += 'Nombre: ' + state.printItem.nombre + '\n' + 'Apellido: '
+                + state.printItem.apellido + '\n' + 'Cedula: '
+                + state.printItem.cedula + '\n'
+                + 'Telefono: ' + state.printItem.telefono + '\n'
+                + 'Dirección: ' + state.printItem.direccion + '\n'
+                + 'Barrio: ' + state.printItem.barrio + '\n'
+                + 'Ciudad: ' + state.printItem.ciudad + '\n'
+                + 'Departamento: ' + state.printItem.departamento + '\n';
+            page.drawText(text, { //dibujar o escribir
                 x: 50,
-                y: height - 4 * fontSize,
+                y: height - 6 * fontSize,
                 size: fontSize,
                 font: courier,
-                color: rgb(0, 0.53, 0.71),
+                color: rgb(0, 0, 0)
             });
             const pdfBytes = await pdfDoc.save(); //Genera el archivo en bytes
             const blob = new Blob([pdfBytes], {type: 'application/pdf'}); // crea un blob de tipo PDF
