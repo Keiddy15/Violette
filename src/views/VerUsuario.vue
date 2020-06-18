@@ -1,120 +1,76 @@
 <template>
     <div id="slot">
-        <div class="container">
-            <v-btn text color="primary"  @click="dialog = !dialog">Ver más</v-btn>
-        </div>
-        <v-dialog v-model="dialog" fullscreen hide-overlay
+        <v-dialog v-model="dialogUserSelected" max-width="800px"
                   transition="dialog-bottom-transition">
             <v-card>
-                <v-toolbar dark color="primary">
-                    <v-btn style="margin-left: 20px" icon dark @click="dialog = false">
-                        <v-icon>mdi-close</v-icon>
+                <v-card-title>
+                    <span class="headline">Datos de usuario</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-row style="margin: 0 10px">
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Nombres:" readonly
+                                              v-model="userSelected.nombre"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Apellidos:" readonly
+                                              v-model="userSelected.apellido"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Cédula" readonly type="number"
+                                              v-model="userSelected.cedula"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Teléfono:"
+                                              readonly
+                                              type="number"
+                                              v-model="userSelected.telefono"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Email:" readonly
+                                              v-model="userSelected.email"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Ciudad:" readonly v-model="userSelected.ciudad"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Departamento:" readonly
+                                              v-model="userSelected.departamento"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                        label="Dirección"
+                                        v-model="userSelected.direccion"
+                                        readonly
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4">
+                                <v-text-field label="Barrio:" v-model="userSelected.barrio" readonly></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn @click="passingUserSelected({userSelected: [], show: false})" color="primary" block>
+                        Close
                     </v-btn>
-                    <v-toolbar-title>Ver usuario</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-                <v-list three-line subheader>
-                    <v-card-text>
-                        <v-container>
-                            <v-row style="margin: 0 10px">
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Nombres:" readonly
-                                                  v-model="user.nombre"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Apellidos:" readonly
-                                                  v-model="user.apellido"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Cédula" readonly type="number"
-                                                  v-model="user.cedula"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Teléfono:"
-                                                  type="number"
-                                                  v-model="user.telefono"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Email:" readonly
-                                                  v-model="user.email"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Ciudad:" v-model="ciudad"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Departamento:" v-model="departamento"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field
-                                            label="Dirección"
-                                            v-model="direccion"
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="5">
-                                    <v-text-field label="Barrio:" v-model="barrio"></v-text-field>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-card-text>
-                </v-list>
+                </v-card-actions>
             </v-card>
         </v-dialog>
     </div>
 </template>
 
 <script>
-    import UploadPhoto from './UploadPhoto'
-    import firebase from "../firebase/libFirebase";
+    import vuex from 'vuex'
 
-    let db = firebase.firestore();
     export default {
         name: "VerUsuario",
-        data() {
-            return {
-                dialog: false,
-                user: null,
-                alertGuardar: false
-            }
-        },
-        mounted() {
-            if (localStorage.getItem('user')) {
-                this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
-            }
-            if (localStorage.getItem('userExtraData')) {
-                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
-                this.barrio = objectJSON.barrio;
-                this.ciudad = objectJSON.ciudad;
-                this.direccion = objectJSON.direccion;
-                this.departamento = objectJSON.departamento;
-            } else {
-                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
-                    this.barrio = doc.data().barrio;
-                    this.ciudad = doc.data().ciudad;
-                    this.direccion = doc.data().direccion;
-                    this.departamento = doc.data().departamento;
-                })
-            }
+        computed: {
+            ...vuex.mapState(['userSelected', 'dialogUserSelected'])
         },
         methods: {
-            guardarDataExtra() {
-                db.collection('usuarios').doc(this.user.uid).update({
-                    barrio: this.barrio,
-                    ciudad: this.ciudad,
-                    direccion: this.direccion,
-                    departamento: this.departamento
-                }).then((doc) => {
-                    this.guardarDatosExtras();
-                });
-                this.alertGuardar = true;
-            },
-            guardarDatosExtras() {
-                let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
-                    '"ciudad":"' + this.ciudad + '" , ' +
-                    '"direccion":"' + this.direccion + '", ' +
-                    '"departamento": "' + this.departamento + '"}';
-                const parse = JSON.stringify(objectJSON);
-                localStorage.setItem('userExtraData', parse);
-            }
+            ...vuex.mapMutations(['passingUserSelected'])
         }
     }
 </script>

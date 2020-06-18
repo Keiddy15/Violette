@@ -11,15 +11,28 @@
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
             </template>
             <template v-slot:item.verMas="{ item }">
-                <VerUsuario/>
+                <div class="container">
+                    <v-btn icon text color="primary" @click="passingUserSelected({show: true, userSelected: item})">
+                        <v-icon color="primary">
+                            mdi-account-plus-outline
+                        </v-icon>
+                    </v-btn>
+                    <v-btn text icon color="primary" @click="passingUserSelected({show: true, userSelected: item})">
+                        <v-icon>
+                            mdi-printer
+                        </v-icon>
+                    </v-btn>
+                </div>
             </template>
         </v-data-table>
+        <VerUsuario/>
     </div>
 </template>
 
 <script>
     import VerUsuario from "./VerUsuario";
     import firebase from '../firebase/libFirebase'
+    import vuex from 'vuex'
 
     let db = firebase.firestore();
     export default {
@@ -67,12 +80,15 @@
                     {
                         text: '',
                         value: 'verMas'
+                    }, {
+                        text: '',
+                        value: 'imprimir'
                     }],
                 noData: 'Aún no hay pedidos :(',
                 data: []
             }
         },
-        components:{
+        components: {
             VerUsuario,
         },
         created() {
@@ -98,6 +114,7 @@
             this.loadDataTable();
         },
         methods: {
+            ...vuex.mapMutations(['passingUserSelected']),
             formatDate: function (date) {
                 let dayName = date.toLocaleString('es-MX', {weekday: 'long'});
                 let day = date.getDate();
@@ -124,6 +141,10 @@
                                 data.apellido = docUser.data().apellido;
                                 data.telefono = docUser.data().telefono;
                                 data.ciudad = docUser.data().ciudad;
+                                data.email = docUser.data().email;
+                                data.direccion = docUser.data().direccion;
+                                data.barrio = docUser.data().barrio;
+                                data.departamento = docUser.data().departamento;
                                 this.data.push(data)
                             });
                             this.loadingData = false;
