@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         tab: 'tab-1',
-        pedidos: 0
+        pedidos: 0,
+        dialogUserSelected: false,
+        userSelected: []
     },
     mutations: {
         moveTab(state, n) {
@@ -14,6 +16,10 @@ export default new Vuex.Store({
         },
         setCountPedidos(state, n){
             state.pedidos = n;
+        },
+        passingUserSelected(state, payload){
+            state.dialogUserSelected = payload.show;
+            state.userSelected = payload.userSelected;
         }
     },
     actions: {},
