@@ -17,7 +17,7 @@
                             mdi-account-plus-outline
                         </v-icon>
                     </v-btn>
-                    <v-btn text icon color="primary" @click="passingUserSelected({show: true, userSelected: item})">
+                    <v-btn text icon color="primary" @click="printDocument({printItem: item})">
                         <v-icon>
                             mdi-printer
                         </v-icon>
@@ -89,7 +89,7 @@
             }
         },
         components: {
-            VerUsuario,
+            VerUsuario
         },
         created() {
             if (localStorage.getItem('user')) {
@@ -114,7 +114,7 @@
             this.loadDataTable();
         },
         methods: {
-            ...vuex.mapMutations(['passingUserSelected']),
+            ...vuex.mapMutations(['passingUserSelected', 'printDocument']),
             formatDate: function (date) {
                 let dayName = date.toLocaleString('es-MX', {weekday: 'long'});
                 let day = date.getDate();
