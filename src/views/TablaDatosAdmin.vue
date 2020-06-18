@@ -2,20 +2,23 @@
     <div id="app">
         <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
         <v-data-table :no-data-text="noData" mobile-breakpoint="320" :loading-text="loadingText" :loading="loadingData"
-                      :items="data" :headers="headers" show-expand :single-expand="singleExpand"
-                      :expanded.sync="expanded" class="elevation-1">
+                      :items="data" :headers="headers"
+                      class="elevation-1">
             <template v-slot:item.enviado="{ item }">
                 <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
             </template>
-
             <template v-slot:item.entregado="{ item }">
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
+            </template>
+            <template v-slot:item.verMas="{ item }">
+                <VerUsuario/>
             </template>
         </v-data-table>
     </div>
 </template>
 
 <script>
+    import VerUsuario from "./VerUsuario";
     import firebase from '../firebase/libFirebase'
 
     let db = firebase.firestore();
@@ -28,7 +31,6 @@
                 user: [],
                 loadingText: 'Obteniendo datos, por favor espere...',
                 loadingData: true,
-                noData: 'Aún no hay pedidos :(',
                 headers: [
                     {
                         text: 'Cédula: ',
@@ -54,35 +56,24 @@
                         text: 'Fecha de Entrega: ',
                         value: 'fechaEntrega'
                     },
-                    {text: 'Enviado', value: 'enviado'}, {
+                    {
+                        text: 'Enviado',
+                        value: 'enviado'
+                    },
+                    {
                         text: '¿Entregado?',
                         value: 'entregado'
                     },
-                    {text: '', value: 'data-table-expand'},],
-                datos: [
                     {
-                        text: 'Ciudad: ',
-                        value: 'Ciudad'
-                    },
-                    {
-                        text: 'Departamento: ',
-                        value: 'depertamento'
-                    },
-                    {
-                        text: 'Barrio: ',
-                        value: 'barrio'
-                    },
-                    {
-                        text: 'Dirección: ',
-                        value: 'direccion'
-                    },
-                    {
-                        text: 'Email: ',
-                        value: 'email'
-                    },
-                ],
+                        text: '',
+                        value: 'verMas'
+                    }],
+                noData: 'Aún no hay pedidos :(',
                 data: []
             }
+        },
+        components:{
+            VerUsuario,
         },
         created() {
             if (localStorage.getItem('user')) {
