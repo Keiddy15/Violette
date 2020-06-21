@@ -1,7 +1,10 @@
 <template>
     <div id="app">
         <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
-        <v-data-table :no-data-text="noData" mobile-breakpoint="320" :loading-text="loadingText" :loading="loadingData"
+        <v-btn color="primary" :disabled="Object.keys(selected).length === 0" @click="printDocument({printItem: selected})" class="ml-6">Imprimir guia(s)</v-btn>
+        <v-data-table v-model="selected" :single-select="false"
+                      item-key="id" show-select :no-data-text="noData" mobile-breakpoint="320"
+                      :loading-text="loadingText" :loading="loadingData"
                       :items="data" :headers="headers"
                       class="elevation-1">
             <template v-slot:item.enviado="{ item }">
@@ -15,11 +18,6 @@
                     <v-btn icon text color="primary" @click="passingUserSelected({show: true, userSelected: item})">
                         <v-icon color="primary">
                             mdi-account-plus-outline
-                        </v-icon>
-                    </v-btn>
-                    <v-btn text icon color="primary" @click="passingUserSelected({show: true, userSelected: item})">
-                        <v-icon>
-                            mdi-printer
                         </v-icon>
                     </v-btn>
                 </div>
@@ -40,6 +38,7 @@
         data() {
             return {
                 expanded: [],
+                selected: [],
                 singleExpand: false,
                 user: [],
                 loadingText: 'Obteniendo datos, por favor espere...',
@@ -89,7 +88,7 @@
             }
         },
         components: {
-            VerUsuario,
+            VerUsuario
         },
         created() {
             if (localStorage.getItem('user')) {
@@ -114,7 +113,7 @@
             this.loadDataTable();
         },
         methods: {
-            ...vuex.mapMutations(['passingUserSelected']),
+            ...vuex.mapMutations(['passingUserSelected', 'printDocument']),
             formatDate: function (date) {
                 let dayName = date.toLocaleString('es-MX', {weekday: 'long'});
                 let day = date.getDate();
@@ -125,6 +124,7 @@
             loadDataTable() {
                 this.loadingData = !this.loadingData;
                 this.data = [];
+                let i = 0;
                 db.collection("pedidos").get().then((querySnapshot) => {
                     if (querySnapshot.empty) {
                         this.loadingData = false
@@ -136,6 +136,7 @@
                             }
                             data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
                             db.collection('usuarios').doc(data.idUser).get().then(docUser => {
+                                data.id = i;
                                 data.cedula = docUser.data().cedula;
                                 data.nombre = docUser.data().nombre;
                                 data.apellido = docUser.data().apellido;
@@ -145,6 +146,7 @@
                                 data.direccion = docUser.data().direccion;
                                 data.barrio = docUser.data().barrio;
                                 data.departamento = docUser.data().departamento;
+                                i++;
                                 this.data.push(data)
                             });
                             this.loadingData = false;
