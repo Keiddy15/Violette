@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
-        <v-btn color="primary" :disabled="Object.keys(selected).length === 0" class="ml-6">Imprimir guia(s)</v-btn>
+        <v-btn color="primary" :disabled="Object.keys(selected).length === 0" @click="printDocument({printItem: selected})" class="ml-6">Imprimir guia(s)</v-btn>
         <v-data-table v-model="selected" :single-select="false"
                       item-key="id" show-select :no-data-text="noData" mobile-breakpoint="320"
                       :loading-text="loadingText" :loading="loadingData"

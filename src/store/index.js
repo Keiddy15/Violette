@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import download from '../plugins/download'
 import {PDFDocument, StandardFonts, rgb} from 'pdf-lib'
 
 Vue.use(Vuex);
@@ -25,62 +26,68 @@ export default new Vuex.Store({
         },
         async printDocument(state, payload) {
             state.printItem = payload.printItem;
+            const pngUrl = "https://i.ibb.co/7NcssdR/violette-Logo.png";
+            const pngImageBytes = await fetch(pngUrl).then((res) => res.arrayBuffer());
             const pdfDoc = await PDFDocument.create(); //Crear objeto inicializador de PDF
-            const courier = await pdfDoc.embedFont(StandardFonts.Courier); // iniciando fuentes
-            const page = pdfDoc.addPage(); // Añadiendo pagina al documento
+            const courier = await pdfDoc.embedFont(StandardFonts.Courier); // iniciando fuent
+            let page = pdfDoc.addPage(); // Añadiendo pagina al documento
             const {width, height} = page.getSize(); //Obteniendo tamaño de pagina
-            const fontSize = 14; // Ajustando tamaño fuente
+            const fontSize = 10; // Ajustando tamaño fuente
+            const pngImage = await pdfDoc.embedPng(pngImageBytes);
+            const pngDims = pngImage.scale(0.1);
             page.setWidth(612);
             page.setHeight(791);
-            let text = '<b>Nombre</b>: ' + state.printItem.nombre + '\n' + 'Apellido: '
-                + state.printItem.apellido + '\n' + 'Cedula: '
-                + state.printItem.cedula + '\n'
-                + 'Telefono: ' + state.printItem.telefono + '\n'
-                + 'Dirección: ' + state.printItem.direccion + '\n'
-                + 'Barrio: ' + state.printItem.barrio + '\n'
-                + 'Ciudad: ' + state.printItem.ciudad + '\n'
-                + 'Departamento: ' + state.printItem.departamento + '\n'
-                + '___________________________________________________________' + '\n';
-            text += 'Nombre: ' + state.printItem.nombre + '\n' + 'Apellido: '
-                + state.printItem.apellido + '\n' + 'Cedula: '
-                + state.printItem.cedula + '\n'
-                + 'Telefono: ' + state.printItem.telefono + '\n'
-                + 'Dirección: ' + state.printItem.direccion + '\n'
-                + 'Barrio: ' + state.printItem.barrio + '\n'
-                + 'Ciudad: ' + state.printItem.ciudad + '\n'
-                + 'Departamento: ' + state.printItem.departamento + '\n';
-            text += 'Nombre: ' + state.printItem.nombre + '\n' + 'Apellido: '
-                + state.printItem.apellido + '\n' + 'Cedula: '
-                + state.printItem.cedula + '\n'
-                + 'Telefono: ' + state.printItem.telefono + '\n'
-                + 'Dirección: ' + state.printItem.direccion + '\n'
-                + 'Barrio: ' + state.printItem.barrio + '\n'
-                + 'Ciudad: ' + state.printItem.ciudad + '\n'
-                + 'Departamento: ' + state.printItem.departamento + '\n';
-            text += 'Nombre: ' + state.printItem.nombre + '\n' + 'Apellido: '
-                + state.printItem.apellido + '\n' + 'Cedula: '
-                + state.printItem.cedula + '\n'
-                + 'Telefono: ' + state.printItem.telefono + '\n'
-                + 'Dirección: ' + state.printItem.direccion + '\n'
-                + 'Barrio: ' + state.printItem.barrio + '\n'
-                + 'Ciudad: ' + state.printItem.ciudad + '\n'
-                + 'Departamento: ' + state.printItem.departamento + '\n';
-            page.drawText(text, { //dibujar o escribir
-                x: 50,
-                y: height - 6 * fontSize,
-                size: fontSize,
-                font: courier,
-                color: rgb(0, 0, 0)
-            });
+            let text = "";
+            let limit = 0;
+            let suma = height - 30;
+            let textPos = height + 40;
+            for (let i in state.printItem) {
+                if (limit === 7) {
+                    page = pdfDoc.addPage();
+                    page.setWidth(612);
+                    page.setHeight(791);
+                    limit = 0;
+                    suma = height - 30;
+                    textPos = height + 40;
+                }
+
+                suma = suma - 100;
+                console.log(suma);
+
+                page.drawImage(pngImage, {
+                    x: 20,
+                    y: suma,
+                    width: pngDims.width,
+                    height: pngDims.height
+
+                });
+
+                text = '\nNombre: ' + state.printItem[i].nombre + '\n' + 'Apellido: '
+                    + state.printItem[i].apellido + '\n' + 'Cedula: '
+                    + state.printItem[i].cedula + '\n'
+                    + 'Telefono: ' + state.printItem[i].telefono + '\n'
+                    + 'Dirección: ' + state.printItem[i].direccion + '\n'
+                    + 'Barrio: ' + state.printItem[i].barrio + '\n'
+                    + 'Ciudad: ' + state.printItem[i].ciudad + '\n'
+                    + 'Departamento: ' + state.printItem[i].departamento + '\n'
+                    + '___________________________________________________________' + '\n';
+
+                textPos = textPos - 100;
+
+                page.drawText(text, { //dibujar o escribir
+                    x: 90,
+                    y: textPos,
+                    size: fontSize,
+                    font: courier,
+                    color: rgb(0, 0, 0),
+                    lineHeight: 10
+                });
+                limit++;
+
+            }
             const pdfBytes = await pdfDoc.save(); //Genera el archivo en bytes
-            const blob = new Blob([pdfBytes], {type: 'application/pdf'}); // crea un blob de tipo PDF
-            const e = document.createEvent('MouseEvents'), //inicia un objeto de tipo MouseEvents
-                a = document.createElement('a'); // crea variable en el DOM
-            a.download = state.printItem.nombre + '-' + state.printItem.apellido + '.pdf'; //inicializa nombre del PDF
-            a.href = window.URL.createObjectURL(blob); //asigna nombre y formato a una descarga
-            a.dataset.downloadurl = ['application/pdf', a.download, a.href].join(':');//genera link de descarga del archivo
-            e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null); //inicializa la ventana de descarga
-            a.dispatchEvent(e); //finaliza el evento
+
+            download(pdfBytes, 'Guias.pdf', "application/pdf")
         }
     },
     actions: {},
