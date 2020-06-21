@@ -95,10 +95,6 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
-                            <strong> Teléfono: </strong> {{user.telefono}}
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-text class="textoUsuario">
                             <strong> Ultimo inicio de sesión: </strong> {{user.lastLogin}}
                         </v-card-text>
                         <v-divider></v-divider>
@@ -133,12 +129,7 @@
         data() {
             return {
                 user: null,
-                barrio: '',
-                ciudad: '',
-                direccion: '',
-                departamento: '',
                 alertGuardar: false,
-                snackbar: true,
                 dialog: false,
                 url: '',
                 value: [
@@ -156,20 +147,6 @@
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
-            if (localStorage.getItem('userExtraData')) {
-                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
-                this.barrio = objectJSON.barrio;
-                this.ciudad = objectJSON.ciudad;
-                this.direccion = objectJSON.direccion;
-                this.departamento = objectJSON.departamento;
-            } else {
-                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
-                    this.barrio = doc.data().barrio;
-                    this.ciudad = doc.data().ciudad;
-                    this.direccion = doc.data().direccion;
-                    this.departamento = doc.data().departamento;
-                })
-            }
         },
         mounted() {
             let child = storage.ref(`profilePhotos/${this.user.uid}`);
@@ -180,26 +157,6 @@
         methods: {
             formulario: function () {
                 this.$router.push({name: 'app'})
-            },
-            guardarDataExtra() {
-                db.collection('usuarios').doc(this.user.uid).update({
-                    barrio: this.barrio,
-                    ciudad: this.ciudad,
-                    direccion: this.direccion,
-                    departamento: this.departamento
-                }).then((doc) => {
-                    this.guardarDatosExtras();
-                    console.log(doc);
-                });
-                this.alertGuardar = true;
-            },
-            guardarDatosExtras() {
-                let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
-                    '"ciudad":"' + this.ciudad + '" , ' +
-                    '"direccion":"' + this.direccion + '", ' +
-                    '"departamento": "' + this.departamento + '"}';
-                const parse = JSON.stringify(objectJSON);
-                localStorage.setItem('userExtraData', parse);
             }
         }
     }

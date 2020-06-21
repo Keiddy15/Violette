@@ -32,7 +32,13 @@
                 loadingText: 'Obteniendo datos, por favor espere...',
                 loadingData: true,
                 noData: 'No has realizado ningún pedido, ¿Que esperas para ser parte del team #Violette?',
-                headers: [{text: 'Fecha de Pedido', value: 'fechaCompra'}, {
+                headers: [{text: 'Barrio', value: 'barrio'}, {text: 'Ciudad', value: 'ciudad'}, {
+                    text: 'Departamento',
+                    value: 'departamento'
+                }, {text: 'Dirección', value: 'direccion'}, {
+                    text: 'Telefono',
+                    value: 'telefono'
+                }, {text: 'Fecha de Pedido', value: 'fechaCompra'}, {
                     text: 'Fecha de Entrega: ',
                     value: 'fechaEntrega'
                 }, {text: 'Enviado', value: 'enviado'}, {
@@ -45,20 +51,6 @@
         created() {
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
-            }
-            if (localStorage.getItem('userExtraData')) {
-                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
-                this.barrio = objectJSON.barrio;
-                this.ciudad = objectJSON.ciudad;
-                this.direccion = objectJSON.direccion;
-                this.departamento = objectJSON.departamento;
-            } else {
-                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
-                    this.barrio = doc.data().barrio;
-                    this.ciudad = doc.data().ciudad;
-                    this.direccion = doc.data().direccion;
-                    this.departamento = doc.data().departamento;
-                })
             }
         },
         mounted() {
@@ -86,6 +78,10 @@
                                     data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
                                 }
                                 data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
+                                data.barrio = doc.data().barrio;
+                                data.ciudad = doc.data().ciudad;
+                                data.departamento = doc.data().departamento;
+                                data.telefono = doc.data().telefono;
                                 this.data.push(data);
                                 this.loadingData = false;
                             }

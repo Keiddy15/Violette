@@ -19,12 +19,12 @@
                 </v-toolbar>
                 <v-list three-line subheader>
                     <v-card-text>
+                        <v-alert type="success"
+                                 v-model="alertGuardar"
+                                 dismissible>
+                            ¡Tus datos han sido actualizados correctamente!.
+                        </v-alert>
                         <v-container>
-                            <v-alert type="success"
-                                     v-model="alertGuardar"
-                                     dismissible>
-                                ¡Tus datos han sido actualizados correctamente!.
-                            </v-alert>
                             <v-row style="margin: 0 10px">
                                 <v-col cols="12" sm="6" md="5">
                                     <v-text-field label="Nombres:" readonly
@@ -41,7 +41,7 @@
                                 <v-col cols="12" sm="6" md="5">
                                     <v-text-field label="Teléfono:"
                                                   type="number"
-                                                  v-model="user.telefono"></v-text-field>
+                                                  v-model="telefono"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="5">
                                     <v-text-field label="Email:" readonly
@@ -89,6 +89,7 @@
                 ciudad: '',
                 direccion: '',
                 departamento: '',
+                telefono: '',
                 alertGuardar: false
             }
         },
@@ -102,12 +103,14 @@
                 this.ciudad = objectJSON.ciudad;
                 this.direccion = objectJSON.direccion;
                 this.departamento = objectJSON.departamento;
+                this.telefono = objectJSON.telefono;
             } else {
                 db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
                     this.barrio = doc.data().barrio;
                     this.ciudad = doc.data().ciudad;
                     this.direccion = doc.data().direccion;
                     this.departamento = doc.data().departamento;
+                    this.telefono = doc.data().telefono;
                 })
             }
         },
@@ -120,6 +123,7 @@
                     departamento: this.departamento
                 }).then((doc) => {
                     this.guardarDatosExtras();
+                    console.log(doc);
                 });
                 this.alertGuardar = true;
             },
@@ -127,6 +131,7 @@
                 let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
                     '"ciudad":"' + this.ciudad + '" , ' +
                     '"direccion":"' + this.direccion + '", ' +
+                    '"telefono":"' + this.telefono + '", ' +
                     '"departamento": "' + this.departamento + '"}';
                 const parse = JSON.stringify(objectJSON);
                 localStorage.setItem('userExtraData', parse);

@@ -126,10 +126,6 @@
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-text class="textoUsuario">
-                            <strong> Teléfono: </strong> {{user.telefono}}
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-text class="textoUsuario">
                             <strong> Ultimo inicio de sesión: </strong> {{user.lastLogin}}
                         </v-card-text>
                         <v-divider></v-divider>
@@ -179,20 +175,6 @@
         mounted() {
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
-            }
-            if (localStorage.getItem('userExtraData')) {
-                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
-                this.barrio = objectJSON.barrio;
-                this.ciudad = objectJSON.ciudad;
-                this.direccion = objectJSON.direccion;
-                this.departamento = objectJSON.departamento;
-            } else {
-                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
-                    this.barrio = doc.data().barrio;
-                    this.ciudad = doc.data().ciudad;
-                    this.direccion = doc.data().direccion;
-                    this.departamento = doc.data().departamento;
-                })
             }
             let child = storage.ref(`profilePhotos/${this.user.uid}`);
             child.getDownloadURL().then(url => {

@@ -25,13 +25,6 @@
                             required>
                     </v-text-field>
                     <v-text-field
-                            type="number"
-                            label="Telefono:"
-                            :rules="telefonoRules"
-                            v-model="telefono"
-                            required>
-                    </v-text-field>
-                    <v-text-field
                             label="Email:"
                             v-model="email"
                             :rules="emailRules"
@@ -75,16 +68,12 @@
                 password: "",
                 apellido: "",
                 cedula: "",
-                telefono: '',
                 show1: false,
                 contraseñaRules: [
                     v => !!v || 'La contraseña es requerida.'
                 ],
                 cedulaRules: [
                     v => !!v || 'La Cedula es requerida.'
-                ],
-                telefonoRules: [
-                    v => !!v || 'El telefono es requerido.'
                 ],
                 emailRules: [
                     v => !!v || 'El email es requerido.'
@@ -106,7 +95,6 @@
                                 nombre: this.nombre,
                                 apellido: this.apellido,
                                 cedula: this.cedula,
-                                telefono: this.telefono,
                                 email: this.email,
                                 admin: false
                             }).then(() => {
