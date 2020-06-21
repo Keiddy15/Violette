@@ -39,16 +39,16 @@ export default new Vuex.Store({
             page.setHeight(791);
             let text = "";
             let limit = 0;
-            let suma = height - 30;
-            let textPos = height + 40;
+            let suma = height - 40;
+            let textPos = height + 10;
             for (let i in state.printItem) {
                 if (limit === 7) {
                     page = pdfDoc.addPage();
                     page.setWidth(612);
                     page.setHeight(791);
                     limit = 0;
-                    suma = height - 30;
-                    textPos = height + 40;
+                    suma = height - 40;
+                    textPos = height + 10;
                 }
 
                 suma = suma - 100;
