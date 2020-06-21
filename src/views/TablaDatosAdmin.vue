@@ -94,20 +94,6 @@
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
-            if (localStorage.getItem('userExtraData')) {
-                let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
-                this.barrio = objectJSON.barrio;
-                this.ciudad = objectJSON.ciudad;
-                this.direccion = objectJSON.direccion;
-                this.departamento = objectJSON.departamento;
-            } else {
-                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
-                    this.barrio = doc.data().barrio;
-                    this.ciudad = doc.data().ciudad;
-                    this.direccion = doc.data().direccion;
-                    this.departamento = doc.data().departamento;
-                })
-            }
         },
         mounted() {
             this.loadDataTable();
@@ -140,14 +126,9 @@
                                 data.cedula = docUser.data().cedula;
                                 data.nombre = docUser.data().nombre;
                                 data.apellido = docUser.data().apellido;
-                                data.telefono = docUser.data().telefono;
-                                data.ciudad = docUser.data().ciudad;
                                 data.email = docUser.data().email;
-                                data.direccion = docUser.data().direccion;
-                                data.barrio = docUser.data().barrio;
-                                data.departamento = docUser.data().departamento;
                                 i++;
-                                this.data.push(data)
+                                this.data.push(data);
                             });
                             this.loadingData = false;
                         });
