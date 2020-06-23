@@ -102,7 +102,7 @@
                             ></v-text-field>
                             <v-text-field
                                     label="Celular:"
-                                    v-model='user.telefono'
+                                    v-model='telefono'
                                     class="fields"
                                     required
                                     outlined
@@ -142,6 +142,7 @@
                 departamento: "",
                 barrio: "",
                 direccion: "",
+                telefono: "",
                 ErrorValidacion: false,
                 namesRules: [
                     v => !!v || 'Los Nombres son requeridos.'
@@ -181,12 +182,14 @@
                 this.ciudad = objectJSON.ciudad;
                 this.direccion = objectJSON.direccion;
                 this.departamento = objectJSON.departamento;
+                this.telefono = objectJSON.telefono;
             } else {
-                db.collection('usuarios').doc(this.user.uid).get().then((doc) => {
+                db.collection('pedidos').doc(this.user.uid).get().then((doc) => {
                     this.barrio = doc.data().barrio;
                     this.ciudad = doc.data().ciudad;
                     this.direccion = doc.data().direccion;
                     this.departamento = doc.data().departamento;
+                    this.telefono = doc.data().telefono;
                 })
             }
         },
@@ -203,10 +206,10 @@
                 this.ErrorEnviando = false;
                 this.ErrorValidacion = false;
                 let pedidos = db.collection('pedidos');
-                let validar = (this.Nombres !== '' && this.Cedula !== '' &&
-                    this.Ciudad !== '' && this.Barrio !== '' &&
-                    this.Departamento !== '' &&
-                    this.Direccion !== '' && this.Numero !== '' && this.Apellidos !== '');
+                let validar = (this.user.nombre !== '' && this.user.cedula !== '' &&
+                    this.ciudad !== '' && this.Barrio !== '' &&
+                    this.departamento !== '' &&
+                    this.direccion !== '' && this.numero !== '' && this.apellidos !== '');
                 if (validar) {
                     this.loadingEnviar = true;
                     pedidos.add({
@@ -214,7 +217,12 @@
                         entregado: false,
                         enviado: false,
                         fechaCompra: new Date(),
-                        fechaEntrega: null
+                        fechaEntrega: null,
+                        direccion: this.direccion,
+                        barrio: this.barrio,
+                        departamento: this.departamento,
+                        ciudad: this.ciudad,
+                        telefono: this.telefono
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});

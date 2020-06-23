@@ -10,7 +10,6 @@
                                 :key="i"
                                 :src="item.src"
                                 height="auto"
-                                class="carruselImagen"
                         ></v-carousel-item>
                     </v-carousel>
                 </v-container>

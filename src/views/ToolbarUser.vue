@@ -4,7 +4,7 @@
             <v-toolbar-title class="ma-6 tituloLogo">
                 <v-img src="https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/LogoBienvenida.png?alt=media&token=24f4386d-1211-4d9c-a4c3-9c6ebd97f14e"
                        width="70" height="70" aspect-ratio="6"
-                       contain></v-img>
+                       contain @click="inicio"></v-img>
             </v-toolbar-title>
             <v-toolbar-title class="tituloBienvenida" v-if="user" style="letter-spacing: 2px">Tu cuenta
             </v-toolbar-title>
@@ -29,15 +29,15 @@
                 <v-menu transition="slide-y-transition" :nudge-bottom="55">
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
-                        <v-avatar style="margin-right: 10px;" color="primary" v-on="on">
-                            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+                        <v-avatar style="margin-right: 10px;" color="white" v-on="on">
+                            <img :src="url"  alt="John">
                         </v-avatar>
                     </template>
                     <v-card>
                         <v-list>
                             <v-list-item>
                                 <v-list-item-avatar>
-                                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+                                    <img :src="url" alt="John">
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
@@ -46,9 +46,10 @@
                                 </v-list-item-content>
 
                                 <v-list-item-action>
-                                    <v-badge color="primary" style="right: 10px" :content="pedidos">
-                                        <v-icon @click="moveTab(3)">mdi-truck</v-icon>
+                                    <v-badge v-if="pedidos > 0" color="primary" style="right: 10px" :content="pedidos">
+                                        <v-icon @click="moverA">mdi-truck</v-icon>
                                     </v-badge>
+                                    <v-icon @click="moverA" v-if="pedidos === 0">mdi-truck</v-icon>
                                 </v-list-item-action>
                             </v-list-item>
                         </v-list>
@@ -106,6 +107,8 @@
     import firebase from '../firebase/libFirebase'
     import Vuex from 'vuex'
 
+    let storage = firebase.storage("gs://violette-8b112.appspot.com");
+
     export default {
         name: "ToolbarUser",
         data() {
@@ -114,6 +117,7 @@
                 drawer: false,
                 iniciado: '',
                 logueado: false,
+                url: ''
             }
         },
         mounted() {
@@ -125,6 +129,11 @@
                 this.iniciado = "Ingresar";
                 this.logueado = true;
             }
+            let child = storage.ref(`profilePhotos/${this.user.uid}`);
+            child.getDownloadURL().then(url =>{
+                this.url = url;
+            });
+
         },
         computed: {
             ...Vuex.mapState(["tabs", "pedidos"])
@@ -159,6 +168,12 @@
                         this.$router.push({name: 'Bienvenida'});
                         this.$router.go();
                     });
+            },
+            moverA() {
+                this.$store.commit('moveTab', 3);
+                if (this.$router.currentRoute.path !== '/usuario') {
+                    this.$router.push({name: 'Usuario'});
+                }
             }
 
         }
