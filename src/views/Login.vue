@@ -40,9 +40,7 @@
                     </v-card-actions>
                 </v-form>
             </v-card-text>
-            <v-btn text color="purple" block @click="registrar">
-                ¿Has olvidado tu contraseña?
-            </v-btn>
+            <ResetPassword/>
         </v-card>
     </v-app>
 </template>
@@ -50,12 +48,13 @@
 <script>
     import firebase from '../firebase/libFirebase';
     import Toolbar from './ToolbarUser'
+    import ResetPassword from "./ResetPassword";
 
     let db = firebase.firestore();
     export default {
         name: "Registro",
         components: {
-            Toolbar
+            Toolbar, ResetPassword
         },
         data() {
             return {
