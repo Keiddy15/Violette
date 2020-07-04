@@ -220,6 +220,13 @@
             }
             ,
             submit: function () {
+                let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
+                    '"ciudad":"' + this.ciudad + '" , ' +
+                    '"direccion":"' + this.direccion + '", ' +
+                    '"telefono":"' + this.telefono + '", ' +
+                    '"departamento": "' + this.departamento + '"}';
+                const parse = JSON.stringify(objectJSON);
+                localStorage.setItem('userExtraData', parse);
                 this.ErrorEnviando = false;
                 this.ErrorValidacion = false;
                 let pedidos = db.collection('pedidos');
@@ -252,7 +259,7 @@
                 } else {
                     this.ErrorValidacion = true;
                 }
-            }
+            },
         }
     }
 </script>
