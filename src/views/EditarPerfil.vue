@@ -65,6 +65,7 @@
                             </v-row>
                         </v-container>
                     </v-card-text>
+                    <ResetPassword/>
                 </v-list>
             </v-card>
         </v-dialog>
@@ -73,13 +74,14 @@
 
 <script>
     import UploadPhoto from './UploadPhoto'
+    import ResetPassword from "./ResetPassword";
     import firebase from "../firebase/libFirebase";
 
     let db = firebase.firestore();
     export default {
         name: "EditarPerfil",
         components: {
-            UploadPhoto
+            UploadPhoto, ResetPassword
         },
         data() {
             return {
