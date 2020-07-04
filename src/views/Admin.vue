@@ -50,7 +50,10 @@
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
-
+                    <v-card-text>
+                        <v-spacer></v-spacer>
+                        <GestionUsuario/>
+                    </v-card-text>
                 </v-tab-item>
                 <v-tab-item>
                     <v-card elevation="15" color="#FFF" raised class="cardForm">
@@ -117,6 +120,7 @@
     import ToolbarUser from "./ToolbarUser";
     import TablaDatosAdmin from "./TablaDatosAdmin";
     import EditarPerfil from "./EditarPerfil";
+    import GestionUsuario from "./GestionUsuario";
 
     let db = firebase.firestore();
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
@@ -124,7 +128,7 @@
     export default {
         name: "Admin",
         components: {
-            ToolbarUser, TablaDatosAdmin, EditarPerfil
+            ToolbarUser, TablaDatosAdmin, EditarPerfil, GestionUsuario
         },
         data() {
             return {
