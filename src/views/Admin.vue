@@ -7,9 +7,9 @@
                     background-color="primary"
                     dark
             >
-                <v-tab>
+                <!--<v-tab>
                     Inicio
-                </v-tab>
+                </v-tab>-->
                 <v-tab>
                     Gestión de usuarios
                 </v-tab>
@@ -19,7 +19,7 @@
                 <v-tab>
                     Cuenta
                 </v-tab>
-                <v-tab-item>
+                <!--<v-tab-item>
                     <v-card
                             class="mx-auto text-center cardForm"
                             color="primary"
@@ -46,9 +46,8 @@
                         <v-card-text>
                             <div class="display-1 font-weight-thin">Hoy</div>
                         </v-card-text>
-
                     </v-card>
-                </v-tab-item>
+                </v-tab-item>-->
                 <v-tab-item>
                     <v-card-text>
                         <v-spacer></v-spacer>

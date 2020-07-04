@@ -8,7 +8,20 @@
                       :items="data" :headers="headers"
                       class="elevation-1">
             <template v-slot:item.enviado="{ item }">
-                <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
+                <v-simple-checkbox v-model="item.enviado" @change="modal = !modal"></v-simple-checkbox>
+                <v-dialog
+                        ref="dialog"
+                        v-model="modal"
+                        :return-value.sync="dateEstimated"
+                        persistent
+                        width="290px"
+                >
+                    <v-date-picker v-model="dateEstimated" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+                        <v-btn text color="primary" @click="$refs.dialog.save(dateEstimated)">OK</v-btn>
+                    </v-date-picker>
+                </v-dialog>
             </template>
             <template v-slot:item.entregado="{ item }">
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
@@ -39,7 +52,10 @@
             return {
                 expanded: [],
                 selected: [],
+                modal: false,
                 singleExpand: false,
+                dateEstimated: '',
+                checked: false,
                 user: [],
                 loadingText: 'Obteniendo datos, por favor espere...',
                 loadingData: true,
@@ -134,6 +150,11 @@
                         });
                     }
                 })
+            },
+            openDate(){
+                if(this.checked){
+                    this.modal = true;
+                }
             }
         }
     }
