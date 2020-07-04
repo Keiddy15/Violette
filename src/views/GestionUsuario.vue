@@ -79,13 +79,15 @@
         methods: {
             ...vuex.mapMutations(['passingUserSelected']),
             loadDataTable() {
-                this.loadingData = !this.loadingData;
                 this.data = [];
+                this.loadingData = !this.loadingData;
                 db.collection("usuarios").get().then(querySnapshot => {
                     querySnapshot.forEach((doc) => {
                         let data = doc.data();
                         this.data.push(data)
                     });
+                    this.loadingData = false;
+
                 })
             }
         }

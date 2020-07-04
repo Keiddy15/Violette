@@ -46,7 +46,6 @@
                         <v-card-text>
                             <div class="display-1 font-weight-thin">Hoy</div>
                         </v-card-text>
-
                     </v-card>
                 </v-tab-item>-->
                 <v-tab-item>
