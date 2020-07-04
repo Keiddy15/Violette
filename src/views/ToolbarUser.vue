@@ -60,7 +60,7 @@
                                     <v-icon>
                                         mdi-home
                                     </v-icon>
-                                    Páigna principal
+                                    Página principal
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
