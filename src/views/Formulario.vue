@@ -193,7 +193,23 @@
                 })
             }
         },
+        computed: {
+
+        },
         methods: {
+            sumarDias (fecha) {
+                if (fecha.getDay() === 6) {
+                    fecha.setDate(fecha.getDate() + 2);
+                    fecha.setDate(fecha.getDate() + Math.floor(Math.random() * (5 - 2)) + 2)
+                } else if (fecha.getDay() === 0) {
+                    fecha.setDate(fecha.getDate() + 1);
+                    fecha.setDate(fecha.getDate() + Math.floor(Math.random() * (5 - 2)) + 2)
+                } else {
+                    fecha.setDate(fecha.getDate() + 1);
+                    this.sumarDias(fecha)
+                }
+                return fecha
+            },
             buscarUsuario: function () {
                 let usuarios = db.collection('usuarios').doc(this.Cedula);
                 usuarios.get().then((doc) => {
@@ -201,7 +217,8 @@
                 }).catch((error) => {
                     console.log(error);
                 });
-            },
+            }
+            ,
             submit: function () {
                 this.ErrorEnviando = false;
                 this.ErrorValidacion = false;
@@ -217,7 +234,7 @@
                         entregado: false,
                         enviado: false,
                         fechaCompra: new Date(),
-                        fechaEntrega: null,
+                        fechaEntrega: this.sumarDias(new Date()),
                         direccion: this.direccion,
                         barrio: this.barrio,
                         departamento: this.departamento,

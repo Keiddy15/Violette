@@ -14,7 +14,6 @@
         </v-data-table>
         <EditarUsuario/>
     </div>
-
 </template>
 
 <script>
