@@ -126,6 +126,7 @@
 <script>
     import firebase from '../firebase/libFirebase'
     import Vuex from 'vuex'
+    import {mapFields} from 'vuex-map-fields'
 
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
 
@@ -160,7 +161,7 @@
 
         },
         computed: {
-            ...Vuex.mapState(["tabs", "pedidos"])
+            ...mapFields(["tabs", "pedidos"])
         },
         methods: {
             ...Vuex.mapMutations(["moveTab"]),

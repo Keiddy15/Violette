@@ -63,11 +63,12 @@
 
 <script>
     import vuex from 'vuex'
+    import {mapFields} from 'vuex-map-fields'
 
     export default {
         name: "VerUsuario",
         computed: {
-            ...vuex.mapState(['userSelected', 'dialogUserSelected'])
+            ...mapFields(['userSelected', 'dialogUserSelected'])
         },
         methods: {
             ...vuex.mapMutations(['passingUserSelected'])
