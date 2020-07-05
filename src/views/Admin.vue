@@ -6,6 +6,7 @@
                     fixed-tabs
                     background-color="primary"
                     dark
+                    show-arrows
             >
                 <!--<v-tab>
                     Inicio

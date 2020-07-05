@@ -23,7 +23,6 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <v-text-field label="Teléfono:"
-                                              readonly
                                               type="number"
                                               v-model="userSelected.telefono"></v-text-field>
                             </v-col>
@@ -46,13 +45,13 @@
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
-                                <v-text-field label="Barrio:" v-model="userSelected.barrio" readonly></v-text-field>
+                                <v-text-field label="Barrio:" v-model="userSelected.barrio"></v-text-field>
                             </v-col>
                         </v-row>
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn @click="passingUserSelected({userSelected: [], show: false})" color="primary" block>
+                    <v-btn @click="dialogUserSelected = false" color="primary" block>
                         Close
                     </v-btn>
                 </v-card-actions>
@@ -64,7 +63,8 @@
 <script>
     import vuex from 'vuex'
     import {mapFields} from 'vuex-map-fields'
-
+    import libFirebase from "../firebase/libFirebase";
+    let db = libFirebase.firestore();
     export default {
         name: "EditarUsuario",
         computed: {

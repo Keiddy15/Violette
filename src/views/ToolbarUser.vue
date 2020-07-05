@@ -50,7 +50,7 @@
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
                         <v-avatar style="margin-right: 10px;" color="white" v-on="on">
-                            <img :src="url" alt="John">
+                            <img :src="url">
                         </v-avatar>
                     </template>
                     <v-card>
@@ -65,7 +65,7 @@
                                     <v-list-item-subtitle>#Violette</v-list-item-subtitle>
                                 </v-list-item-content>
 
-                                <v-list-item-action>
+                                <v-list-item-action v-if="user.admin ==='false'">
                                     <v-badge v-if="pedidos > 0" color="primary" style="right: 10px" :content="pedidos">
                                         <v-icon @click="moverA">mdi-truck</v-icon>
                                     </v-badge>
@@ -92,19 +92,17 @@
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
-                                <v-btn block class="alignMenuButtons" text @click="cuenta">
+                                <v-btn block class="alignMenuButtons" v-if="user.admin === 'false'" text @click="cuenta">
                                     <v-icon>
                                         mdi-account
                                     </v-icon>
                                     Tu cuenta
                                 </v-btn>
-                            </v-list-item>
-                            <v-list-item>
-                                <v-btn block class="alignMenuButtons" text>
+                                <v-btn block class="alignMenuButtons" v-else text @click="cuenta">
                                     <v-icon>
-                                        mdi-face-agent
+                                        mdi-view-dashboard-outline
                                     </v-icon>
-                                    Soporte
+                                    Panel de Administración
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
