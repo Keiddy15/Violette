@@ -28,21 +28,21 @@
                                               v-model="userSelected.telefono"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
-                                <v-text-field label="Email:" readonly
+                                <v-text-field label="Email:"
                                               v-model="userSelected.email"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
-                                <v-text-field label="Ciudad:" readonly v-model="userSelected.ciudad"></v-text-field>
+                                <v-text-field label="Ciudad:" v-model="userSelected.ciudad"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
-                                <v-text-field label="Departamento:" readonly
+                                <v-text-field label="Departamento:"
                                               v-model="userSelected.departamento"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
                                 <v-text-field
                                         label="Dirección"
                                         v-model="userSelected.direccion"
-                                        readonly
+
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4">
@@ -63,11 +63,12 @@
 
 <script>
     import vuex from 'vuex'
+    import {mapFields} from 'vuex-map-fields'
 
     export default {
         name: "EditarUsuario",
         computed: {
-            ...vuex.mapState(['userSelected', 'dialogUserSelected'])
+            ...mapFields(['userSelected', 'dialogUserSelected'])
         },
         methods: {
             ...vuex.mapMutations(['passingUserSelected'])
