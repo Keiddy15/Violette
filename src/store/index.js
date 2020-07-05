@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import download from '../plugins/download'
 import {PDFDocument, StandardFonts, rgb} from 'pdf-lib'
+import {getField, updateField} from "vuex-map-fields";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,9 @@ export default new Vuex.Store({
         dialogUserSelected: false,
         userSelected: [],
         printItem: []
+    },
+    getters: {
+        getField,
     },
     mutations: {
         moveTab(state, n) {
@@ -88,7 +92,8 @@ export default new Vuex.Store({
             const pdfBytes = await pdfDoc.save(); //Genera el archivo en bytes
 
             download(pdfBytes, 'Guias.pdf', "application/pdf")
-        }
+        },
+        updateField
     },
     actions: {},
     modules: {}
