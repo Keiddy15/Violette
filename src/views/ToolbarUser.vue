@@ -65,7 +65,7 @@
                                     <v-list-item-subtitle>#Violette</v-list-item-subtitle>
                                 </v-list-item-content>
 
-                                <v-list-item-action>
+                                <v-list-item-action v-if="user.admin ==='false'">
                                     <v-badge v-if="pedidos > 0" color="primary" style="right: 10px" :content="pedidos">
                                         <v-icon @click="moverA">mdi-truck</v-icon>
                                     </v-badge>
