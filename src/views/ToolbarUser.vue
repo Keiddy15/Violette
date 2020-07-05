@@ -100,14 +100,6 @@
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
-                                <v-btn block class="alignMenuButtons" text>
-                                    <v-icon>
-                                        mdi-face-agent
-                                    </v-icon>
-                                    Soporte
-                                </v-btn>
-                            </v-list-item>
-                            <v-list-item>
                                 <v-btn block class="alignMenuButtons" text @click="logout">
                                     <v-icon>
                                         mdi-logout
