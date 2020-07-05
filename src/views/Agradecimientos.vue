@@ -12,10 +12,11 @@
                     <v-card-text>
                         <div class="text-center"><span class="headline font-weight-bold">¡Pedido terminado!</span></div>
                         <div class="text-center">En las próximas 24 horas estarás recibiendo tu numero de guía.</div>
-                        <div class="text-center">ESPERAMOS NOS COMPARTAS UNA FOTO PARA QUE HAGAS PARTE DE NUESTRO <span class="font-weight-bold">#TEAMVIOLETTE.</span></div>
+                        <div class="text-center">ESPERAMOS NOS COMPARTAS UNA FOTO PARA QUE HAGAS PARTE DE NUESTRO <span
+                                class="font-weight-bold">#TEAMVIOLETTE.</span></div>
                     </v-card-text>
                     <v-card-actions class="justify-center">
-                        <v-btn color="purple white--text"  block large @click="submit">
+                        <v-btn color="purple white--text" block large @click="submit">
                             Inicio
                         </v-btn>
                     </v-card-actions>
@@ -29,11 +30,21 @@
     export default {
         name: "Agradecimientos",
         data() {
-            return {}
+            return {
+                user: null
+            }
+        },
+        created() {
+            if (localStorage.getItem('user')) {
+                this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
+            }
         },
         methods: {
             submit: function () {
-                this.$router.push({name: 'Usuario'});
+                if (this.user.admin)
+                    this.$router.push({name: 'Admin'});
+                else
+                    this.$router.push({name: 'Usuario'})
             }
         }
     }

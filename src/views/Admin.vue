@@ -150,8 +150,12 @@
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
+
         },
         mounted() {
+            if(this.user.admin === "false"){
+                this.$router.push({name: 'Usuario'})
+            }
             let child = storage.ref(`profilePhotos/${this.user.uid}`);
             child.getDownloadURL().then(url => {
                 this.url = url;
