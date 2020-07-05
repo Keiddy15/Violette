@@ -92,11 +92,17 @@
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
-                                <v-btn block class="alignMenuButtons" text @click="cuenta">
+                                <v-btn block class="alignMenuButtons" v-if="user.admin === 'false'" text @click="cuenta">
                                     <v-icon>
                                         mdi-account
                                     </v-icon>
                                     Tu cuenta
+                                </v-btn>
+                                <v-btn block class="alignMenuButtons" v-else text @click="cuenta">
+                                    <v-icon>
+                                        mdi-view-dashboard-outline
+                                    </v-icon>
+                                    Panel de Administración
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
@@ -152,7 +158,7 @@
 
         },
         computed: {
-            ...Vuex.mapState(["tabs", "pedidos"])
+            ...Vuex.mapState(["tabs", "pedidos"]),
         },
         methods: {
             ...Vuex.mapMutations(["moveTab"]),
