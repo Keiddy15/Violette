@@ -50,7 +50,7 @@
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
                         <v-avatar style="margin-right: 10px;" color="white" v-on="on">
-                            <img :src="url" alt="John">
+                            <img :src="url">
                         </v-avatar>
                     </template>
                     <v-card>

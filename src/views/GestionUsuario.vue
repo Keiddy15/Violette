@@ -40,9 +40,6 @@
                     {
                         text: 'Apellido: ',
                         value: 'apellido'
-                    }, {
-                        text: '# Pedidos',
-                        value: 'cantidad'
                     },
                     {
                         text: '',
