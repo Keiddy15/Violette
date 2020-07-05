@@ -118,6 +118,15 @@ body {
     }
 }
 
+@media screen and (max-width: 779px) {
+    .menuHamburger {
+        display: block !important;
+    }
+    .conjuntoBotones2{
+        display: none;
+    }
+}
+
 @media screen and (min-width: 1904px) {
     .carruselImagen .v-image__image.v-image__image--cover {
         background-position: center -140px !important;

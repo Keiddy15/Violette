@@ -11,7 +11,27 @@
             <v-toolbar-title class="tituloBienvenida" v-if="!user" style="letter-spacing: 2px">Violette - Sports Wear
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <div class="conjuntoBotones" v-if="!user">
+
+            <v-menu v-if="logueado" bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon color="white" v-bind="attrs"
+                           v-on="on" class="menuHamburger">
+                        <v-icon>
+                            mdi-menu
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item
+                            v-for="(item, i) in items"
+                            :key="i"
+                            :to="item.url"
+                    >
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+            <div class="conjuntoBotones2" v-if="!user">
                 <v-btn text x-large class="white--text" @click="inicio">
                     Inicio
                 </v-btn>
@@ -30,7 +50,7 @@
                     <template v-slot:activator="{ on }">
                         <v-spacer></v-spacer>
                         <v-avatar style="margin-right: 10px;" color="white" v-on="on">
-                            <img :src="url"  alt="John">
+                            <img :src="url" alt="John">
                         </v-avatar>
                     </template>
                     <v-card>
@@ -117,7 +137,11 @@
                 drawer: false,
                 iniciado: '',
                 logueado: false,
-                url: ''
+                url: '',
+                items: [{title: 'Inicio', url: '/'}, {title: 'Registrate', url: '/registro'}, {
+                    title: 'Inicia Sesión',
+                    url: '/login'
+                }]
             }
         },
         mounted() {
@@ -130,7 +154,7 @@
                 this.logueado = true;
             }
             let child = storage.ref(`profilePhotos/${this.user.uid}`);
-            child.getDownloadURL().then(url =>{
+            child.getDownloadURL().then(url => {
                 this.url = url;
             });
 
