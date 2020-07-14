@@ -84,14 +84,6 @@
                                 </v-btn>
                             </v-list-item>
                             <v-list-item>
-                                <v-btn block class="alignMenuButtons" text @click="formulario">
-                                    <v-icon>
-                                        mdi-cart-plus
-                                    </v-icon>
-                                    Realizar Pedido
-                                </v-btn>
-                            </v-list-item>
-                            <v-list-item>
                                 <v-btn block class="alignMenuButtons" v-if="user.admin === 'false'" text @click="cuenta">
                                     <v-icon>
                                         mdi-account
