@@ -69,6 +69,7 @@
                     <v-col cols="12" sm="12" md="12">
                         <v-row class="rowForm">
                             <v-text-field
+
                                     label="Departamento:"
                                     v-model='departamento'
                                     required
@@ -77,21 +78,44 @@
                                     class="fields"
                                     clearable
                             ></v-text-field>
+                            <!-- <v-text-field
+                                     label="Barrio:"
+                                     v-model='barrio'
+                                     required
+                                     outlined
+                                     class="fields"
+                                     :rules="barrioRules"
+                                     clearable
+                             ></v-text-field>-->
                             <v-text-field
-                                    label="Barrio:"
-                                    v-model='barrio'
+                                    label="Celular:"
+                                    v-model='telefono'
+                                    class="fields"
                                     required
                                     outlined
-                                    class="fields"
-                                    :rules="barrioRules"
                                     clearable
+                                    :rules="celularRules"
                             ></v-text-field>
                         </v-row>
                     </v-col>
-
                     <v-col cols="12" sm="12" md="12">
                         <v-row class="rowForm">
+                            <div class="radio">
+                                <v-label>Tipo de residencia:</v-label>
+                                <div class="pl-6 pt-1">
+                                    <label class="pr-2">
+                                        <input type="radio" v-model="radio.sel" value="CR"> Conjunto residencial
+                                    </label>
+                                    <label class="pr-2">
+                                        <input type="radio" v-model="radio.sel" value="C"> Casa
+                                    </label>
+                                    <label class="pr-2">
+                                        <input type="radio" v-model="radio.sel" value="RT"> Retirar en transportadora
+                                    </label>
+                                </div>
+                            </div>
                             <v-text-field
+                                    v-if="radio.sel === 'CR' || radio.sel === 'C'"
                                     label="Dirección:"
                                     v-model='direccion'
                                     required
@@ -101,13 +125,48 @@
                                     class="fields"
                             ></v-text-field>
                             <v-text-field
-                                    label="Celular:"
-                                    v-model='telefono'
+                                    v-if="radio.sel === 'RT'"
+                                    label="lugar de entrega:"
+                                    v-model='lugarEntrega'
+                                    required
+                                    outlined
+                                    :rules="lugarEntregaRules"
+                                    clearable
                                     class="fields"
+                            ></v-text-field>
+                        </v-row>
+                    </v-col>
+
+                    <v-col cols="12" sm="12" md="12">
+                        <v-row class="rowForm">
+                            <v-text-field
+                                    v-if="radio.sel === 'CR'"
+                                    label="Número de casa o aparatamento:"
+                                    v-model='numeroCasa'
+                                    required
+                                    outlined
+                                    :rules="numeroCasaRules"
+                                    clearable
+                                    class="fields"
+                            ></v-text-field>
+                            <v-text-field
+                                    v-if="radio.sel === 'CR'"
+                                    label="Torre:"
+                                    v-model='torre'
                                     required
                                     outlined
                                     clearable
-                                    :rules="celularRules"
+                                    class="fields"
+                            ></v-text-field>
+                            <v-text-field
+                                    v-if="radio.sel === 'C'"
+                                    label="Barrio:"
+                                    v-model='barrio'
+                                    required
+                                    outlined
+                                    :rules="barrioRules"
+                                    clearable
+                                    class="fields"
                             ></v-text-field>
                         </v-row>
 
@@ -129,9 +188,6 @@
     let db = firebase.firestore();
     export default {
         name: "app",
-        components: {
-            Toolbar
-        },
         data() {
             return {
                 ErrorEnviando: false,
@@ -143,34 +199,47 @@
                 barrio: "",
                 direccion: "",
                 telefono: "",
+                numeroCasa: "",
+                torre: "",
+                lugarEntrega: "",
                 ErrorValidacion: false,
+                radio: {
+                    sel: ''
+                },
                 namesRules: [
-                    v => !!v || 'Los Nombres son requeridos.'
+                    v => !!v || 'Los nombres son requeridos.'
                 ],
                 apellidosRules: [
-                    v => !!v || 'Los Apellidos son requeridos.'
+                    v => !!v || 'Los apellidos son requeridos.'
                 ],
                 cedulaRules: [
-                    v => !!v || 'La Cedula es requerida.'
+                    v => !!v || 'La cédula es requerida.'
                 ],
                 ciudadRules: [
-                    v => !!v || 'La Ciudad es requerida.'
+                    v => !!v || 'La ciudad es requerida.'
                 ],
                 depRules: [
-                    v => !!v || 'El Departamento es requerido.'
+                    v => !!v || 'El departamento es requerido.'
                 ],
                 barrioRules: [
-                    v => !!v || 'El Barrio es requerido.'
+                    v => !!v || 'El barrio es requerido.'
                 ],
                 direccionRules: [
-                    v => !!v || 'La Dirección es requerida.'
+                    v => !!v || 'La dirección es requerida.'
                 ],
                 celularRules: [
-                    v => !!v || 'El Celular es requerido.'
+                    v => !!v || 'El celular es requerido.'
+                ],
+                numeroCasaRules: [
+                    v => !!v || 'El número de casa es requerido.'
+                ],
+                lugarEntregaRules: [
+                    v => !!v || 'El lugar de entrega es requerido.'
                 ]
-
             }
-
+        },
+        components: {
+            Toolbar
         },
         mounted() {
             if (localStorage.getItem('user')) {
@@ -178,9 +247,7 @@
             }
             if (localStorage.getItem('userExtraData')) {
                 let objectJSON = JSON.parse(JSON.parse(localStorage.getItem('userExtraData')));
-                this.barrio = objectJSON.barrio;
                 this.ciudad = objectJSON.ciudad;
-                this.direccion = objectJSON.direccion;
                 this.departamento = objectJSON.departamento;
                 this.telefono = objectJSON.telefono;
             } else {
@@ -190,14 +257,15 @@
                     this.direccion = doc.data().direccion;
                     this.departamento = doc.data().departamento;
                     this.telefono = doc.data().telefono;
+                    this.lugarEntrega = doc.data().lugarEntrega;
+                    this.numeroCasa = doc.data().numeroCasa;
+                    this.torre = doc.data().torre;
                 })
             }
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
-            sumarDias (fecha) {
+            /*sumarDias(fecha) {
                 if (fecha.getDay() === 6) {
                     fecha.setDate(fecha.getDate() + 2);
                     fecha.setDate(fecha.getDate() + Math.floor(Math.random() * (5 - 2)) + 2)
@@ -209,20 +277,20 @@
                     this.sumarDias(fecha)
                 }
                 return fecha
-            },
+            },*/
             buscarUsuario: function () {
                 let usuarios = db.collection('usuarios').doc(this.Cedula);
                 usuarios.get().then((doc) => {
                     this.Nombre = doc.data().Nombres;
+                    console.log(radio)
                 }).catch((error) => {
                     console.log(error);
                 });
             }
             ,
             submit: function () {
-                let objectJSON = '{ "barrio": "' + this.barrio + '" ,' +
+                let objectJSON = '{ ' +
                     '"ciudad":"' + this.ciudad + '" , ' +
-                    '"direccion":"' + this.direccion + '", ' +
                     '"telefono":"' + this.telefono + '", ' +
                     '"departamento": "' + this.departamento + '"}';
                 const parse = JSON.stringify(objectJSON);
@@ -230,23 +298,85 @@
                 this.ErrorEnviando = false;
                 this.ErrorValidacion = false;
                 let pedidos = db.collection('pedidos');
-                let validar = (this.user.nombre !== '' && this.user.cedula !== '' &&
-                    this.ciudad !== '' && this.Barrio !== '' &&
-                    this.departamento !== '' &&
-                    this.direccion !== '' && this.numero !== '' && this.apellidos !== '');
-                if (validar) {
+                let CR =
+                    (
+                        (
+                            this.user.nombre !== '' && this.user.cedula !== '' &&
+                            this.ciudad !== '' && this.departamento !== '' &&
+                            this.numero !== '' && this.apellido !== '' &&
+                            this.direccion !== '' && this.numeroCasa !== '' ||
+                            this.torre !== ''
+                        )
+                    );
+                let C =
+                    (
+                        (
+                            this.user.nombre !== '' && this.user.cedula !== '' &&
+                            this.ciudad !== '' && this.departamento !== '' &&
+                            this.numero !== '' && this.apellido !== '' &&
+                            this.direccion !== '' && this.barrio !== ''
+                        )
+                    );
+                let RT =
+                    (
+                        (
+                            this.user.nombre !== '' && this.user.cedula !== '' &&
+                            this.ciudad !== '' && this.departamento !== '' &&
+                            this.numero !== '' && this.apellido !== '' &&
+                            this.lugarEntrega !== ''
+                        )
+                    );
+                if (CR) {
                     this.loadingEnviar = true;
                     pedidos.add({
                         idUser: this.user.uid,
-                        entregado: false,
-                        enviado: false,
                         fechaCompra: new Date(),
-                        fechaEntrega: this.sumarDias(new Date()),
+                        //fechaEntrega: this.sumarDias(new Date()),
+                        direccion: this.direccion,
+                        departamento: this.departamento,
+                        ciudad: this.ciudad,
+                        telefono: this.telefono,
+                        numeroCasa: this.numeroCasa,
+                        torre: this.torre,
+                    }).then(() => {
+                        setTimeout(() => {
+                            this.$router.push({name: 'Agradecimientos'});
+                        }, 2000);
+                    }).catch(() => {
+                        this.ErrorEnviando = true;
+                        this.loadingEnviar = false;
+                    });
+                    this.ErrorValidacion = false;
+                } else if (C) {
+                    this.loadingEnviar = true;
+                    pedidos.add({
+                        idUser: this.user.uid,
+                        fechaCompra: new Date(),
+                        //fechaEntrega: this.sumarDias(new Date()),
                         direccion: this.direccion,
                         barrio: this.barrio,
                         departamento: this.departamento,
                         ciudad: this.ciudad,
-                        telefono: this.telefono
+                        telefono: this.telefono,
+                    }).then(() => {
+                        setTimeout(() => {
+                            this.$router.push({name: 'Agradecimientos'});
+                        }, 2000);
+                    }).catch(() => {
+                        this.ErrorEnviando = true;
+                        this.loadingEnviar = false;
+                    });
+                    this.ErrorValidacion = false;
+                } else if (RT) {
+                    this.loadingEnviar = true;
+                    pedidos.add({
+                        idUser: this.user.uid,
+                        fechaCompra: new Date(),
+                        //fechaEntrega: this.sumarDias(new Date()),
+                        departamento: this.departamento,
+                        ciudad: this.ciudad,
+                        telefono: this.telefono,
+                        lugarEntrega: this.lugarEntrega,
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});
@@ -267,4 +397,3 @@
 <style type="text/css" scoped>
     @import "../assets/estilos.css";
 </style>
-

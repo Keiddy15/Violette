@@ -31,7 +31,6 @@
 
 <script>
     import firebase from '../firebase/libFirebase'
-
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
     export default {
         name: "UploadPhoto",
@@ -66,5 +65,4 @@
 </script>
 
 <style scoped>
-
 </style>

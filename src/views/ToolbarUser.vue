@@ -125,9 +125,7 @@
     import firebase from '../firebase/libFirebase'
     import Vuex from 'vuex'
     import {mapFields} from 'vuex-map-fields'
-
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
-
     export default {
         name: "ToolbarUser",
         data() {
@@ -156,7 +154,6 @@
             child.getDownloadURL().then(url => {
                 this.url = url;
             });
-
         },
         computed: {
             ...mapFields(["tabs", "pedidos"])
@@ -198,7 +195,6 @@
                     this.$router.push({name: 'Usuario'});
                 }
             }
-
         }
     }
 </script>

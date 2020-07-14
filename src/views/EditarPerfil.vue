@@ -76,7 +76,6 @@
     import UploadPhoto from './UploadPhoto'
     import ResetPassword from "./ResetPassword";
     import firebase from "../firebase/libFirebase";
-
     let db = firebase.firestore();
     export default {
         name: "EditarPerfil",
@@ -143,5 +142,4 @@
 </script>
 
 <style scoped>
-
 </style>

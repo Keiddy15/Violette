@@ -45,7 +45,6 @@
 
 <script>
     import Toolbar from './ToolbarUser'
-
     export default {
         name: "Bienvenida",
         components: {
@@ -79,7 +78,6 @@
                         src: 'https://firebasestorage.googleapis.com/v0/b/violette-8b112.appspot.com/o/carrusel%2FMasiel2.png?alt=media&token=a9b9a133-e3af-4ca1-8f5a-7553eacf2cd3',
                     },
                 ],
-
                 rating: 4,
             }
         },

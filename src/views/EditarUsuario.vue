@@ -64,6 +64,7 @@
     import vuex from 'vuex'
     import {mapFields} from 'vuex-map-fields'
     import libFirebase from "../firebase/libFirebase";
+
     let db = libFirebase.firestore();
     export default {
         name: "EditarUsuario",
@@ -77,5 +78,4 @@
 </script>
 
 <style scoped>
-
 </style>

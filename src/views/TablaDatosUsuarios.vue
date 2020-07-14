@@ -3,7 +3,7 @@
         <v-btn color="primary" :disabled="loadingData" @click="loadDataTable">Recargar datos</v-btn>
         <v-data-table :no-data-text="noData" mobile-breakpoint="320" :loading-text="loadingText" :loading="loadingData"
                       :items="data" :headers="headers">
-            <template v-slot:item.enviado="{ item }">
+            <!--<template v-slot:item.enviado="{ item }">
                 <v-simple-checkbox v-model="item.enviado" disabled></v-simple-checkbox>
             </template>
 
@@ -14,7 +14,7 @@
                     </v-tooltip>
                 </v-simple-checkbox>
 
-            </template>
+            </template>-->
 
         </v-data-table>
     </div>
@@ -32,19 +32,56 @@
                 loadingText: 'Obteniendo datos, por favor espere...',
                 loadingData: true,
                 noData: 'No has realizado ningún pedido, ¿Que esperas para ser parte del team #Violette?',
-                headers: [{text: 'Barrio', value: 'barrio'}, {text: 'Ciudad', value: 'ciudad'}, {
-                    text: 'Departamento',
-                    value: 'departamento'
-                }, {text: 'Dirección', value: 'direccion'}, {
-                    text: 'Telefono',
-                    value: 'telefono'
-                }, {text: 'Fecha de Pedido', value: 'fechaCompra'}, {
-                    text: 'Fecha de Entrega: ',
-                    value: 'fechaEntrega'
-                }, {text: 'Enviado', value: 'enviado'}, {
-                    text: '¿Entregado?',
-                    value: 'entregado'
-                }],
+                headers: [
+                    {
+                        text: 'Telefono',
+                        value: 'telefono'
+                    },
+                    {
+                        text: 'Ciudad',
+                        value: 'ciudad'
+                    },
+                    {
+                        text: 'Departamento',
+                        value: 'departamento'
+                    },
+                    {
+                        text: 'Dirección',
+                        value: 'direccion'
+                    },
+                    {
+                        text: 'Barrio',
+                        value: 'barrio'
+                    },
+                    {
+                        text: 'Lugar de Entrega',
+                        value: 'lugarEntrega'
+                    },
+                    {
+                        text: 'Número de casa',
+                        value: 'numeroCasa'
+                    },
+                    {
+                        text: 'Torre',
+                        value: 'torre'
+                    },
+                    {
+                        text: 'Fecha de Pedido',
+                        value: 'fechaCompra'
+                    },
+
+                    /*{
+                        text: 'Fecha de Entrega: ',
+                        value: 'fechaEntrega'
+                    },
+                    {
+                        text: 'Enviado',
+                        value: 'enviado'
+                    },
+                    {
+                        text: '¿Entregado?',
+                        value: 'entregado'
+                    }*/],
                 data: []
             }
         },
@@ -74,9 +111,9 @@
                         querySnapshot.forEach((doc) => {
                             if (this.user.uid === doc.data().idUser) {
                                 let data = doc.data();
-                                if (data.fechaEntrega != null) {
+                                /*if (data.fechaEntrega != null) {
                                     data.fechaEntrega = this.formatDate(new Date(data.fechaEntrega.seconds * 1000));
-                                }
+                                }*/
                                 data.fechaCompra = this.formatDate(new Date(data.fechaCompra.seconds * 1000));
                                 data.barrio = doc.data().barrio;
                                 data.ciudad = doc.data().ciudad;
@@ -87,7 +124,6 @@
                             }
                         });
                     }
-
                 })
             }
         }

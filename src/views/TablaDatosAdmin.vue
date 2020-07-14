@@ -44,7 +44,6 @@
     import VerUsuario from "./VerUsuario";
     import firebase from '../firebase/libFirebase'
     import vuex from 'vuex'
-
     let db = firebase.firestore();
     export default {
         name: "TablaDatosAdmin",
@@ -79,18 +78,6 @@
                     {
                         text: 'Fecha de Pedido',
                         value: 'fechaCompra'
-                    },
-                    {
-                        text: 'Fecha de Entrega: ',
-                        value: 'fechaEntrega'
-                    },
-                    {
-                        text: 'Enviado',
-                        value: 'enviado'
-                    },
-                    {
-                        text: '¿Entregado?',
-                        value: 'entregado'
                     },
                     {
                         text: '',

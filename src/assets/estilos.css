@@ -23,6 +23,10 @@ body {
     color: white !important;
     margin-right: 5px !important;
 }
+.radio{
+    padding-left: 20px;
+    width:620px;
+}
 
 .logo {
     margin-top: 50px;

@@ -46,7 +46,7 @@ export default new Vuex.Store({
             let suma = height - 40;
             let textPos = height + 10;
             for (let i in state.printItem) {
-                if (limit === 7) {
+                if (limit === 5) {
                     page = pdfDoc.addPage();
                     page.setWidth(612);
                     page.setHeight(791);
@@ -55,7 +55,7 @@ export default new Vuex.Store({
                     textPos = height + 10;
                 }
 
-                suma = suma - 100;
+                suma = suma - 130;
                 console.log(suma);
 
                 page.drawImage(pngImage, {
@@ -66,17 +66,20 @@ export default new Vuex.Store({
 
                 });
 
-                text = '\nNombre: ' + state.printItem[i].nombre + '\n' + 'Apellido: '
-                    + state.printItem[i].apellido + '\n' + 'Cedula: '
-                    + state.printItem[i].cedula + '\n'
-                    + 'Telefono: ' + state.printItem[i].telefono + '\n'
-                    + 'Dirección: ' + state.printItem[i].direccion + '\n'
-                    + 'Barrio: ' + state.printItem[i].barrio + '\n'
+                text = '\nNombre: ' + state.printItem[i].nombre + ' ' + state.printItem[i].apellido +  '\n'
+                    + 'Cedula: ' + state.printItem[i].cedula + '\n'
                     + 'Ciudad: ' + state.printItem[i].ciudad + '\n'
                     + 'Departamento: ' + state.printItem[i].departamento + '\n'
+                    + 'Dirección: ' + state.printItem[i].direccion + '\n'
+                    + 'Barrio: ' + state.printItem[i].barrio + '\n'
+                    + 'Telefono: ' + state.printItem[i].telefono + '\n'
+                    + 'Lugar de Entrega: ' + state.printItem[i].lugarEntrega + '\n'
+                    + 'Número de Casa: ' + state.printItem[i].numeroCasa + '\n'
+                    + 'Torre: ' + state.printItem[i].torre + '\n'
+                    + 'Flete pago '+ '| |' + ' Flete contra entrega '+ '| |' + '\n'
                     + '___________________________________________________________' + '\n';
 
-                textPos = textPos - 100;
+                textPos = textPos - 130;
 
                 page.drawText(text, { //dibujar o escribir
                     x: 90,
