@@ -151,10 +151,8 @@
     import EditarPerfil from './EditarPerfil'
     import Vuex from 'vuex'
     import {mapFields} from 'vuex-map-fields'
-
     let db = firebase.firestore();
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
-
     export default {
         name: "Usuario",
         components: {

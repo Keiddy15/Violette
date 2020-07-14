@@ -55,9 +55,7 @@
 <script>
     import firebase from "../firebase/libFirebase"
     import Toolbar from "./ToolbarUser";
-
     let db = firebase.firestore();
-
     export default {
         name: "Login",
         components: {Toolbar},

@@ -43,7 +43,6 @@
                                 </v-sparkline>
                             </v-sheet>
                         </v-card-text>
-
                         <v-card-text>
                             <div class="display-1 font-weight-thin">Hoy</div>
                         </v-card-text>
@@ -121,10 +120,8 @@
     import TablaDatosAdmin from "./TablaDatosAdmin";
     import EditarPerfil from "./EditarPerfil";
     import GestionUsuario from "./GestionUsuario";
-
     let db = firebase.firestore();
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
-
     export default {
         name: "Admin",
         components: {
@@ -151,7 +148,6 @@
             if (localStorage.getItem('user')) {
                 this.user = JSON.parse(JSON.parse(localStorage.getItem('user')));
             }
-
         },
         mounted() {
             if(this.user.admin === "false"){

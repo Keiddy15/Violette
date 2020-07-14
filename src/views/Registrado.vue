@@ -4,7 +4,7 @@
         <v-card class="cardForm2" elevation="15" shaped>
             <v-card-text>
                 <p class="black--text" style="font-size: 22px; font-weight: bold;">Usted se ha registrado satisfactoriamente.</p>
-               <p></p>
+                <p></p>
                 <p class="text-center black--text" style="font-size: 22px">
                     Para terminar de crear su cuenta,
                     ingrese al link de verificación que se le envío a su correo.</p>

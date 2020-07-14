@@ -49,7 +49,6 @@
     import firebase from '../firebase/libFirebase';
     import Toolbar from './ToolbarUser'
     import ResetPassword from "./ResetPassword";
-
     let db = firebase.firestore();
     export default {
         name: "Registro",
@@ -104,7 +103,6 @@
                         })
                 } else {
                     this.alertNoData = true;
-
                 }
             },
             registrar() {
@@ -137,7 +135,6 @@
                             break;
                         }
                     }
-
                 });
             }
         }

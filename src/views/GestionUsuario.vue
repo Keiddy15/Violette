@@ -13,7 +13,6 @@
     import EditarUsuario from "./EditarUsuario";
     import firebase from '../firebase/libFirebase'
     import vuex from 'vuex'
-
     let db = firebase.firestore();
     export default {
         name: "GestionUsuario",
@@ -67,7 +66,6 @@
                     });
                     this.loadingData = false;
                 });
-
             }
         }
     }

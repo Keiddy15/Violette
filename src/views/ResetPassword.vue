@@ -17,12 +17,12 @@
                 <v-alert type="success" v-model="alertNoData"  dismissible>
                     Por favor revise su email, para restablecer su correo.
                 </v-alert>
-                    <v-text-field
-                            label="Email:"
-                            v-model="email"
-                            :rules="emailRules"
-                            required>
-                    </v-text-field>
+                <v-text-field
+                        label="Email:"
+                        v-model="email"
+                        :rules="emailRules"
+                        required>
+                </v-text-field>
 
                 <v-card-actions class="justify-center">
                     <v-btn
@@ -71,5 +71,4 @@
 </script>
 
 <style scoped>
-
 </style>

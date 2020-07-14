@@ -64,7 +64,6 @@
 <script>
     import vuex from 'vuex'
     import {mapFields} from 'vuex-map-fields'
-
     export default {
         name: "VerUsuario",
         computed: {
@@ -77,5 +76,4 @@
 </script>
 
 <style scoped>
-
 </style>
