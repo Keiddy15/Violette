@@ -162,7 +162,6 @@
                 this.$router.push({name: 'Login'});
             },
             cuenta() {
-                console.log(this.user.admin);
                 if (this.user.admin === 'true') {
                     this.$router.push({name: 'Admin'});
                 } else {

@@ -59,7 +59,6 @@
                 if(this.email){
                     const auth = firebase.auth();
                     auth.sendPasswordResetEmail(this.email).then(() => {
-                        console.log('email sent')
                     }).catch((error )=> {
                         console.log(error)
                     })

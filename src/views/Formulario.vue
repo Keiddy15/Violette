@@ -282,7 +282,6 @@
                 let usuarios = db.collection('usuarios').doc(this.Cedula);
                 usuarios.get().then((doc) => {
                     this.Nombre = doc.data().Nombres;
-                    console.log(radio)
                 }).catch((error) => {
                     console.log(error);
                 });

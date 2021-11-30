@@ -56,7 +56,6 @@ export default new Vuex.Store({
                 }
 
                 suma = suma - 130;
-                console.log(suma);
 
                 page.drawImage(pngImage, {
                     x: 20,

@@ -80,7 +80,6 @@
                     this.alertNoData = false;
                     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                         .then((user) => {
-                            console.log(user);
                             if (!user.user.emailVerified) {
                                 this.alertVerified = true;
                                 firebase.auth().signOut();
