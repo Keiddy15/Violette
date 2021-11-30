@@ -7,7 +7,7 @@
                       :loading-text="loadingText" :loading="loadingData"
                       :items="data" :headers="headers"
                       class="elevation-1">
-            <template v-slot:item.enviado="{ item }">
+            <template v-slot:[`item.enviado`]="{ item }">
                 <v-simple-checkbox v-model="item.enviado" @change="modal = !modal"></v-simple-checkbox>
                 <v-dialog
                         ref="dialog"
@@ -23,10 +23,10 @@
                     </v-date-picker>
                 </v-dialog>
             </template>
-            <template v-slot:item.entregado="{ item }">
+            <template v-slot:[`item.entregado`]="{ item }">
                 <v-simple-checkbox v-model="item.entregado"></v-simple-checkbox>
             </template>
-            <template v-slot:item.verMas="{ item }">
+            <template v-slot:[`item.verMas`]="{ item }">
                 <div class="container">
                     <v-btn icon text color="primary" @click="passingUserSelected({show: true, userSelected: item})">
                         <v-icon color="primary">
@@ -74,6 +74,10 @@
                     {
                         text: 'Teléfono: ',
                         value: 'telefono'
+                    },
+                    {
+                        text: 'Pedido',
+                        value: 'pedido'
                     },
                     {
                         text: 'Fecha de Pedido',

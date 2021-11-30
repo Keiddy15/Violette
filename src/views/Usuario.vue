@@ -16,7 +16,7 @@
                     <v-icon>mdi-home</v-icon>
                 </v-tab>
                 <v-tab :href="`#tab-${2}`" @click="moveTab(2)">
-                    Rellenar Formulario
+                    COMPRAR
                     <v-icon>mdi-file-document-edit-outline</v-icon>
                 </v-tab>
                 <v-tab :href="`#tab-${3}`" @click="moveTab(3)">
@@ -73,6 +73,7 @@
                             <h1 style="letter-spacing: 2px; line-height: 40px">¡Realiza tu pedido aquí!</h1>
                         </v-card-text>
                         <v-divider></v-divider>
+                        <Carrito/>
                         <v-card-text class="textoUsuario">
                             <span>Por favor, diligencie el siguiente <strong>formulario</strong>, para completar su compra.</span>
                         </v-card-text>
@@ -150,13 +151,14 @@
     import UploadPhoto from './UploadPhoto'
     import EditarPerfil from './EditarPerfil'
     import Vuex from 'vuex'
+    import Carrito from '@/components/Carrito.vue'
     import {mapFields} from 'vuex-map-fields'
     let db = firebase.firestore();
     let storage = firebase.storage("gs://violette-8b112.appspot.com");
     export default {
         name: "Usuario",
         components: {
-            ToolbarUser, TablaDatosUsuarios, UploadPhoto, EditarPerfil
+            ToolbarUser, TablaDatosUsuarios, UploadPhoto, EditarPerfil, Carrito
         },
         data() {
             return {

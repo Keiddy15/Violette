@@ -18,6 +18,18 @@
                         enviada, intetelo de nuevo.
                     </v-alert>
                     <v-col cols="12" sm="12" md="12">
+                        <v-autocomplete
+                            v-model="user.compra"
+                            required
+                            :rules="compraRules"
+                            outlined
+                            multiple
+                            clearable
+                            class="fields"
+                            label="Prendas a comprar"
+                            chips
+                            :items="compraItems"
+                        ></v-autocomplete>
                         <v-row class="rowForm">
                             <v-text-field
                                     label='Nombres:'
@@ -235,6 +247,19 @@
                 ],
                 lugarEntregaRules: [
                     v => !!v || 'El lugar de entrega es requerido.'
+                ],
+                compraRules: [
+                    v => !!v || 'Debes selecionar al menos un item.'
+                ],
+                compraItems: [
+                    'Falda + Top',
+                    'Short + Top',
+                    'Licra + Top',
+                    'Bicicletero + Top',
+                    'Bicicletero',
+                    'Top',
+                    'Short',
+                    'Falda'
                 ]
             }
         },
@@ -291,7 +316,8 @@
                 let objectJSON = '{ ' +
                     '"ciudad":"' + this.ciudad + '" , ' +
                     '"telefono":"' + this.telefono + '", ' +
-                    '"departamento": "' + this.departamento + '"}';
+                    '"departamento": "' + this.departamento +
+                    '"pedido":' + this.user.compra + '"}';
                 const parse = JSON.stringify(objectJSON);
                 localStorage.setItem('userExtraData', parse);
                 this.ErrorEnviando = false;
@@ -337,6 +363,7 @@
                         telefono: this.telefono,
                         numeroCasa: this.numeroCasa,
                         torre: this.torre,
+                        pedido: this.user.compra
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});
@@ -357,6 +384,7 @@
                         departamento: this.departamento,
                         ciudad: this.ciudad,
                         telefono: this.telefono,
+                        pedido: this.user.compra
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});
@@ -376,6 +404,7 @@
                         ciudad: this.ciudad,
                         telefono: this.telefono,
                         lugarEntrega: this.lugarEntrega,
+                        pedido: this.user.compra
                     }).then(() => {
                         setTimeout(() => {
                             this.$router.push({name: 'Agradecimientos'});

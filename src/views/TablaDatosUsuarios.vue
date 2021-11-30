@@ -66,9 +66,14 @@
                         value: 'torre'
                     },
                     {
+                        text: 'Pedido',
+                        value: 'pedido'
+                    },
+                    {
                         text: 'Fecha de Pedido',
                         value: 'fechaCompra'
                     },
+                    
 
                     /*{
                         text: 'Fecha de Entrega: ',
